@@ -1,0 +1,275 @@
+.header {
+    position: fixed;
+    height: 74px;
+    color: #ccc;
+    z-index: 999;
+    width: 100%;
+}
+
+.header-logo {
+    position: fixed;
+    top: 24px;
+    left: 50px;
+    width: 180px;
+    -webkit-transition: all .2s ease-in-out 0s;
+    -moz-transition: all .2s ease-in-out 0s;
+    -ms-transition: all .2s ease-in-out 0s;
+    -o-transition: all .2s ease-in-out 0s;
+    transition: all .2s ease-in-out 0s;
+}
+
+.header-words {
+    display: block;
+    position: fixed;
+    top: 40px;
+    left: 250px;
+    letter-spacing: 1px;
+    font-weight: normal;
+    -webkit-transition: all .2s ease-in-out 0s;
+    -moz-transition: all .2s ease-in-out 0s;
+    -ms-transition: all .2s ease-in-out 0s;
+    -o-transition: all .2s ease-in-out 0s;
+    transition: all .2s ease-in-out 0s;
+}
+
+.header-hotline {
+    position: fixed;
+    top: 16px;
+    right: 260px;
+    -webkit-transition: all .2s ease-in-out 0s;
+    -moz-transition: all .2s ease-in-out 0s;
+    -ms-transition: all .2s ease-in-out 0s;
+    -o-transition: all .2s ease-in-out 0s;
+    transition: all .2s ease-in-out 0s;
+}
+
+.header-hotline i {
+    font-size: 25px;
+    color: #00AEDF;
+}
+
+.header-hotline a {
+    color: #00dfb9;
+}
+
+.header-hotline span {
+    position: fixed;
+    color: #00dfb9;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 26px;
+    letter-spacing: 1px;
+    -webkit-transition: all .2s ease-in-out 0s;
+    -moz-transition: all .2s ease-in-out 0s;
+    -ms-transition: all .2s ease-in-out 0s;
+    -o-transition: all .2s ease-in-out 0s;
+    transition: all .2s ease-in-out 0s;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    background: url(../images/video-banner-poster.jpg) 50% 35%;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    z-index: 10;
+    width: 100%;
+    bottom: 30px;
+}
+
+.footer p {
+    text-align: center;
+    color: #ddd;
+}
+
+.qrcode-wrapper {
+    width: 300px;
+    height: 300px;
+    border: 1px dashed #22fae2;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    -webkit-transition: all .8s ease-in .7s;
+    -moz-transition: all .8s ease-in .7s;
+    -ms-transition: all .8s ease-in .7s;
+    -o-transition: all .8s ease-in .7s;
+    transition: all .8s ease-in .7s;
+}
+
+.animated {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.qrcode-text {
+    position: absolute;
+    bottom: -74px;
+    line-height: 2em;
+    color: #fff;
+    margin: auto 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.half-bgc {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+header nav.menu {
+    margin: 36px 0 0 0;
+    text-align: center;
+    -webkit-transition: all .2s ease-in-out 0s;
+    -moz-transition: all .2s ease-in-out 0s;
+    -ms-transition: all .2s ease-in-out 0s;
+    -o-transition: all .2s ease-in-out 0s;
+    transition: all .2s ease-in-out 0s;
+}
+.list-inline {
+    padding-left: 0;
+    margin-left: -5px;
+    list-style: none;
+}
+header nav.menu ul li {
+    margin: 0 16px;
+    font-size: 16px;
+    -webkit-transition: all .2s ease-in-out 0s;
+    -moz-transition: all .2s ease-in-out 0s;
+    -ms-transition: all .2s ease-in-out 0s;
+    -o-transition: all .2s ease-in-out 0s;
+    transition: all .2s ease-in-out 0s;
+}
+.list-inline>li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+    position: relative;
+}
+header nav.menu>ul>li.active>a {
+    color: #00dfb9;
+    text-decoration: none;
+}
+header nav.menu>ul>li>a span{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    margin-right: .5em;
+}
+header nav.menu>ul>li.active>a span{
+    background-color: #EB6300;
+    border-color: #EB6300;
+}
+
+header nav.menu>ul>li>i {
+    position: absolute;
+    left: auto;
+    top: 31px;
+    right: 6px;
+    color: #d1d1d1;
+    font-size: 14px;
+    background: url(../images/btn-icon.png) -10px -300px no-repeat;
+    width: 10px;
+    height: 10px;
+}
+header nav.menu>ul>li>a:hover{
+    color: #EB6300;
+}
+header nav.menu>ul>li.active>ul{
+    display: block;
+}
+header nav.menu>ul>li.active>ul a{
+    color: #525050;
+}
+header nav.menu>ul>li.active>ul a:hover{
+    color: #EB6300;
+}
+header nav.menu ul li a {
+    color: #ccc;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+header nav.menu .line {
+    position: absolute;
+    top: 0px;
+    width: 0px;
+    height: 3px;
+    font-size: 3px;
+    background-color: #00dfb9;
+    display: none;
+}
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+.dropdown-menu > li > a {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #333333;
+    border-bottom: 1px solid #f7f7f7;
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+    position: relative;
+}
+nav > li > .dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 4px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.dropdown-menu {
+    min-width: 220px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    padding: 0;
+    margin: 0;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.06);
+    box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f1f1f1;
+    z-index: 101;
+}
+

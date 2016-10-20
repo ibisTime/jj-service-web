@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>内容</title>
+</head>
+
+<body>
+    <div class="wp100 p10 s_14" id="title"></div>
+    
+    <div class="plr10" id="img"><!--<img class="wp100" src="../../images/center1.png">--></div>
+    <video class="plr10 hidden" id="bg-video" style="object-fit: cover; width: 100%;visibility: inherit; opacity: 1; position: display: block; background-size: cover;"
+            class="resizelistener" loop="" preload="preload" autoplay>
+    </video>
+	<div class="wp100 p10" id="description"></div>
+    <!--页脚-->
+    <div style="height: 80px;"></div>
+    <footer class="fixft bg_fff b_bd_t lh15rem pt6">
+        <a class="fl tc wp25 t_aaa pt4 pb4 s_11" href="../home/index.html">
+            <div class="pt4 pb4"><i class="iconfont icon-xingxing s_20"></i></div>
+            <p>首页</p>
+        </a>
+        <a class="fl tc wp25 t_aaa pt4 pb4 s_11" href="../custom/custom.html">
+            <div class="pt4 pb4"><i class="iconfont icon-icon1 s_20"></i></div>
+            <p id="wxdjcd"></p>
+        </a>
+        <a class="fl tc wp25 t_aaa pt4 pb4 s_11 active" href="../company/brief.html">
+            <div class="pt4 pb4"><i class="iconfont icon-jianjie s_20"></i></div>
+            <p>公司简介</p>
+        </a>
+        <a class="fl tc wp25 t_aaa pt4 pb4 s_11" href="./cooperation_main.html">
+            <div class="pt4 pb4"><i class="iconfont icon-hezuo s_20"></i></div>
+            <p>我要合作</p>
+        </a>
+    </footer>
+    <script src="../../js/require.js"></script>
+    <script src="../js/lib/jquery-2.1.4.js"></script>
+    <script>
+        require(['app/controller/SContent']);
+    </script>
+</body>
+</html>

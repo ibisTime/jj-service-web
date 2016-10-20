@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>快速接洽</title>
+</head>
+<body class="bg_fff">
+<div class="mzidong wp82 bg_fff pt26">
+<table class=" biaoge wp100 tl cp-bg">
+	<tr>
+    	<th>公司名称</th>
+    	<td>
+	    	<div class="b_bd pl4 wp100 pr">
+		    	<input id="compName" type="text"/>
+		    	<span class="err_tip t_0">公司名称未填</span>
+		    	<span class="err_tip t_0">不能超过64位</span>
+	    	</div>
+    	</td>
+     </tr>
+     <tr>
+    	<th>联系人</th>
+    	<td>
+	    	<div class="b_bd pl4 wp100 pr">
+		    	<input id="person" type="text"/>
+		    	<span class="err_tip t_0">联系人未填</span>
+		    	<span class="err_tip t_0">不能超过64位</span>
+	    	</div>
+    	</td>
+     </tr>
+       <tr>
+    	<th>联系方式</th>
+    	<td>
+    		<div class="b_bd pl4 wp100 pr">
+	    		<input id="telephone" type="text"/>
+	    		<span class="err_tip t_0">联系方式未填</span>
+	    		<span class="err_tip t_0">格式错误</span>
+    		</div>
+    	</td>
+     </tr>
+      <tr>
+    	<th class="va">意向描述</th>
+    	<td>
+	    	<div class="b_bd wp100 pl4 yixiang pr">
+		    	<textarea id="remark" class="wp100 hp100 "></textarea>
+		    	<span class="err_tip b_0">意向描述未填</span>
+		    	<span class="err_tip b_0">不能超过255位</span>
+	    	</div>
+    	</td>
+     </tr>
+</table>
+	<span id="sbt" class="wp100 btn btn_orange btnshezhi mt14">提交</span>
+</div>
+<div style="height: 80px;"></div>
+<footer class="fixft bg_fff b_bd_t lh15rem pt6">
+	<a class="fl tc wp25 t_aaa pt4 pb4 s_11" href="../home/index.html">
+		<div class="pt4 pb4"><i class="iconfont icon-xingxing s_20"></i></div>
+		<p>首页</p>
+	</a>
+	<a class="fl tc wp25 t_aaa pt4 pb4 s_11" href="../custom/custom.html">
+		<div class="pt4 pb4"><i class="iconfont icon-icon1 s_20"></i></div>
+		<p id="wxdjcd"></p>
+	</a>
+	<a class="fl tc wp25 t_aaa pt4 pb4 s_11" href="../company/brief.html">
+		<div class="pt4 pb4"><i class="iconfont icon-jianjie s_20"></i></div>
+		<p>公司简介</p>
+	</a>
+	<a class="fl tc wp25 t_aaa pt4 pb4 s_11 active" href="./cooperation_main.html">
+		<div class="pt4 pb4"><i class="iconfont icon-hezuo s_20"></i></div>
+		<p>我要合作</p>
+	</a>
+</footer>
+<script src="../../js/require.js"></script>
+<script src="../../js/lib/jquery-2.1.4.js"></script>
+<script>
+    require(['app/controller/Cooperation']);
+</script>
+</body>
+</html>

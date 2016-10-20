@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>内容</title>
+</head>
+
+<body>
+    <div class="wp100 p10 s_14" id="title"></div>
+    
+    <div class="plr10" id="img"><!--<img class="wp100" src="../../images/center1.png">--></div>
+    <video class="plr10 hidden" id="bg-video" style="object-fit: cover; width: 100%;visibility: inherit; opacity: 1; position: display: block; background-size: cover;"
+            class="resizelistener" loop="" preload="preload" autoplay>
+    </video>
+	<div class="wp100 p10" id="description"></div>
+    <script src="../../js/require.js"></script>
+    <script src="../js/lib/jquery-2.1.4.js"></script>
+    <script>
+        require(['app/controller/Content']);
+    </script>
+</body>
+</html>

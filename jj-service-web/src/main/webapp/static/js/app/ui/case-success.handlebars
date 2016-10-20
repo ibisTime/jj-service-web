@@ -1,0 +1,21 @@
+{{#each items}}
+<a class="mt4 wp100" href="./detail.html?code={{code}}">
+    <div class="wp100 bg_fff clearfix b_e6">
+        <div class="plr4 clearfix b_e6_b ptb10 flex flex-c">
+            <div class="fl wp30 flex1">
+                <img class="case-title-img" src="{{logo}}">
+            </div>
+            <div class="fl wp70 tr t_orange t-3dot">{{name}}</div>
+            <i class="iconfont icon-arrow-right lh4rem fr fa-3x t_d5 pl10"></i>
+        </div>
+        <div class="b_e6_b ptb10 s_11">
+            <p class="plr4 t-i2 twoline-ellipsis">{{description}}</p>
+        </div>
+        <div class="ptb10 clearfix s_10 t_908B8B">
+            <div class="wp28 fl tc">{{status}}</div>
+            <div class="wp36 fl tc b_e6_l b_e6_r">项目经费{{funds}}</div>
+            <div class="wp36 fl tc">产品经理{{manager}}</div>
+        </div>
+    </div>
+</a>
+{{/each}}

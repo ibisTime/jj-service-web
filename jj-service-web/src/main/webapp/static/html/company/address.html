@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>雄牛简介</title>
+</head>
+<body class="bg_fff">
+<div id="allmap"></div>
+<div id="description" class="plr20 bg_fff pt20 pb10 s_12 t-i2em"></div>
+<div class="bg_fff mb10 ">
+	<div class="pl20 s_12" id="brief"></div>
+</div>
+<i class="icon-loading" style="position: fixed;top: -36px;height: 100%;background-color: #fff;"></i>
+<div style="height: 80px;"></div>
+<!--页脚-->
+<div style="height: 80px;"></div>
+<footer class="fixft bg_fff b_bd_t lh15rem pt6">
+    <a class="fl tc wp25 t_aaa pt4 pb4 s_11" href="../home/index.html">
+        <div class="pt4 pb4"><i class="iconfont icon-xingxing s_20"></i></div>
+        <p>首页</p>
+    </a>
+    <a class="fl tc wp25 t_aaa pt4 pb4 s_11" href="../custom/custom.html">
+        <div class="pt4 pb4"><i class="iconfont icon-icon1 s_20"></i></div>
+        <p id="wxdjcd"></p>
+    </a>
+    <a class="fl tc wp25 t_aaa pt4 pb4 s_11 active" href="./brief.html">
+        <div class="pt4 pb4"><i class="iconfont icon-jianjie s_20"></i></div>
+        <p>公司简介</p>
+    </a>
+    <a class="fl tc wp25 t_aaa pt4 pb4 s_11" href="../cooperate/cooperation_main.html">
+        <div class="pt4 pb4"><i class="iconfont icon-hezuo s_20"></i></div>
+        <p>我要合作</p>
+    </a>
+</footer>
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=GtNrG008U04GONzKSDHiW70GxurUUhlU&s=1"></script>
+<script src="../../js/require.js"></script>
+<script src="../../js/lib/jquery-2.1.4.js"></script>
+<script>
+    require(['app/controller/Address']);
+</script>
+</body>
+</html>
