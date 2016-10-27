@@ -25,4 +25,25 @@
 	</context:component-scan>
 	
 	<bean id="applicationProperties" class="com.xnjr.home.front.base.ApplicationProperties" />
+	<!-- 验证码配置 start -->
+	<bean id="fastHashMapCaptchaStore" class="com.octo.captcha.service.captchastore.FastHashMapCaptchaStore"/>
+	<bean id="captchaEngineEx" class="com.xnjr.moom.front.captcha.MyCaptchaEngine"/>
+    <bean id="imageCaptchaService" class="com.xnjr.moom.front.captcha.MyCaptchaService">
+        <constructor-arg type="com.octo.captcha.service.captchastore.CaptchaStore" index="0">
+            <ref bean="fastHashMapCaptchaStore"/>
+        </constructor-arg>
+        <constructor-arg type="com.octo.captcha.engine.CaptchaEngine" index="1">
+            <ref bean="captchaEngineEx"/>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <value>180</value>
+        </constructor-arg>
+        <constructor-arg index="3">
+            <value>100000</value>
+        </constructor-arg>
+        <constructor-arg index="4">
+            <value>75000</value>
+        </constructor-arg>
+    </bean>
+    <!-- 验证码配置 end -->
 </beans>

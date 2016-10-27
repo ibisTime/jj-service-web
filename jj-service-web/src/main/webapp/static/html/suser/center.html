@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+<link rel="import" href="../head.html?__inline">
+<title>会员中心</title>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox clearfix">
+    <ul  class="name">
+        <li><a href="">企业中心<span>></span></a></li>
+        <li><a href="">我要人才<span>></span></a></li>
+        <li><a href="">展示服务<span>></span></a></li>
+    </ul>
+    <!--右边-->
+    <div class="area">
+        <div class="company-box ">
+            <div class="company ">
+                <div class="com-massage">基本信息</div>
+                <div class="com-name" id="name"></div>
+                <a href="" class="blue-link">修改</a>
+            </div>
+            
+            <div class="company password">
+                <div class="com-pass">登录密码</div>
+                <a href="" class="blue-link">修改</a>
+            </div>
+        </div>
+
+        <table class="t-box dst" id="r-table">
+            <caption>——  申请资质  ——</caption>
+            <thead>
+                <tr class="backg">
+                    <th>资质</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>软件</td>
+                    <td>待审核</td>
+                    <td><a href="">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">删除</a></td>
+                </tr>
+                <tr>
+                    <td>摄影</td>
+                    <td>通过</td>
+                    <td><a class="check" href="">查看详情</a></td>
+                </tr>
+                <tr>
+                    <td>美工</td>
+                    <td>不通过</td>
+                    <td><a href="">重新提交</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--页尾-->
+<div class="end">
+	<div class="end-font">版权所有 浙江聚焦电商企业管理有限公司 2016 保留所有权利</br>
+Copyright @ 2016 xiongniujr.com All Right Reserved  备案号:浙ICP备 102534535-1</div>
+</div>
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/SCenter']);
+</script>
+
+</body>
+</html>

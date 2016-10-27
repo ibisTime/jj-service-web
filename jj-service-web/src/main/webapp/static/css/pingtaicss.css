@@ -40,7 +40,7 @@ img {
 
 
 /* 初始化 */
-body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article,
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article,
 aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     margin: 0;
     padding: 0;
@@ -89,11 +89,13 @@ a {
 a:hover {
     text-decoration: none;
 }
+.mr{margin-right:10px;}
+.ml{margin-left:10px;}
 
 /*人才*/
 /*页头*/
 .bigbox{width:1164px;margin: 0 auto;margin-top:24px;}
-.header{lineheight:40px;background-color:#555;color:#FFF;padding:10px 200px;font-size:12px;}
+.header{line-height:40px;background-color:#555;color:#FFF;padding:0px 200px;font-size:12px;}
 .headerone,.headertwo{float:left;margin-right:40px;}
 .headerthree{float:right;}
 .middle{vertical-align:middle;}
@@ -110,7 +112,7 @@ a:hover {
 .back{background-color:#E1E1E1; border-radius:20px;padding:4px 8px;}
 .linefont a:hover{color:#ce3239;}
 
-.name{border:1px solid #CCC; border-radius:6px;width:230px;padding:4px 16px;float:left;}
+.name{border:1px solid #CCC; border-radius:6px;width:230px;padding:4px 16px;float:left;line-height:24px;}
 .name li{padding:4px 0;}
 .name span{float:right;}
 .name a{width:100%;}
@@ -131,7 +133,7 @@ a:hover {
 .in-three{color:#C11102;}
 .in-four{color:#545454;padding-left:20px;}
 /*end*/
-.end{background-color:#555555;padding:20px 0;margin-top:30px;}
+.end{background-color:#555555;padding:20px 0;margin-top:36px;}
 .end-font{color:#FFF;font-size:12px;text-align:center;line-height:20px;}
 
 
@@ -156,7 +158,8 @@ a:hover {
 .alter{padding-left:460px;color:#0FF;}
 
 caption{padding-bottom:20px;}
-.t-box{margin:0 auto;margin-top:40px;margin-bottom:80px;border:#CCC 1px solid;text-align:center;border-collapse: collapse;}
+.t-box{margin:0 auto;margin-bottom:60px;border:#CCC 1px solid;text-align:center;border-collapse: collapse;}
+.dst{margin-top:40px;}
 .t-box a{color:#F51F1F;}
 .t-box .check{color:#545454;}
 .backg{background:#f0f0f0;}
@@ -187,3 +190,194 @@ table{border:1px solid #CCC;background:white;}
 
 .news-box{width:510px;float:right;background:#E4E4E4;padding:20px;}
 .news-l{background:url(images/efrg.png) no-repeat 0 2px; ;padding-left:30px;font-size:18px; }
+
+
+/*我是服务商*/
+.bread-wrap {line-height: 40px;color: #969696;}
+.bread-wrap a { color: #969696;}
+.bread-wrap span {color: #CB2A2F;}
+
+.topname{font-size:18px;margin:20px 0;}
+.img-box{width:213px;display:inline-block;float:left;margin-bottom:30px;border-bottom:1px solid #e6e6e6;}
+.img-box img{display:inline;}
+.img-text{font-size:14px;padding:10px 0;font-weight:bold;}
+.img-price{font-size:14px;color:#323232;padding-bottom:20px;}
+
+.page { text-align: center; margin-top: 15px;}
+.page li {display: inline-block;margin: 0 5px;}
+.page li a {background: #fff; color: #6d6d6d;padding: 4px 10px;border: 1px solid #e7e7e6;} 
+.page li.curr a { background: #CB2A2F; color: #fff;}
+
+/*登录前招聘详情*/
+.bt{border-bottom:2px solid #CB2A2F;padding-bottom:6px;}
+input{border:1px solid #CCC;line-height:20px;}
+.in-width{width:240px;}
+.xh{padding:8px;color:#f60;}
+.wb{width:120px;}
+.wb span{font-size:14px;}
+.mtb{margin:14px 0;}
+.sell { border: 1px solid #CCC;border-top: 2px solid #CCC;line-height: 18px;}
+textarea{vertical-align:text-top;}
+
+.cm{margin-top:24px;}
+
+.company-head{text-align:center;}
+.company-head img{width:80px;}
+.company-head div{text-align:center;font-size:24px;}
+.company-head span{font-size:16px;color:#ACACAC;margin:30px 0 50px 0;display:block;}
+
+
+/*登陆后*/
+.file-box{ position:relative;width:340px} 
+.txt{ height:22px; border:1px solid #cdcdcd; width:180px;} 
+.btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;} 
+.file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px ;}
+
+.map{width:368px;} 
+.hold{border: 0;
+    margin: 0;
+    display: inline-block;
+    padding: 0 11px;
+    font-size: 14px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    background-color: #CB2A2F;
+    border-radius: 3px;
+    margin-right: 12px;}
+.cancel{color:#CB2A2F;}
+.hold-box{text-align:center;margin:40px 0 80px 0;}
+
+/*选择简历*/
+.jianli{width:132px;}
+.choose-box{background:#FFF;position:fixed;top:50%;left:50%;width:300px;margin-top:-100px;margin-left:-150px;}
+.topbar{line-height:30px;background:url(images/fgdfgfhh.png) repeat-x;color:white;}
+.topbar h5{margin-left:10px;}
+.choose{padding:20px;border:2px solid  #CB2A2F;text-align:center;}
+
+.liji-box{text-align:center;margin:40px 0 10px 0;}
+
+/*职位详情*/
+/*招聘 申请职位*/
+.at{margin-top:24px;}
+.apply-j{background:#f0f0f0;}
+.apply-j th,.at td{padding:6px 29px;border:#CCC 1px solid;}
+.aj{background:#CB2A2F;padding:6px 8px;color:#FFF;font-size:16px;border-radius:2px;display:inline-block;margin-top:34px;}
+
+/*登录前机构详情*/
+.pad{margin-top:20px;}
+.pad td{padding:6px 42px;border:#CCC 1px solid;}
+.cd{background:#CB2A2F;padding:6px 8px;color:#FFF;font-size:14px;border-radius:2px;display:inline-block;margin-top:8px;}
+
+/*我是服务商（）*/
+.cdh{display:inline-block;padding:6px 10px;}
+.cdh:hover{background:#CB2A2F;padding:6px 8px;color:#FFF;font-size:14px;border-radius:2px;display:inline-block;margin-top:8px;}
+
+/*服务详情*/
+.kuandu{width:170px;}
+
+/*我是人才*/
+.rencai{margin-top:20px;}
+.rencai td{padding:6px 69px;border:#CCC 1px solid;}
+.rc-mt{margin-bottom:40px;}
+
+.lg_tnav_wrap {}
+.lg_tnav_wrap li {display: inline-block;margin-right:24px;position: relative;margin-bottom:24px;}
+.lg_tnav_wrap li a.current { color: #333;border-bottom: 2px solid #CB2A2F;}
+.lg_tnav_wrap li a { display: block;font-size: 18px;color: #999;line-height: 53px;
+    padding: 0 5px;}
+.lg_tnav_wrap li a:hover{ color: #333;border-bottom: 2px solid #CB2A2F;}
+
+/*简历新增*/
+.xz-mb{margin-bottom:16px;}
+
+#step {
+   
+    height: 54px;
+    margin: 40px  0;
+    padding: 0 18px;
+}
+#step .step_num {
+    position: relative;
+    float: left;
+    width: 29px;
+    height: 23px;
+    margin: 0 17px;
+}
+#step_1 {
+    background-image:url(images/01.png);
+}
+#step .step_num span {
+    position: absolute;
+    top: 37px;
+    left: 50%;
+    margin-left: -50px;
+    display: block;
+    width: 100px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #555;
+}
+.step_line {
+    float: left;
+    width: 330px;
+    height: 11px;
+    border-bottom: 1px solid #ddd;
+}
+#step_2.step_disable {
+    background-image:url(images/copy.png);
+}
+.step_imgtwo{ background-image:url(images/02.png);}
+.step_imgthree{background-image:url(images/03.png);}
+
+#step_3.step_disable{
+    background-image:url(images/03gray.png);
+}
+
+/*申请资质3*/
+.success-box{text-align:center;margin-top:80px;}
+.smail{width:60px;padding-bottom:20px;}
+.success{font-size:18px;line-height:26px;}
+
+/*搜简历*/
+.find{height:26px;}
+.find-font{background:#CB2A2F;padding:4px 8px;color:#FFF;font-size:12px;border-radius:2px;display:inline-block;margin-top:8px;}
+
+/*注册*/
+.denglu,.register{border:1px solid white;padding:3px 6px;border-radius:4px;color:white;}
+.denglu{margin-right:10px;}
+.denglu:hover{background:#FFF;color:#545454;}
+.register:hover{background:#FFF;color:#545454;}
+
+.login_box1{text-align:center;
+    color:#839192;margin:50px 0;
+   }
+.login_btn {
+    width:300px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 0 10px;
+    color: #839192;
+    font-size: 14px;
+    line-height: 36px;}
+.login-width{ width: 196px;}
+.agree{width: 280px;}
+.get{line-height:36px;padding:8px 10px;background:#CB2A2F;border-radius: 3px;color:white;margin-left:10px;}
+.login-mtb{margin:10px 0px;}
+.login-mtb a{color:#05D6B7;}
+.login-font{
+    width:300px;
+    background:#CB2A2F;
+    border-radius: 6px;
+    padding: 0 10px;
+    color: white;
+    font-size: 14px;
+    line-height: 36px;
+	margin-top:12px;}
+
+.nav-font{padding:0 100px; border-top: 2px solid #CB2A2F;position: relative;}	
+.fast{font-size:18px;font-weight:bold;float:left;margin-top:30px;}
+.nav-font span{float:right;margin-top:30px;}
+.nav-font a{color:#CB2A2F;}

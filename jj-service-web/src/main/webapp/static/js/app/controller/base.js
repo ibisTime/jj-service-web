@@ -156,45 +156,125 @@ define([
                 d.close().remove();
             }, time || 2000);
         },
-        getCompany: function(code){
-            return Ajax.get(APIURL + '/company/info', {"companyCode": code}, true);
+        maskMobile: function(mobile){
+            return mobile.replace(/^(\d{3})\d{4}(\d{4})$/ig, "$1****$2");
         },
-        getCompanyByUrl: function(func){
-            var url = location.href;
-            var idx = url.indexOf("/m/");
-            if(idx != -1){
-                url = url.substring(0, idx);
-            }
-            return Ajax.get(APIURL + '/company/byUrl', {"url": url}, true)
-                .then(function (res) {
-                    if (res.success && !$.isEmptyObject(res.data)) {
-                        sessionStorage.setItem("compCode", res.data.code);
-                        sessionStorage.setItem("icon", res.data.icon);
+        logout: function(){
+            return Ajax.post(APIURL + "/user/logout");
+        },
+        personLogin: function(config){
+            return Ajax.post(APIURL + "/user/login/person", config)
+                .then(function(res){
+                    if(res.success){
+                        sessionStorage.setItem("login", true);
+                        sessionStorage.setItem("user", JSON.stringify(res.data));
                     }
-                    func && func(res);
+                    return res;
                 });
         },
-        getMenuList: function (code){
-            return Ajax.get(APIURL + '/company/menu/list', 
-                {"companyCode": code}, true);
+        companyLogin:function(config){
+            return Ajax.post(APIURL + "/user/login/comp", config)
+                .then(function(res){
+                    if(res.success){
+                        sessionStorage.setItem("login", true);
+                        sessionStorage.setItem("user", JSON.stringify(res.data));
+                    }
+                    return res;
+                });
         },
-        getBanner: function (code, location){
-            return Ajax.get(APIURL + '/company/banner/list',
-                {"companyCode": code, "location": location}, true);
+        //服务方注册
+        companyRegister: function(config){
+            return Ajax.post(APIURL + "/regist/comp", config);
         },
-        getContentPage: function(code, start, limit){
-            return Ajax.get(APIURL + "/company/acontent/page",
-                {"menuCode": code, "start": start, "limit": limit}, true);
+        //需求方注册
+        personRegister: function(config){
+            return Ajax.post(APIURL + "/regist/person", config);
         },
-        getContent: function(code){
-            return Ajax.get(APIURL + "/company/acontent", {"code": code}, true);
+        getPageServers: function(config){
+            return Ajax.get(APIURL + "/server/page", config);
         },
-        getContentList: function(code){
-            return Ajax.get(APIURL + '/company/acontent/list', {"menuCode": code}, true);
+        getPageNews: function(config){
+            return Ajax.get(APIURL + "/news/page", config);
         },
-        addIcon: function(){
-            $("head").append('<link rel="shortcut icon" type="image/ico" href="'+sessionStorage.getItem("icon")+'">');
+        getDictList: function(config){
+            return Ajax.get(APIURL + "/dict/list", config);
+        },
+        getPagePosition: function(config){
+            return Ajax.get(APIURL + "/position/page", config);
+        },
+        getUserInfo: function(){
+            return Ajax.get(APIURL + "/user/info");
         }
-};
+    };
+    function init(){
+
+        if(sessionStorage.getItem("login")){
+            var kind = sessionStorage.getItem("kind"),
+                username = sessionStorage.getItem("username");
+            $("#header").append('<div class="headerthree">欢迎你，<a class="info pr10 head-spa">'+username+'</a><a class="logout pl10">退出</a></div>');
+        }else{
+            $("#header").append('<div class="headerthree">'+
+                '<a href="../xuser/login.html" class="info pr10 head-spa">登录</a>'+
+                '<div href="javascript:void(0);" class="head-reg pl10 inblock"><span>注册</span>'+
+                '<ul class="hidden"><li><a href="../xuser/register.html">需求方注册</a></li><li><a href="../suser/register.html">服务方注册</li></ul></div></div>');
+        }
+        var province = localStorage.getItem("province"), city, area;
+        if(province == null){
+            localStorage.setItem("province", "浙江");
+            localStorage.setItem("city", "金华");
+            localStorage.setItem("area", "金东区");
+        }
+        province = localStorage.getItem("province");
+        city = localStorage.getItem("city");
+        area = localStorage.getItem("area");
+        var position = city + " " + area;
+        $("#placeName").text(position);
+        $("#city").citySelect({
+            prov: province,  
+            city: city,  
+            dist: area, 
+            url: "/static/js/lib/city.min.json"
+        });
+        $("#header").on("click", "a", function(e){
+            var me = $(this);
+            if(me.hasClass("logout")){
+                Base.logout()
+                    .then(function(res){
+                        location.reload(true);
+                    });
+            }else if(me.hasClass("info")){
+                var kind = sessionStorage.getItem("kind");
+                location.href = "../xuser/center.html";
+            }
+            e.stopPropagation();
+        }).on("mouseover", ".head-reg",function(){
+            $(this).find("ul").removeClass("hidden");
+        }).on("mouseout", ".head-reg", function(){
+            $(this).find("ul").addClass("hidden");
+        });
+        $("#choosePlace").on("click", function(){
+            $("#city").find(".city").prop("disabled", "disabled");
+            $("#mask, #city").removeClass("hidden");
+        });
+        $("#choseCancel").on("click", function(){
+            $("#mask, #city").addClass("hidden");
+        });
+        $("#choseOk").on("click", function(){
+            var cont = $("#city");
+            var province = cont.find(".prov").val(),
+                city = cont.find(".city").val(),
+                area = cont.find(".dist").val();
+            if( !province && !city && !area ){
+                Base.showMsg("必须选择一个地点");
+                return;
+            }
+            localStorage.setItem("province", province);
+            localStorage.setItem("city", city);
+            localStorage.setItem("area", area);
+            location.href="../home/index.html";
+        });
+    }
+    init();
+
     return Base;
 });

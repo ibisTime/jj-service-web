@@ -126,10 +126,6 @@ html, body {
     outline: none;
 }
 
-input, input[type="text"], input[type="tel"], input[type="button"], input[type="num"], input[type="search"], input[type="radio"], input[type="checkbox"], input[type="password"], button, select {
-    -webkit-appearance: none;
-}
-
 input[type="radio"], input[type="checkbox"] {
     margin-top: 0.3rem;
 }
@@ -204,7 +200,6 @@ textarea {
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
-    display: none;
     z-index: 100;
 }
 
@@ -242,6 +237,7 @@ textarea {
     -webkit-transition: 0.25s;
     transition: 0.25s;
     -webkit-backface-visibility: hidden;
+    cursor: pointer;
 }
 
 .btn-small {
@@ -1784,4 +1780,95 @@ font-size: 16px;
 .break-word{
     word-wrap: break-word;
     word-break: break-all;
+}
+.redback1{
+    background: #F00;
+    width: 120px;
+    height: 10px;
+}
+.redback2{
+    background: #F00;
+    width: 180px;
+    height: 10px;
+}
+.information-box>.information-l:nth-child(2n){
+    margin-left: 15px;
+}
+.information-box>.information-l{
+    margin-bottom: 16px;
+}
+a.blue-link:hover {
+    border-bottom: 1px solid #0ae;
+}
+
+a.blue-link, a.blue-link:active, a.blue-link:hover, a.blue-link:link {
+    color: #0ae;
+}
+.headerthree a{
+    color: #fff;
+    cursor: pointer;
+}
+.headerthree a:hover{
+    transform: scale(1.1); 
+}
+.header .head-spa{
+    line-height: 15px;
+    border-right: 1px solid #fff;
+}
+.header .head-reg{
+    position: relative;
+    cursor: pointer; 
+}
+.header .head-reg ul{
+    position: absolute;
+    width: 80px;
+    background: #fff;
+    line-height: 2.4em;
+    color: #c4c3c3;
+    background: #555;
+    border: 1px solid #555;
+    left: 0px;
+    top: 40px;
+}
+.header .head-reg ul li{
+    padding-left: 10px;
+    cursor: pointer;
+}
+.header .head-reg ul li:hover{
+    color: #fff;
+    background-color: #474747
+}
+.inblock{
+    display: inline-block;
+}
+.selectDiv{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 340px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -170px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    z-index: 110;
+    border-radius: 8px;
+}
+.selectDiv .seDiv{
+    margin-top: 20px;
+    text-align: center;
+}
+.selectDiv select{
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    height: 2em;
+}
+.selectDiv .btnsDiv{
+    margin: 10px 20px;
+    text-align: center;
+}
+.selectDiv .btn{
+    height: 2em;
+    margin-left: 4px;
+    margin-right: 4px;
 }

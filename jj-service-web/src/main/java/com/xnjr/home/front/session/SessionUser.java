@@ -8,39 +8,58 @@
  */
 package com.xnjr.home.front.session;
 
-
 /** 
  * @author: miyb 
  * @since: 2014-8-19 下午4:46:22 
  * @history:
  */
 public class SessionUser extends AUserDetail {
-    private String user_id;
+    private String userId;
 
-    private String account_number;
+    private String accountNumber;
+
+    private String kind;
+    
+    private String companyCode;
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
 
     public SessionUser() {
     }
 
-    public SessionUser(String user_id, String account_number) {
-        this.user_id = user_id;
-        this.account_number = account_number;
+    public SessionUser(String userId, String accountNumber) {
+        this.userId = userId;
+        this.accountNumber = accountNumber;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getAccount_number() {
-        return account_number;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setAccount_number(String account_number) {
-        this.account_number = account_number;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
 
 }
