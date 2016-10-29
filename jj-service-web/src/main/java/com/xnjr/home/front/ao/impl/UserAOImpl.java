@@ -61,6 +61,12 @@ public class UserAOImpl implements IUserAO {
         return BizConnecter.getBizData("805056",
             JsonUtils.string2Json("userId", userId), Object.class);
     }
+    
+    @Override
+    public Object doGetCompanyInfo(String code){
+    	return BizConnecter.getBizData("806010",
+                JsonUtils.string2Json("code", code), Object.class);
+    }
 
     @Override
     public void doFindLoginPwd(String mobile, String newLoginPwd,

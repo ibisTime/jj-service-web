@@ -106,8 +106,8 @@ public class MemberController extends BaseController {
     //服务方用户详情
     @RequestMapping(value = "/info/comp", method = RequestMethod.GET)
     @ResponseBody
-    public Object doGetCompUser() {
-        return userAO.doGetUser(this.getSessionUser().getCompanyCode());
+    public Object doGetCompUser(@RequestParam("code") String code) {
+        return userAO.doGetCompanyInfo(code);
     }
 
 

@@ -24,8 +24,7 @@ define([
     }
 
     function getDictList(){
-        var config = {parentKey: "qua_kind"};
-        base.getDictList(config)
+        base.getServerDictList()
             .then(function(res){
                 if(res.success){
                     addLeftNav(res.data);

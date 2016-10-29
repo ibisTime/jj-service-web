@@ -22,8 +22,21 @@ public interface ICredentialsAO {
 	 * @return
 	 */
 	Object queryPageCredentials(String certificateCode,
-			String companyCode, String status, String applyUser,
+			String companyCode, String status, String approveUser,
 			String start, String limit);
+	
+	/**
+	 * 列表查询公司资质
+	 * @param certificateCode
+	 * @param companyCode
+	 * @param status
+	 * @param applyUser
+	 * @param approveUser
+	 * @return
+	 */
+	Object queryListCredentials(String certificateCode,
+			String companyCode, String status,
+			String applyUser, String approveUser);
 	
 	/**
 	 * 详情查询公司资质

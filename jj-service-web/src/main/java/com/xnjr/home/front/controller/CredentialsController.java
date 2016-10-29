@@ -33,7 +33,6 @@ public class CredentialsController extends BaseController {
     @ResponseBody
     public Object queryPageCredentials(
     		@RequestParam(value = "certificateCode", required = false) String certificateCode,
-    		@RequestParam(value = "companyCode", required = false) String companyCode,
     		@RequestParam(value = "status", required = false) String status,
     		@RequestParam(value = "applyUser", required = false) String applyUser,
     		@RequestParam(value = "approveUser", required = false) String approveUser,
@@ -42,6 +41,19 @@ public class CredentialsController extends BaseController {
     	return credetialsAO.queryPageCredentials(certificateCode,
     			this.getSessionUser().getCompanyCode(),
     			status, approveUser, start, limit);
+    }
+    
+    //列表查询资质
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryListCredentials(
+    		@RequestParam(value = "certificateCode", required = false) String certificateCode,
+    		@RequestParam(value = "status", required = false) String status,
+    		@RequestParam(value = "applyUser", required = false) String applyUser,
+    		@RequestParam(value = "approveUser", required = false) String approveUser){
+    	return credetialsAO.queryListCredentials(certificateCode,
+    			this.getSessionUser().getCompanyCode(),
+    			status, applyUser, approveUser);
     }
     
     //详情查询资质

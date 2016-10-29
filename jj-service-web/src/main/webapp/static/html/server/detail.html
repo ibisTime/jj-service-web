@@ -1,0 +1,474 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="import" href="../head.html?__inline">
+  <title>服务详情</title>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox">
+    <ul  class="name">
+        <!--<li><a href="">培训<span>></span></a></li>
+        <li><a href="">拍摄/摄影<span>></span></a></li>
+        <li><a href="">美工外包<span>></span></a></li>
+        <li><a href="">店铺代运营<span>></span></a></li>
+        <li><a href="">客服外包<span>></span></a></li>
+        <li><a href="">仓配服务<span>></span></a></li>
+        <li><a href="">客服主管<span>></span></a></li>
+        <li><a href="">软件开发<span>></span></a></li>
+        <li><a href="">产业园<span>></span></a></li>-->
+    </ul>
+    <!--右边-->
+    <div class="area">
+        <p class="bread-wrap">您所在的位置： 
+          <a href="">服务</a> &gt; <span>******</span>
+        </p>
+        
+      <div class="topname bt cm"></div>
+      <div id="topDiv">
+        <form id="topForm">
+          <div class="mtb">
+            <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+              <span>服务名称</span>
+            </div>
+            <input class="in-width" type="text" id="fwName" disabled/>
+          </div>
+            
+          <div class="mtb">
+            <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+              <span>所属企业</span>
+            </div>
+            <input class="in-width" type="text" id="compName" disabled/>
+          </div>
+            
+          <div class="mtb">
+            <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+              <span>价格区间</span>
+            </div>
+            <input class="in-width" type="text" id="price" disabled/>
+          </div>
+            
+          <div class="mtb">
+            <div class="inblock kuandu"> 
+              <span class="xh">*</span>
+              <span>所属服务</span>
+            </div>
+            <input class="in-width" type="text" id="" disabled/>
+          </div>
+          <!--拍摄/摄影-->
+          <div id="pspx" class="hidden choseCont">
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                <span>拥有棚影数量</span>
+              </div>
+              <input class="in-width" type="text" id="pyNum" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                <span>拥有摄影师数量</span>
+              </div>
+              <input class="in-width" type="text" id="sysNum" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>是否接受定制需求</span>
+              </div>
+              <input class="in-width" type="text" id="isDz" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                <span>擅长拍摄类型</span>
+              </div>
+              <input class="in-width" type="text" id="scpslm" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                <span >代表作品</span>
+              </div>
+              <div class="file-box inblock">
+                <img id="works" src=""/>
+              </div>
+            </div>
+          </div>
+          <!--培训-->
+          <div id="px" class="hidden choseCont">
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                <span>讲师总人数</span>
+              </div>
+              <input class="in-width" type="text" id="lectorNum" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                <span>月均培训场次</span>
+              </div>
+              <input class="in-width" type="text" id="mtrainTimes" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>月均培训人数</span>
+              </div>
+              <input class="in-width" type="text" id="mtrainNum" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>3位核心讲师简历</span>
+              </div>
+              <div class="in-width inblock">
+                <a target="_blank" id="resume1">简历1</a>
+                <a class="mlr10" target="_blank" id="resume2">简历2</a>
+                <a target="_blank" id="resume3">简历3</a>
+              </div>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>培训课程</span>
+              </div>
+              <div class="file-box inblock">
+                <img id="course" src=""/>
+              </div>
+            </div>
+          </div>
+
+          <!--店铺代运营-->
+          <div id="dpdyy" class="hidden choseCont">
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>提供服务</span>
+              </div>
+              <div class="inblock in-width va-tt" id="tgfw">
+                <input type="checkbox" value="A" id="tgfwA" disabled/>运营
+                <input type="checkbox" value="B" id="tgfwB" disabled/>推广
+                <input type="checkbox" value="C" id="tgfwC" disabled/>拍摄
+                <input type="checkbox" value="D" id="tgfwD" disabled/>美工
+                <input type="checkbox" value="E" id="tgfwE" disabled/>客服
+                <input type="checkbox" value="F" id="tgfwF" disabled/>仓储
+                <input type="checkbox" value="G" id="tgfwG" disabled/>打包发货
+              </div>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>收费模式</span>
+              </div>
+              <input class="in-width" type="text" id="feeMode" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>付款周期</span>
+              </div>
+              <input class="in-width" type="text" id="payCycle" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>擅长运营类目</span>
+              </div>
+              <input class="in-width" type="text" id="scyylm" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>成功案例展示</span>
+              </div>
+              <div class="file-box inblock">
+                <img id="sucCase" src=""/>
+              </div>
+            </div>
+          </div>
+
+          <!--美工外包-->
+          <div id="mgwb" class="hidden choseCont">
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>设计师总人数</span>
+              </div>
+              <input class="in-width" type="text" id="designNum" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>擅长类目</span>
+              </div>
+              <input class="in-width" type="text" id="sclm" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>设计实效/报价</span>
+              </div>
+              <div class="inblock in-width va-tt sjssbj">
+                <div>
+                  首页：<div class="re">
+                    <input type="text" class="inp1" id="homeDays" disabled/>
+                    <lable>天</lable>
+                  </div>
+                  报价：<div class="re">
+                    <input type="text" id="homePrice" disabled/>
+                    <lable>元</lable>
+                  </div>
+                </div>
+                <div>
+                  详情图：<div class="re">
+                    <input type="text" class="inp2" id="detailDays" disabled/>
+                    <lable>天</lable>
+                  </div>
+                  报价：<div class="re">
+                    <input type="text" id="detailPrice" disabled/>
+                    <lable>元</lable>
+                  </div>
+                </div>
+                <div>
+                  海报图：<div class="re">
+                    <input type="text" class="inp2" id="bannerDays" disabled/>
+                    <lable>天</lable>
+                  </div>
+                  报价：<div class="re">
+                    <input type="text" id="bannerPrice">
+                    <lable>元</lable>
+                  </div>
+                </div>
+                <div>
+                  全店设计：<div class="re">
+                    <input type="text" class="inp3" id="allDays" disabled/>
+                    <lable>天</lable>
+                  </div>
+                  报价：<div class="re">
+                    <input type="text" id="allPrice" disabled/>
+                    <lable>元</lable>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>设计作品案例</span>
+              </div>
+              <div class="file-box inblock">
+                <img id="sj-works" src=""/>
+              </div>
+            </div>
+          </div>
+
+          <!--客服外包-->
+          <div id="kfwb" class="hidden choseCont">
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>客服团队人数</span>
+              </div>
+              <input class="in-width" type="text" id="kfNum" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>线上月均交易额</span>
+              </div>
+              <input class="in-width" type="text" id="mtradeAmount" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>客服业务</span>
+              </div>
+              <div class="inblock in-width va-tt" id="business">
+                <input type="checkbox" value="1" disabled/>售前
+                <input type="checkbox" value="2" disabled/>售后
+              </div>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>收费模式</span>
+              </div>
+              <input class="in-width" type="text" id="feeMode" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>成功案例展示</span>
+              </div>
+              <div class="file-box inblock">
+                <img id="kf-sucCase" src=""/>
+              </div>
+            </div>
+          </div>
+
+          <!--仓配服务-->
+          <div id="cpfw" class="hidden choseCont">
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>仓库个数</span>
+              </div>
+              <input class="in-width" type="text" id="ckNum" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>仓库总面积</span>
+              </div>
+              <input class="in-width" type="text" id="ckArea" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>支持货品种类</span>
+              </div>
+              <div class="inblock in-width va-tt" id="goodsKind">
+                <input type="checkbox" value="1" id="goodsKind1" disabled/>食物
+                <input type="checkbox" value="2" id="goodsKind2" disabled/>海鲜
+                <input type="checkbox" value="3" id="goodsKind3" disabled/>生活用品
+              </div>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>日平均发货能力（单）</span>
+              </div>
+              <input class="in-width" type="text" id="dsendNum" disabled/>
+            </div>
+          </div>
+
+          <!--软件外包-->
+          <div id="rjwb" class="hidden choseCont"></div>
+
+          <!--产业园-->
+          <div id="cyy" class="hidden choseCont">
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>办公总面积</span>
+              </div>
+              <input class="in-width" type="text" id="bgArea" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>剩余可用面积</span>
+              </div>
+              <input class="in-width" type="text" id="availBgArea" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>仓储总面积</span>
+              </div>
+              <input class="in-width" type="text" id="ccArea" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>剩余可用面积</span>
+              </div>
+              <input class="in-width" type="text" id="availCcArea" disabled/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>增值服务</span>
+              </div>
+              <div class="inblock in-width va-tt" id="zzfw">
+                <input type="checkbox" value="A" id="zzfwA" disabled/>人才培训
+                <input type="checkbox" value="B" id="zzfwB" disabled/>代理运营
+                <input type="checkbox" value="C" id="zzfwC" disabled/>软件系统开发
+                <input type="checkbox" value="D" id="zzfwD" disabled/>营销广告
+                <input type="checkbox" value="E" id="zzfwE" disabled/>渠道推广
+                <input type="checkbox" value="F" id="zzfwF" disabled/>仓储物流
+              </div>
+            </div>
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>产业园详细介绍</span>
+              </div>
+              <div class="inblock in-width va-tt" id="introduce"></div>
+            </div>
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>优惠政策</span>
+              </div>
+              <div class="inblock in-width va-tt" id="yhPolicy"></div>
+            </div>
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>产业园照片</span>
+              </div>
+              <div class="file-box inblock">
+                <img id="pic1" src=""/><img id="pic2" src=""/>
+              </div>
+            </div>
+          </div>
+
+          <div class="mtb">
+            <div class="inblock kuandu"> 
+              <span class="xh">*</span>
+              <span>详情描述</span>
+            </div>
+            <div class="mt10 ml24" id="description"></div>
+          </div>
+        </form>
+      </div>
+    
+      <div class="hold-box">
+        <input type="button" id="sbtn" class="hold hidden" value="感兴趣">
+        <a href="javascript:void(0)" id="goBack" class="cancel">返回</a>
+      </div>
+  </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/SDetail']);
+</script>
+</body>
+</body>
+</html>
+
+
+   

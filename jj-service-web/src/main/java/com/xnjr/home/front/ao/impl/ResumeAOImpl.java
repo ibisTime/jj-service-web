@@ -96,6 +96,12 @@ public class ResumeAOImpl implements IResumeAO {
 		return BizConnecter.getBizData("612070", JsonUtils.object2Json(req),
 	            Object.class);
 	}
+	
+	@Override
+	public Object queryListResume(String publisher){
+		return BizConnecter.getBizData("612072", JsonUtils.string2Json("publisher", publisher),
+	            Object.class);
+	}
 
 	@Override
 	public Object queryResumeInfo(String code) {

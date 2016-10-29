@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>招聘列表</title>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox">
+    <ul class="name" id="leftNav">
+        <!--<li><a href="">运营总监<span>></span></a></li>
+        <li><a href="">运营主管<span>></span></a></li>
+        <li><a href="">运营<span>></span></a></li>
+        <li><a href="">设计总监<span>></span></a></li>
+        <li><a href="">设计/美工<span>></span></a></li>
+        <li><a href="">推广专员<span>></span></a></li>-->
+    </ul>
+    <!--右边-->
+    <div class="area">
+        <p class="bread-wrap">您所在的位置： <a href="">服务</a> &gt; <span>发布职位</span></p>
+    
+        <div class="aj" id="applyBtn">发布职位</div>
+        <div class="aj ml40" id="watchBtn">查看详情</div>
+        <table class="t-box at wp100" id="r-table">
+            <thead>
+                <tr class="apply-j">
+                    <th>职位名称</th>
+                    <th>公司名称</th>
+                    <th>职位月薪</th>
+                    <th>工作地点</th>
+                    <th>工作经验</th>
+                    <th>发布日期</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr>
+                    <td>运营总监</td>
+                    <td>杭州橙袋科技有限公司</td>
+                    <td>15k-30k</td>
+                    <td>杭州</td>
+                    <td>经验3-5年/本科</td>
+                    <td>2016-10-20</td>
+                </tr>-->
+            </tbody>
+        </table>
+        <div id="pagination_div"></div>
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/FWList']);
+</script>
+</body>
+</html>

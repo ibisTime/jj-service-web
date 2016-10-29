@@ -59,12 +59,19 @@ public interface IUserAO {
     public Object doLogin(String loginName, String loginPwd, String kind);
 
     /**
-     * 查询用户的详细信息
+     * 查询需求方用户的详细信息
      * @param userId
      * @create: 2014-12-10 下午7:37:18 miyb
      * @history:
      */
     public Object doGetUser(String userId);
+    
+    /**
+     * 详情查询公司
+     * @param code
+     * @return
+     */
+    public Object doGetCompanyInfo(String code);
 
     /**
      * 找回登录密码

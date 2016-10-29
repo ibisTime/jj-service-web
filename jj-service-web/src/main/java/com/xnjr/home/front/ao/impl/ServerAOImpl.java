@@ -408,10 +408,11 @@ public class ServerAOImpl implements IServerAO {
 	}
 
 	@Override
-	public Object queryPageServers(String name, String companyCode,
-			String companyName, String qualityCode, String isHot,
-			String pubisher, String dateStart, String dateEnd, String dealer,
-			String start, String limit) {
+	public Object queryPageServers(String type, String name, String companyCode,
+    		String companyName, String qualityCode, String isHot,
+    		String pubisher, String province, String city, String area,
+    		String dateStart, String dateEnd, String dealer,
+    		String start, String limit) {
 		XN612030Req req = new XN612030Req();
 		req.setCompanyCode(companyCode);
 		req.setCompanyName(companyName);
@@ -425,6 +426,10 @@ public class ServerAOImpl implements IServerAO {
 		req.setQualityCode(qualityCode);
 		req.setStart(start);
 		req.setStatus("1");
+		req.setType(type);
+		req.setProvince(province);
+		req.setCity(city);
+		req.setArea(area);
 		return BizConnecter.getBizData("612030", JsonUtils.object2Json(req),
 				Object.class);
 	}

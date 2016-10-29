@@ -271,8 +271,8 @@ textarea{vertical-align:text-top;}
 .cd{background:#CB2A2F;padding:6px 8px;color:#FFF;font-size:14px;border-radius:2px;display:inline-block;margin-top:8px;}
 
 /*我是服务商（）*/
-.cdh{display:inline-block;padding:6px 10px;}
-.cdh:hover{background:#CB2A2F;padding:6px 8px;color:#FFF;font-size:14px;border-radius:2px;display:inline-block;margin-top:8px;}
+.cdh{display:inline-block;padding:6px 10px;cursor: pointer;}
+.cdh:hover{background:#CB2A2F;color:#FFF;border-radius:2px;}
 
 /*服务详情*/
 .kuandu{width:170px;}

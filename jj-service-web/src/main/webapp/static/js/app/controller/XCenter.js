@@ -10,7 +10,7 @@ define([
     init();
 
     function init(){
-        if(sessionStorage.getItem("login")){
+        if(base.isLogin()){
             getUserInfo();
         }else{
             //未登录

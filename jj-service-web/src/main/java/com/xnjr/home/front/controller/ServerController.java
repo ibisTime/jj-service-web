@@ -369,20 +369,24 @@ public class ServerController extends BaseController {
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPageServers(
+    		@RequestParam(value = "type", required = false) String type,
     		@RequestParam(value = "name", required = false) String name,
     		@RequestParam(value = "companyCode", required = false) String companyCode,
     		@RequestParam(value = "companyName", required = false) String companyName,
     		@RequestParam(value = "qualityCode", required = false) String qualityCode,
     		@RequestParam(value = "isHot", required = false) String isHot,
     		@RequestParam(value = "pubisher", required = false) String pubisher,
+    		@RequestParam(value = "pubisher", required = false) String province,
+    		@RequestParam(value = "pubisher", required = false) String city,
+    		@RequestParam(value = "pubisher", required = false) String area,
     		@RequestParam(value = "dateStart", required = false) String dateStart,
     		@RequestParam(value = "dateEnd", required = false) String dateEnd,
     		@RequestParam(value = "dealer", required = false) String dealer,
 			@RequestParam("start") String start,
 			@RequestParam("limit") String limit){
-    	return serverAO.queryPageServers(name, companyCode, companyName,
-    			qualityCode, isHot, pubisher, dateStart, dateEnd,
-    			dealer, start, limit);
+    	return serverAO.queryPageServers(type, name, companyCode, companyName,
+    			qualityCode, isHot, pubisher, province, city, area,
+    			dateStart, dateEnd, dealer, start, limit);
     }
     
     //详情查询服务

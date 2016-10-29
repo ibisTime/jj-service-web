@@ -100,6 +100,13 @@ public class ResumeController extends BaseController {
     			expCity, publisher, start, limit);
     }
     
+    //分页查询简历
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryPageResume(){
+    	return resumeAO.queryListResume(this.getSessionUser().getUserId());
+    }
+    
     //详情查询简历
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody

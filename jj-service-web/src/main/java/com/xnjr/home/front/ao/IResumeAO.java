@@ -83,6 +83,13 @@ public interface IResumeAO {
 			String expCity, String publisher, String start, String limit);
 	
 	/**
+	 * 列表查询简历
+	 * @param publisher
+	 * @return
+	 */
+	public Object queryListResume(String publisher);
+	
+	/**
 	 * 详情查询简历
 	 * @param code
 	 * @return

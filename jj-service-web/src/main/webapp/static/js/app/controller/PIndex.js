@@ -26,14 +26,19 @@ define([
 
     function addListeners(){
         $("#leftNav").on("click", "li", function(){
-            var code = $(this).attr("code");
-            
+            var me = $(this), code = me.attr("code");
+            //到服务方页面
+            if(base.isCompUser()){
+                location.href = "./fwlist.html?code=" + code + "&n=" + me.text();
+            //到需求方页面
+            }else{
+                location.href = "./xqlist.html?code=" + code + "&n=" + me.text();
+            }
         });
     }
 
     function getDictList(){
-        var config = {parentKey: "qua_kind"};
-        base.getDictList(config)
+        base.getPositionDictList()
             .then(function(res){
                 if(res.success){
                     addLeftNav(res.data);

@@ -159,6 +159,88 @@ define([
         maskMobile: function(mobile){
             return mobile.replace(/^(\d{3})\d{4}(\d{4})$/ig, "$1****$2");
         },
+        makeReturnUrl: function(){
+            return encodeURIComponent(location.pathname + location.search);
+        },
+        goBackUrl: function(url){
+            var rUrl = base.getUrlParam("return");
+            if(rUrl){
+                location.href = rUrl;
+            }else{
+                location.href = url || "../home/index.html";
+            }
+        },
+        isLogin: function(){
+            return sessionStorage.getItem("login") || false;
+        },
+        //是否服务方
+        isCompUser: function(){
+            if(Base.isLogin()){
+                    var user = $.parseJSON(sessionStorage.getItem("user"));
+                    if(user.kind == "1"){
+                        return true;
+                    }else{
+                        return false;
+                    }
+            }else{
+                return false;
+            }
+        },
+        //是否是服务方个体户
+        isCompOne: function(){
+            if(Base.isCompUser()){
+                var user = $.parseJSON(sessionStorage.getItem("user"));
+                if(user.type == "2"){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        },
+        //是否是服务方企业
+        isCompMore: function(){
+            if(Base.isCompUser()){
+                var user = $.parseJSON(sessionStorage.getItem("user"));
+                if(user.type == "1"){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        },
+        //是否需求方
+        isPerson: function(){
+            if(Base.isLogin()){
+                    var user = $.parseJSON(sessionStorage.getItem("user"));
+                    if(user.kind == "1"){
+                        return true;
+                    }else{
+                        return false;
+                    }
+            }else{
+                return true;    //未登录用户默认显示需求方页面
+            }
+        },
+        getPersonUserId: function(){
+            if(Base.isLogin()){
+                var user = $.parseJSON(ssionStorage.getItem("user"));
+                return user.userId;
+            }else{
+                return "";
+            }
+        },
+        getCompanyCode: function(){
+            if(Base.isLogin()){
+                var user = $.parseJSON(ssionStorage.getItem("user"));
+                return user.code;
+            }else{
+                return "";
+            }
+        },
         logout: function(){
             return Ajax.post(APIURL + "/user/logout");
         },
@@ -190,20 +272,69 @@ define([
         personRegister: function(config){
             return Ajax.post(APIURL + "/regist/person", config);
         },
+        //分页查询服务
         getPageServers: function(config){
             return Ajax.get(APIURL + "/server/page", config);
         },
+        //详情查询服务
+        getServerInfo: function(config){
+            return Ajax.get(APIURL + "/server/info", config);
+        },
+        //分页查询公告
         getPageNews: function(config){
             return Ajax.get(APIURL + "/news/page", config);
         },
+        //列表查询数据字典
         getDictList: function(config){
             return Ajax.get(APIURL + "/dict/list", config);
         },
+        //获取职位数据字典
+        getPositionDictList: function(){
+            return Base.getDictList({parentKey: "position_kind"});
+        },
+        //获取服务数据字典
+        getServerDictList: function(){
+            return Base.getDictList({parentKey: "serve_type"});
+        },
+        //分页查询职位
         getPagePosition: function(config){
             return Ajax.get(APIURL + "/position/page", config);
         },
+        //详情查询职位
+        getPositionInfo: function(config){
+            return Ajax.get(APIURL + "/position/info", config);
+        },
+        //发布职位
+        publishPosition: function(config){
+            return Ajax.post(APIURL + "/position/publish", config);
+        },
+        //获取需求方用户详情
         getUserInfo: function(){
-            return Ajax.get(APIURL + "/user/info");
+            return Ajax.get(APIURL + "/user/info/person");
+        },
+        //获取服务方用户详情
+        getCompanyInfo: function(config){
+            return Ajax.get(APIURL + "/user/info/comp", config || {});
+        },
+        //分页查询简历
+        getPageResume: function(config){
+            return Ajax.get(APIURL + "/resume/page", config);
+        },
+        //列表查询简历
+        getListResume: function(config){
+            return Ajax.get(APIURL + "/resume/list", config);
+        },
+        //职位申请
+        applyPosition: function(config){
+            return Ajax.post(APIURL + "/interest/apply/position", config);
+        },
+        //列表查询公司资质
+        getListCredentials: function(config){
+            return Ajax.get(APIURL + "/credentials/list", config);
+        },
+        //需求方对服务感兴趣，公司对需求感兴趣，公司对简历感兴趣
+        interested: function(config){
+            return Ajax.post(APIURL + "/interest/interested", config);
         }
     };
     function init(){

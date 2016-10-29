@@ -7,6 +7,7 @@ import com.xnjr.home.front.http.BizConnecter;
 import com.xnjr.home.front.http.JsonUtils;
 import com.xnjr.home.front.req.XN806140Req;
 import com.xnjr.home.front.req.XN806150Req;
+import com.xnjr.home.front.req.XN806151Req;
 
 @Service
 public class CredentialsAOImpl implements ICredentialsAO {
@@ -35,6 +36,20 @@ public class CredentialsAOImpl implements ICredentialsAO {
 				Object.class);
 	}
 
+	@Override
+	public Object queryListCredentials(String certificateCode,
+			String companyCode, String status, String applyUser,
+			String approveUser) {
+		XN806151Req req = new XN806151Req();
+		req.setApproveUser(approveUser);
+		req.setCertificateCode(certificateCode);
+		req.setCompanyCode(companyCode);
+		req.setStatus(status);
+		req.setApplyUser(applyUser);
+		return BizConnecter.getBizData("806151", JsonUtils.object2Json(req),
+				Object.class);
+	}
+	
 	@Override
 	public Object queryCredentials(String code) {
 		return BizConnecter.getBizData("806152", JsonUtils.string2Json("code", code),

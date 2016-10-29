@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline"> 
+    <title>职位详情</title>
+</head>
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox">
+    <ul class="name" id="leftNav">
+        <!--<li><a href="">运营总监<span>></span></a></li>
+        <li><a href="">运营主管<span>></span></a></li>
+        <li><a href="">运营<span>></span></a></li>
+        <li><a href="">设计总监<span>></span></a></li>
+        <li><a href="">设计/美工<span>></span></a></li>
+        <li><a href="">推广专员<span>></span></a></li>-->
+    </ul>
+<!--右边-->
+    <div class="area">
+        <p class="bread-wrap">您所在的位置： 
+            <a href="">服务</a> &gt; <span>我是服务商</span>
+        </p>
+        
+        <div class="topname bt">职位信息</div>
+        <div class="hidden" id="topDiv">
+            <form id="topForm">
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">*</span>
+                        <span>职位名称</span>
+                    </div>
+                    <input class="in-width" type="text" id="zwName" disabled />
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">*</span>
+                        <span>职位类别</span>
+                    </div>
+                    <input class="in-width" type="text" id="zwKind" disabled />
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">*</span>
+                        <span>工作地点</span>
+                    </div>
+                    <input class="in-width" type="text" id="address" disabled />
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>工作经验</span>
+                    </div>
+                    <input class="in-width" type="text" id="experience" disabled />
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>学历要求</span>
+                    </div>
+                    <input class="in-width" type="text" id="education" disabled />
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>工作性质</span>
+                    </div>
+                    <input type="radio" name="zwType" id="zwType1" disabled />全职
+                    <input class="ml" name="zwType" type="radio" id="zwType2" disabled />兼职
+                    <input class="ml" name="zwType" type="radio" id="zwType3" disabled />实习
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>招聘人数</span>
+                    </div>
+                    <input class="in-width" type="text" value="1" id="jobNum" disabled />
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>职位月薪</span>
+                    </div>
+                    <input class="in-width" type="text" id="msalary" disabled />
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span >职位描述</span>
+                    </div>
+                    <div class="mt10 ml24" id="description"></div>
+                </div>
+            </form>
+        </div>
+        <div class="company-head">
+            <span><a href="javascript:void(0)" id="goBack">返回</a></span>
+        </div>
+   
+   
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/PDetail']);
+</script>
+</body>
+</html>

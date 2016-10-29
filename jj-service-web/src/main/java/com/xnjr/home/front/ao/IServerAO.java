@@ -358,13 +358,17 @@ public interface IServerAO {
 	Object deleteServer(String code);
 	
 	/**
-	 * 分页查询服务
+	 * 分页查询服务 
+	 * @param type
 	 * @param name
 	 * @param companyCode
 	 * @param companyName
 	 * @param qualityCode
 	 * @param isHot
 	 * @param pubisher
+	 * @param province
+	 * @param city
+	 * @param area
 	 * @param dateStart
 	 * @param dateEnd
 	 * @param dealer
@@ -372,10 +376,10 @@ public interface IServerAO {
 	 * @param limit
 	 * @return
 	 */
-    Object queryPageServers(String name, String companyCode,
+    Object queryPageServers(String type, String name, String companyCode,
     		String companyName, String qualityCode, String isHot,
-    		String pubisher, String dateStart, String dateEnd,
-    		String dealer, String start, String limit);
+    		String pubisher, String province, String city, String area,
+    		String dateStart, String dateEnd, String dealer, String start, String limit);
     
     /**
      * 详情查询服务

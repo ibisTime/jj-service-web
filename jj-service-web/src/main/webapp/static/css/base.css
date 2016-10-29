@@ -785,6 +785,10 @@ textarea {
     margin-left: 4px;
 }
 
+.ml40 {
+    margin-left: 40px;
+}
+
 .mr4 {
     margin-right: 4px;
 }
@@ -919,7 +923,9 @@ textarea {
 .ml20 {
     margin-left: 20px;
 }
-
+.ml24 {
+    margin-left: 24px;
+}
 .mr20 {
     margin-right: 20px;
 }
@@ -1488,6 +1494,12 @@ textarea {
 .hp100 {
     height: 100%;
 }
+.hp40p {
+    height: 40px;
+}
+.hp24p {
+    height: 24px;
+}
 
 /*定位*/
 .re {
@@ -1841,7 +1853,7 @@ a.blue-link, a.blue-link:active, a.blue-link:hover, a.blue-link:link {
 .inblock{
     display: inline-block;
 }
-.selectDiv{
+.selectDiv, .jianliDiv{
     position: fixed;
     top: 50%;
     left: 50%;
@@ -1858,7 +1870,7 @@ a.blue-link, a.blue-link:active, a.blue-link:hover, a.blue-link:link {
     margin-top: 20px;
     text-align: center;
 }
-.selectDiv select{
+.selectDiv select, .jianliDiv select{
     border: 1px solid #e6e6e6;
     border-radius: 4px;
     height: 2em;
@@ -1871,4 +1883,53 @@ a.blue-link, a.blue-link:active, a.blue-link:hover, a.blue-link:link {
     height: 2em;
     margin-left: 4px;
     margin-right: 4px;
+}
+.loading-icon{
+	width: 32px;
+	height: 320px;
+	display: block;
+	margin: 0px auto 41px auto;
+	background: url(../images/loading.gif) center no-repeat;
+}
+.bg-loading{
+    background: url(../images/loading.gif) center no-repeat;
+}
+.cur_pointer{
+    cursor: pointer;
+}
+.name {
+    font-size: 16px;
+}
+.publish-position select{
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    line-height: 20px;
+}
+input[type=number] {  
+    -moz-appearance:textfield;  
+}  
+input[type=number]::-webkit-inner-spin-button,  
+input[type=number]::-webkit-outer-spin-button {  
+    -webkit-appearance: none;  
+    margin: 0;  
+}
+.va-tt{
+    vertical-align: text-top;
+}
+.sjssbj input{
+    width: 100px;
+}
+.sjssbj lable{
+    position: absolute;
+    right: 1.2em;
+    top: 1px;
+}
+.sjssbj .inp1{
+    margin: 0 1em 0 2em;
+}
+.sjssbj .inp2{
+    margin: 1em;
+}
+.sjssbj .inp3{
+    margin: 0 1em 0 0;
 }
