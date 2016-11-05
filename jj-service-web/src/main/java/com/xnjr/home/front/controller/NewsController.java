@@ -21,7 +21,7 @@ public class NewsController extends BaseController {
     @ResponseBody
     public Object queryPageNews(
     		@RequestParam(value = "type", required = true) String type,
-    		@RequestParam(value = "title", required = true) String title,
+    		@RequestParam(value = "title", required = false) String title,
     		@RequestParam(value = "toCompany", required = false) String toCompany,
     		@RequestParam(value = "toLevel", required = false) String toLevel,
     		@RequestParam(value = "toUser", required = false) String toUser,

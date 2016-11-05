@@ -16,7 +16,7 @@ define([
         if(pCode){
             var rcTypes = sessionStorage.getItem("rcTypes");    //人才数据字典
             if(rcTypes){
-                addLeftNav(rcTypes);
+                addLeftNav($.parseJSON(rcTypes));
             }else{
                 getDictList();
             }

@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>注册</title>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox clearfix" >
+    <div class="nav-font clearfix">
+        <div class="fast inblock">快速注册</div>
+        <span>已有账号？<a href="../xuser/login.html">返回登录</a></span>
+    </div>
+     
+    <div class="login_box1 ta-l"> 
+        
+        <div class="topname message-color">基本信息</div>
+        
+        <div class="login-mtb">
+            <div class="message-word">类型*</div>
+            <select class="login_btn" id="compType">
+                <option value="1">企业</option>
+                <option value="2">个体户</option>
+            </select>
+        </div>
+        <div class="login-mtb">
+            <div class="message-word" id="name-div">企业名称*</div>
+            <input type="text" id="name" class="login_btn"/>     
+        </div>
+        <div class="login-mtb">
+            <div class="message-word"><span id="gsyyzzh-div">企业营业执照*</span>(只支持jpg和png格式的图片)</div>
+            <a href="javascript:void(0);" class="file1">选择文件
+                <input type="file" name="file" id="gsyyzzh"/>
+            </a>
+            <input type="button" value="上传" id="imgSbtn" class="sc ml20"/>
+            <img src="" id="fileImg"/>
+            <input type="text" id="gsyyzzhUrl" class="hidden"/>
+        </div>
+        <div class="login-mtb">
+            <div class="message-word">联系人*</div>
+            <input type="text" class="login_btn" id="contacts"/>
+        </div>
+        <div class="login-mtb">
+            <div class="message-word">联系手机人*</div>
+            <input type="text" class="login_btn" id="mobile"/>
+        </div>
+    </div>
+    
+    <div class="login_box1 ta-l"> 
+      
+        <div class="topname message-color">账户信息</div>
+
+        <div class="login-mtb">
+            <div class="message-word">用户名*</div>
+            <input type="text"  class="login_btn" id="loginName"/>
+        </div>
+        <div class="login-mtb">
+            <div class="message-word">密码*</div>
+            <input type="password" class="login_btn" id="password"/>
+        </div>
+        <div class="login-mtb">
+            <div class="message-word">确认密码*</div>
+            <input type="password" class="login_btn" id="rePwd"/>
+        </div>
+        <div class="login-mtb " >
+            <input type="checkbox" id="readCheck" class="cur_pointer"/>
+            <span>我已阅读，并同意<a href="javascript:void(0)">《电商公共服务平台协议》</a></span>
+        </div>
+        <div class="login-mtb " >
+            <input type="button" value="注册" class="login-font" id="registerBtn"/>
+        </div>
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script src="../../js/lib/ajaxfileupload.js"></script>
+<script>
+    require(['app/controller/SRegister']);
+</script>
+</body>
+</html>

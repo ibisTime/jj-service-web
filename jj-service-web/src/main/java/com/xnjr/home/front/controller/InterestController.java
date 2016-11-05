@@ -95,7 +95,7 @@ public class InterestController extends BaseController {
     }
     
     //分页查询申请职位或者应聘简历信息
-    @RequestMapping(value = "/page/resume", method = RequestMethod.GET)
+    @RequestMapping(value = "/page/position", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPageInterestPosition(
     		@RequestParam(value = "companyCode", required = false) String companyCode,

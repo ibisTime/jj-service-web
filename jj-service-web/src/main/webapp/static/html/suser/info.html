@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>申请资质</title>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox">
+    <ul  class="name">
+  		  <li><a href="./center.html">企业中心<span>></span></a></li>
+        <li><a href="./rclist.html">我要人才<span>></span></a></li>
+        <li><a href="./fwlist.html">展示服务<span>></span></a></li>
+    </ul>
+    <div class="area">
+        <p class="bread-wrap">您所在的位置： 
+          <a href="./center.html">会员中心</a> &gt; <span>申请资质1</span>
+        </p>
+
+        <form>
+            <div id="gthDiv" class="hidden">
+              <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>真实姓名</span>
+                </div>
+                <input class="in-width" type="text" id="realName">
+              </div>
+          
+              <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>身份证照片</span>
+                </div>
+                <div class="file-box inblock">
+                    <img src="" id="sfz"/>
+                    <div class="re">
+                      <input type='button' class='btn' value='浏览...' /> 
+                      <input type="file" name="fileField" class="file" id="sfzFile"/>
+                    </div>
+                    <input type="button" name="submit" class="btn" value="上传" id="sfzBtn"/>
+                    <input type="text" class="hidden" value="" id="sfzUrl"/>
+                </div>
+              </div>
+          
+              <div class="mtb">
+                <div class="inblock wb"> 
+                  <span class="xh">*</span>
+                  <span>个体户图标</span>
+                </div>
+                <div class="file-box inblock"> 
+                    <img src="" id="gthtb"/>
+                    <div class="re">
+                      <input type='button' class='btn' value='浏览...' /> 
+                      <input type="file" name="fileField" class="file" id="gthtbFile"/>
+                    </div>
+                    <input type="button" class="btn" value="上传" id="gthtbBtn"/>
+                    <input type="text" class="hidden" value="" id="gthtbUrl"/>
+                </div>
+              </div>
+            </div>
+            <div id="qyDiv" class="hidden">
+              <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>企业名称</span>
+                </div>
+                <input class="in-width" type="text" id="compName">
+              </div>
+          
+              <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>企业营业执照</span>
+                </div>
+                <div class="file-box inblock va-tt">
+                    <a href="javascript:void(0);" class="file1">选择文件
+                        <input type="file" name="file" id="qyyyzzFile"/>
+                    </a>
+                    <input type="button" value="上传" id="qyyyzzBtn" class="sc ml20"/>
+                    <img src="" id="qyyyzzImg"/>
+                    <input type="text" id="qyyyzzUrl" class="hidden"/>
+                </div>
+              </div>
+          
+              <div class="mtb">
+                <div class="inblock wb"> 
+                  <span class="xh">*</span>
+                  <span>企业图标</span>
+                </div>
+                <div class="file-box inblock va-tt">
+                    <a href="javascript:void(0);" class="file1">选择文件
+                        <input type="file" name="file" id="qytbFile"/>
+                    </a>
+                    <input type="button" value="上传" id="qytbBtn" class="sc ml20"/>
+                    <img src="" id="qytbImg"/>
+                    <input type="text" id="qytbUrl" class="hidden"/>
+                </div>
+              </div>
+            </div>
+        
+            <div class="mtb">
+              <div class="inblock wb"> 
+                <span class="xh">*</span>
+                <span>联系人</span>
+              </div>
+              <input class="in-width" type="text" id="contacts">
+            </div>
+        
+            <div class="mtb">
+              <div class="inblock wb"> 
+                <span class="xh">*</span>
+                <span>联系人手机</span>
+              </div>
+              <input class="in-width" type="text" id="mobile">
+            </div>
+        
+            <div class="mtb">
+              <div class="inblock wb"> 
+                <span class="xh">&nbsp;</span>
+                <span>联系人邮箱</span>
+              </div>
+              <input class="in-width" type="text" id="email">
+            </div>
+        
+            <div class="mtb">
+              <div class="inblock wb"> 
+                <span class="xh">&nbsp;</span>
+                <span>联系人QQ号码</span>
+              </div>
+              <input class="in-width" type="text" id="qq">
+            </div>
+        
+            <div class="mtb">
+              <div class="inblock wb"> 
+                <span class="xh">&nbsp;</span>
+                <span>规模</span>
+              </div>
+              <input class="in-width" type="text" id="scale">
+            </div>
+        
+            <div class="mtb">
+              <div class="inblock wb"> 
+                <span class="xh">&nbsp;</span>
+                <span>地址</span>
+              </div>
+              <div class="inblock" id="address">
+                  <select id="province" class="prov"></select>
+                  <select id="city" class="city"></select>
+                  <select id="area" class="dist"></select>
+              </div>
+              <!--<input class="in-width" type="text" id="address">-->
+            </div>
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">&nbsp;</span>
+                    <span>广告语</span>
+                </div>
+                <input class="in-width" type="text" id="slogan"/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">&nbsp;</span>
+                    <span>报价区间</span>
+                </div>
+                <input class="in-width" type="text" id="remark"/>
+            </div>
+            <div class="mtb">
+              <div class="inblock wb"> 
+                <span class="xh">&nbsp;</span>
+                <span >简介</span>
+              </div>
+              <textarea class="sell" rows="10" cols="50" id="description"></textarea>
+            </div>
+      </form>
+
+	
+      <div class="hold-box">
+        <input type="button" class="hold" value="确认" id="sbtn">
+        <a href="javascript:void(0)" class="cancel" id="goBack">返回</a>
+      </div>
+   
+  </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script src="../../js/lib/ajaxfileupload.js"></script>
+<script>
+    require(['app/controller/Info']);
+</script>
+</body>
+</html>
+
+

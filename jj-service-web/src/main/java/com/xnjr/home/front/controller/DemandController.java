@@ -11,7 +11,7 @@ import com.xnjr.home.front.ao.IDemandAO;
 import com.xnjr.home.front.controller.BaseController;
 
 @Controller
-@RequestMapping(value = "/position")
+@RequestMapping(value = "/demand")
 public class DemandController extends BaseController {
 
     @Autowired
@@ -22,11 +22,11 @@ public class DemandController extends BaseController {
     @ResponseBody
     public Object addDemand(
     		@RequestParam(value = "name", required = true) String name,
-    		@RequestParam(value = "qualityCode", required = true) String qualityCode,
+    		@RequestParam(value = "type", required = true) String type,
     		@RequestParam(value = "expCompany", required = true) String expCompany,
     		@RequestParam(value = "urgentLevel", required = true) String urgentLevel,
     		@RequestParam(value = "description", required = true) String description){
-    	return demandAO.addDemand(name, qualityCode, expCompany,
+    	return demandAO.addDemand(name, type, expCompany,
     			urgentLevel, description, this.getSessionUser().getUserId());
     }
     
@@ -36,11 +36,11 @@ public class DemandController extends BaseController {
     public Object editDemand(
     		@RequestParam(value = "code", required = true) String code,
     		@RequestParam(value = "name", required = true) String name,
-    		@RequestParam(value = "qualityCode", required = true) String qualityCode,
+    		@RequestParam(value = "type", required = true) String type,
     		@RequestParam(value = "expCompany", required = true) String expCompany,
     		@RequestParam(value = "urgentLevel", required = true) String urgentLevel,
     		@RequestParam(value = "description", required = true) String description){
-    	return demandAO.editDemand(code, name, qualityCode, expCompany,
+    	return demandAO.editDemand(code, name, type, expCompany,
     			urgentLevel, description, this.getSessionUser().getUserId());
     }
     
@@ -56,14 +56,15 @@ public class DemandController extends BaseController {
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPagePosition(
-    		@RequestParam(value = "qualityCode", required = false) String qualityCode,
+    		@RequestParam(value = "publisher", required = false) String publisher,
+    		@RequestParam(value = "type", required = false) String type,
     		@RequestParam(value = "urgentLevel", required = false) String urgentLevel,
     		@RequestParam(value = "dateStart", required = false) String dateStart,
     		@RequestParam(value = "dateEnd", required = false) String dateEnd,
     		@RequestParam(value = "dealer", required = false) String dealer,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
-    	return demandAO.queryPageDemand(this.getSessionUser().getUserId(), qualityCode, urgentLevel,
+    	return demandAO.queryPageDemand(publisher, type, urgentLevel,
     			dateStart, dateEnd, dealer, start, limit);
     }
     

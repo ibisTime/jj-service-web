@@ -119,12 +119,11 @@
 		<property name="cookiePath" value="/" />
 		<property name="defaultLocale" value="zh_CN" />
 	</bean>
-
 	<!-- 会话管理器 -->
+	<bean id="sessionProvider" class="com.xnjr.home.front.session.HttpSessionProvider" />
 	<bean id="sessionInterceptor" class="com.xnjr.home.front.session.SessionContextInterceptor">
 		<property name="sessionProvider" ref="sessionProvider" />
 	</bean>
-	<bean id="sessionProvider" class="com.xnjr.home.front.session.HttpSessionProvider" />
 	
 	<mvc:interceptors>
 		 <!-- 拦截HttpServletRequest、 HttpServletResponse -->
@@ -136,18 +135,14 @@
 		</bean>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/**" />
-			<mvc:mapping path="/account/**" />
-			<mvc:mapping path="/gene/smscaptcha/send" />
-			<mvc:exclude-mapping path="/user/signup.htm"/>
-			<mvc:exclude-mapping path="/user/signin.htm"/>
-			<mvc:exclude-mapping path="/user/center.htm"/>
+			
+			<mvc:exclude-mapping path="/user/login/**"/>
 		 	<mvc:exclude-mapping path="/user/mobile/check"/>
 		 	<mvc:exclude-mapping path="/user/loginpwd/find"/>
-		 	<mvc:exclude-mapping path="/user/login*"/>
-		 	<mvc:exclude-mapping path="/user/logout"/>
-		 	<mvc:exclude-mapping path="/index*" />
-		 	<mvc:exclude-mapping path="/sms/registercode" />
-		 	<mvc:exclude-mapping path="/sms/loginpwdcode" />
+		 	<mvc:exclude-mapping path="/user/loginpwd/comp/find"/>
+		 	<mvc:exclude-mapping path="/user/regist/**"/>
+		 	<mvc:exclude-mapping path="/user/comp/page"/>
+		 	<mvc:exclude-mapping path="/user/info/comp"/>
 			<ref bean="sessionInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

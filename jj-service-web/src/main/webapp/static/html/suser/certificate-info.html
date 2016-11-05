@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>资质详情</title>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox">
+    <ul class="name">
+        <li><a href="./center.html">企业中心<span>></span></a></li>
+        <li><a href="./rclist.html">我要人才<span>></span></a></li>
+        <li><a href="./fwlist.html">展示服务<span>></span></a></li>
+    </ul>
+<!--右边-->
+    <div class="area">
+        <p class="bread-wrap">您所在的位置： 
+            <a href="./center.html">会员中心</a> &gt; <span>资质详情</span>
+        </p>
+
+        <form>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">&nbsp;</span>
+                    <span>资质类型</span>
+                </div>
+                <input class="in-width" type="text" id="certSelect" disabled/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">&nbsp;</span>
+                    <span>资质名称</span>
+                </div>
+                <input class="in-width" type="text" id="name" disabled/>
+            </div>
+
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">&nbsp;</span>
+                    <span>资质状态</span>
+                </div>
+                <input class="in-width" type="text" id="status" disabled/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">&nbsp;</span>
+                    <span>资质简介</span>
+                </div>
+                <textarea class="sell" rows="10" cols="50" id="description" disabled></textarea>
+            </div>
+        
+            <div class="hold-box">
+                <input type="button" class="hold" id="sbtn" value="返回">
+            </div>
+        </form>
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/CertificateInfo']);
+</script>
+</body>
+</html>
+
+

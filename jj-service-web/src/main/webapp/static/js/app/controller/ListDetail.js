@@ -6,8 +6,10 @@ define([
 ], function (base, Ajax, Dict, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
         leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
-        loginFlag = false, experience = Dict.get("experience"),
+        loginFlag = false,
+        experience = Dict.get("experience"),
         education = Dict.get("education"),
+        positionKind = Dict.get("positionKind"),
         pCode = base.getUrlParam("code");
 
     init();
@@ -17,9 +19,12 @@ define([
             loginFlag = base.isLogin();
             var rcTypes = sessionStorage.getItem("rcTypes");    //人才数据字典
             if(rcTypes){
-                addLeftNav(rcTypes);
+                addLeftNav($.parseJSON(rcTypes));
             }else{
                 getDictList();
+            }
+            if(loginFlag && base.isPerson()){
+                $("#sbtn").removeClass("hidden");
             }
             getPositionInfo();
             addListener();
@@ -30,7 +35,7 @@ define([
     }
 
     function getPositionInfo(){
-        base.getPositionInfo()
+        base.getPositionInfo({code: pCode})
             .then(function(res){
                 if(res.success){
                     if(loginFlag){
@@ -48,7 +53,6 @@ define([
     function getCompanyInfo(code){
         base.getCompanyInfo({code: code})
             .then(function(res){
-                $("#logined").removeClass("hidden");
                 if(res.success){
                     addCompanyInfo(res.data);
                 }else{
@@ -60,7 +64,7 @@ define([
     function addPositionInfo(data){
         var topForm = $("#topForm").detach();
         $("#zwName", topForm).val(data.name);
-        $("#zwKind", topForm).val(data.kind);
+        $("#zwKind", topForm).val(positionKind[data.kind]);
         $("#address", topForm).val(data.province + data.city);
         $("#experience", topForm).val(experience[data.experience]);
         $("#education", topForm).val(education[data.education]);
@@ -81,11 +85,8 @@ define([
         $("#email", bottomForm).val(data.email || "");
         $("#qq", bottomForm).val(data.qq || "");
         $("#scale", bottomForm).val(data.scale || "");
-        $("#compAddress", bottomForm).val(data.province + data.city + data.area);
+        $("#compAddress", bottomForm).html(data.province + data.city + (data.area || "") + (data.address || ""));
         $("#compDescription", bottomForm).html(data.description);
-        if(base.isPerson()){
-            $("#sbtn", bottomForm).removeClass("hidden");
-        }
         $("#logined").removeClass("hidden").append(bottomForm);
 
     }
@@ -95,7 +96,6 @@ define([
             .then(function(res){
                 if(res.success){
                     addLeftNav(res.data);
-                    sessionStorage.setItem("rcTypes", res.data);
                 }
             });
     }
@@ -105,6 +105,14 @@ define([
     }
 
     function addListener(){
+        $("#leftNav").on("click", "li", function(){
+            var me = $(this), cc = me.attr("code"), text = me.text();
+            if(base.isPerson()){
+                location.href = "./xqlist.html?code=" + cc + "&n=" + text.substr(0, text.length - 1);
+            }else{
+                location.href = "./fwlist.html?code=" + cc + "&n=" + text.substr(0, text.length - 1);
+            }
+        });
         //申请
         $("#sbtn").on("click", function(){
             showSelect();

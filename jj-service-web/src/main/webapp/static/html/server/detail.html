@@ -8,7 +8,7 @@
 <body>
 <link rel="import" href="../body-top.html?__inline">
 <div class="bigbox">
-    <ul  class="name">
+    <ul class="name leftNav" id="leftNav">
         <!--<li><a href="">培训<span>></span></a></li>
         <li><a href="">拍摄/摄影<span>></span></a></li>
         <li><a href="">美工外包<span>></span></a></li>
@@ -22,7 +22,7 @@
     <!--右边-->
     <div class="area">
         <p class="bread-wrap">您所在的位置： 
-          <a href="">服务</a> &gt; <span>******</span>
+          <a href="./index.html">服务</a> &gt; <span>服务详情</span>
         </p>
         
       <div class="topname bt cm"></div>
@@ -57,7 +57,7 @@
               <span class="xh">*</span>
               <span>所属服务</span>
             </div>
-            <input class="in-width" type="text" id="" disabled/>
+            <input class="in-width" type="text" id="fwType" disabled/>
           </div>
           <!--拍摄/摄影-->
           <div id="pspx" class="hidden choseCont">
@@ -147,7 +147,7 @@
                 <span>培训课程</span>
               </div>
               <div class="file-box inblock">
-                <img id="course" src=""/>
+                <a target="_blank" id="course">培训课程</a>
               </div>
             </div>
           </div>
@@ -200,7 +200,7 @@
                 <span>成功案例展示</span>
               </div>
               <div class="file-box inblock">
-                <img id="sucCase" src=""/>
+                <a target="_blank" id="sucCase">成功案例</a>
               </div>
             </div>
           </div>
@@ -298,6 +298,7 @@
                 <span>线上月均交易额</span>
               </div>
               <input class="in-width" type="text" id="mtradeAmount" disabled/>
+              <lable>元</lable>
             </div>
               
             <div class="mtb">
@@ -316,7 +317,7 @@
                 <span class="xh">*</span>
                 <span>收费模式</span>
               </div>
-              <input class="in-width" type="text" id="feeMode" disabled/>
+              <input class="in-width" type="text" id="feeMode1" disabled/>
             </div>
               
             <div class="mtb">
@@ -325,7 +326,7 @@
                 <span>成功案例展示</span>
               </div>
               <div class="file-box inblock">
-                <img id="kf-sucCase" src=""/>
+                <a target="_blank" id="kf-sucCase">成功案例</a>
               </div>
             </div>
           </div>
@@ -466,7 +467,6 @@
 <script>
     require(['app/controller/SDetail']);
 </script>
-</body>
 </body>
 </html>
 

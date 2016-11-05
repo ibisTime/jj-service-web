@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>申请资质</title>
+<style>
+
+
+</style>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox">
+    <ul class="name">
+        <li><a href="./center.html">企业中心<span>></span></a></li>
+        <li><a href="./rclist.html">我要人才<span>></span></a></li>
+        <li><a href="./fwlist.html">展示服务<span>></span></a></li>
+    </ul>
+<!--右边-->
+    <div class="area">
+        <p class="bread-wrap">您所在的位置： 
+            <a href="./center.html">会员中心</a> &gt; <span>申请资质2</span>
+        </p>
+    
+    
+        <div id="step">
+            <div class="step_num" id="step_1">
+                <span>基本信息</span>
+            </div>
+            <div class="step_line"></div>
+            <div class="step_num step_imgtwo" id="step_2">
+                <span>资质申请</span>
+            </div>
+            <div class="step_line"></div>
+            <div class="step_num step_disable" id="step_3">
+                <span>提交审核</span>
+            </div>
+        </div>
+
+        <form>
+            
+        <div class="mtb">
+            <div class="inblock wb"> 
+                <span class="xh">*</span>
+                <span>申请资质</span>
+            </div>
+            <select id="certSelect"></select>
+            </div>
+            
+            <div class="mtb">
+            <div class="inblock wb"> 
+                <span class="xh">*</span>
+                <span>资质名称</span>
+            </div>
+            <input class="in-width" type="text" id="name" disabled/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>资质简介</span>
+                </div>
+                <textarea class="sell" rows="10" cols="50" id="description" disabled></textarea>
+            </div>
+        
+            <div class="hold-box">
+                <input type="button" class="hold" id="sbtn" value="下一步">
+                <a href="javascript:void(0)" class="cancel" id="goPrev">返回</a>
+            </div>
+        </form>
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/SApplyCertificate2']);
+</script>
+</body>
+</html>
+
+

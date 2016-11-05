@@ -1,8 +1,8 @@
 {{#each items}}
     <div class="img-box mr" code="{{companyCode}}">
-        <a href=""><img src="/static/images/xxx.png"></a>
-        <div class="img-text">{{companyName}}</div>
-        <div class="img-text">{{advert}}</div>
-        <div class="img-price">价格区间：￥{{quoteMin}}~￥{{quoteMax}}</div>
+        <a href="javascript:void(0)"><img src="/static/images/xxx.png"></a>
+        <div class="img-text">{{company.name}}</div>
+        <div class="img-text">{{company.slogan}}</div>
+        <div class="img-price">价格区间：{{company.remark}}</div>
     </div>
 {{/each}}

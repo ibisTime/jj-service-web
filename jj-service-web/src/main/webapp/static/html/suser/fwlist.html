@@ -12,29 +12,29 @@
 <link rel="import" href="../body-top.html?__inline">
 <div class="bigbox">
     <ul  class="name">
-  		<li><a href="">企业中心<span>></span></a></li>
-        <li><a href="">我要人才<span>></span></a></li>
-        <li><a href="">展示服务<span>></span></a></li>
+  		<li><a href="./center.html">企业中心<span>></span></a></li>
+        <li><a href="./rclist.html">我要人才<span>></span></a></li>
+        <li><a href="./fwlist.html">展示服务<span>></span></a></li>
     </ul>
     <!--右边-->
-    <div class="area clearfix">
+    <div class="area clearfix" id="contDiv">
         <p class="bread-wrap">您所在的位置： 
             <a href="">会员中心</a> &gt; <span>展示服务</span>
         </p>
         
-        <ul class="lg_tnav_wrap">
-            <li><a href=""  class="current">已发布服务</a></li>
-            <li><a href="" >被感兴趣服务</a></li>
-            <li><a href="" >搜需求</a></li>	
+        <ul class="lg_tnav_wrap" id="fwUl">
+            <li><a href="javascript:void(0)" class="current">已发布服务</a></li>
+            <li><a href="javascript:void(0)" >被感兴趣服务</a></li>
+            <li><a href="javascript:void(0)" >搜需求</a></li>	
         </ul>
-        <div id="yfbfw">
+        <div id="yfbfw" class="fwContent fwContent0">
             <div> 
-                <div class="cdh">增加</div>
-                <div class="cdh">修改</div>
-                <div class="cdh">删除</div>
-                <div class="cdh">查看详情</div>
+                <div class="cdh" id="fwAdd">增加</div>
+                <div class="cdh" id="fwEdit">修改</div>
+                <div class="cdh" id="fwDelete">删除</div>
+                <div class="cdh" id="fwSelect">查看详情</div>
             </div> 
-            <table class="t-box at" style="float:left;width:100%;">
+            <table class="t-box at" style="float:left;width:100%;" id="yfbfw-table">
                 <thead>
                     <tr class="apply-j">
                         <th>&nbsp;</th>
@@ -46,23 +46,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!--<tr>
                         <td><input type="checkbox"></td>
                         <td>金夫人婚纱摄影</td>
                         <td>拍摄/写真</td>
                         <td>橙袋科技</td>
                         <td>￥500-￥999</td>
                         <td>2016-10-20</td>
-                    </tr>
+                    </tr>-->
+                    <tr><td colspan='6'><i class='loading-icon'></i></td></tr>
                 </tbody>
             </table>
         </div>
-        <div id="bgxqfw">
+        <div id="bgxqfw" class="hidden fwContent fwContent1">
             <div> 
-                <div class="cdh">查看详情</div>
-                <div class="cdh">立即处理</div>
+                <!--<div class="cdh" id="bgxqSelect">查看详情</div>-->
+                <div class="cdh" id="bgxqDeal">立即处理</div>
             </div> 
-            <table class="t-box at" style="float:left;width:100%;">
+            <table class="t-box at" style="float:left;width:100%;" id="bgxqfw-table">
                 <thead>
                     <tr class="apply-j">
                         <th>&nbsp;</th>
@@ -74,28 +75,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!--<tr>
                         <td><input type="checkbox"></td>
                         <td>金夫人婚纱摄影</td>
                         <td>拍摄/写真</td>
                         <td>橙袋科技</td>
-                        <td>￥500-￥999</td>
+                        <td class="yxStatus">￥500-￥999</td>
                         <td>2016-10-20</td>
-                    </tr>
+                    </tr>-->
                 </tbody>
             </table>
         </div>
-        <div id="sxq">
+        <div id="sxq" class="hidden fwContent fwContent2">
             <div>
-                <select class="hp24p">
-                    <option>请选择需求类型</option>
+                <select class="hp25p" id="fwType">
+                    <option value="-1">请选择需求类型</option>
                 </select>
-                <input type="button" class="btn btn-small ml20" value="找需求"/>
+                <input type="button" class="btn btn-small ml20" style="border: 1px solid #CDCDCD;" id="searchBtn" value="找需求"/>
             </div>
             <div>
-                <div class="cdh">查看详情</div>
+                <div class="cdh" id="sxqSelect">查看详情</div>
             </div> 
-            <table class="t-box at" style="float:left;width:100%;">
+            <table class="t-box at" style="float:left;width:100%;" id="sxq-table">
                 <thead>
                     <tr class="apply-j">
                         <th>&nbsp;</th>
@@ -108,7 +109,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!--<tr>
                         <td><input type="checkbox"></td>
                         <td>金夫人婚纱摄影</td>
                         <td>拍摄/写真</td>
@@ -116,7 +117,7 @@
                         <td>￥500-￥999</td>
                         <td>￥500-￥999</td>
                         <td>2016-10-20</td>
-                    </tr>
+                    </tr>-->
                 </tbody>
             </table>
         </div>

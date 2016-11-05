@@ -5,6 +5,8 @@ public class XN806150Req {
 	//certificateCode（必填）	资质编号
 	private String certificateCode;
 	
+	private String certificateType;
+	
 	//companyCode（必填）	所属公司编号
 	private String companyCode;
 	
@@ -19,6 +21,14 @@ public class XN806150Req {
 
 	//limit（必填）	页面个数
 	private String limit;
+
+	public String getCertificateType() {
+		return certificateType;
+	}
+
+	public void setCertificateType(String certificateType) {
+		this.certificateType = certificateType;
+	}
 
 	public String getCertificateCode() {
 		return certificateCode;

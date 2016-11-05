@@ -14,12 +14,21 @@ define([
     init();
 
     function init(){
-        document.title = title;
+        if(title){
+            document.title = title;
+        }
+        Handlebars.registerHelper('formatDate', function(num, options){
+            var dd = new Date(num);
+            return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
+        });
+        Handlebars.registerHelper('formtExp', function(num, options){
+            return experience[num];
+        });
         //需求方或未登录时
         if(base.isPerson()){
             var rcTypes = sessionStorage.getItem("rcTypes");    //人才数据字典
             if(rcTypes){
-                addLeftNav(rcTypes);
+                addLeftNav($.parseJSON(rcTypes));
             }else{
                 getDictList();
             }
@@ -32,8 +41,8 @@ define([
 
     function addListeners(){
         $("#leftNav").on("click", "li", function(){
-            var me = $(this), cc = me.attr("code");
-            location.href = "./xqlist.html?code=" + cc + "&n=" + me.text();
+            var me = $(this), cc = me.attr("code"), text = me.text();
+            location.href = "./xqlist.html?code=" + cc + "&n=" + text.substr(0, text.length - 1);
         });
         
         $("#r-table").on("click", "tbody tr .checkinput", function(e){
@@ -60,9 +69,9 @@ define([
     }
 
     function getCheckItem(){
-        var ele1 = $("#r-table").find(".checkinput.actived");
+        var tr = $("#r-table").find(".checkinput.actived");
         if(tr.length){
-            return ele1.closest("tr").attr("code");
+            return tr.closest("tr").attr("code");
         }else{
             return "";
         }
@@ -73,7 +82,6 @@ define([
             .then(function(res){
                 if(res.success){
                     addLeftNav(res.data);
-                    sessionStorage.setItem("rcTypes", res.data);
                 }
             });
     }
@@ -87,9 +95,9 @@ define([
             start: start,
             limit: "10"
         }).then(function(res){
-            if(res.success){
+            if(res.success && res.data.list.length){
                 var data = res.data;
-                $("#r-table").html( rightListmpl({items: data.list}) );
+                $("#r-table").find("tbody").html( rightListmpl({items: data.list}) );
                 $("#pagination_div").pagination({
                     items: data.totalCount,
                     itemsOnPage: 10,
@@ -110,9 +118,9 @@ define([
         });
     }
     function addLoading(){
-        $("#r-table").find("tbody").html("<tr><td colspan='6'><i class='loading-icon'></i></td></tr>");
+        $("#r-table").find("tbody").html("<tr><td colspan='7'><i class='loading-icon'></i></td></tr>");
     }
     function doError() {
-        $("#r-table").find("body").html("<tr><td colspan='6'>暂时无法获取服务信息</td></tr>");
+        $("#r-table").find("tbody").html("<tr><td colspan='7'>暂时无法获取服务信息</td></tr>");
     }
 });

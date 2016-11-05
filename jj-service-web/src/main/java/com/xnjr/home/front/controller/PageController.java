@@ -101,8 +101,8 @@ public class PageController {
         return isMoblie;
     }
     
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public String page(HttpServletRequest request) {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String page(HttpServletRequest request) {
 //        SessionUser user = (SessionUser) sessionProvider
 //            .getAttribute(SESSION_KEY_USER);
 //        if (null != user) {
@@ -112,6 +112,6 @@ public class PageController {
 //    	if (JudgeIsMoblie(request)) {
 //            return "redirect:" + "m/home/index.html";
 //        }
-//        return "redirect:w/home/index.html";
-//    }
+        return "redirect:w/home/index.html";
+    }
 }

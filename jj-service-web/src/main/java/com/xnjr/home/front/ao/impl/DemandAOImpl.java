@@ -13,21 +13,21 @@ import com.xnjr.home.front.req.XN612050Req;
 public class DemandAOImpl implements IDemandAO {
 
 	@Override
-	public Object addDemand(String name, String qualityCode, String expCompany,
+	public Object addDemand(String name, String type, String expCompany,
 			String urgentLevel, String description, String publisher) {
 		XN612040Req req = new XN612040Req();
 		req.setDescription(description);
 		req.setExpCompany(expCompany);
 		req.setName(name);
 		req.setPublisher(publisher);
-		req.setQualityCode(qualityCode);
+		req.setType(type);
 		req.setUrgentLevel(urgentLevel);
 		return BizConnecter.getBizData("612040", JsonUtils.object2Json(req),
 				Object.class);
 	}
 
 	@Override
-	public Object editDemand(String code, String name, String qualityCode,
+	public Object editDemand(String code, String name, String type,
 			String expCompany, String urgentLevel, String description,
 			String publisher) {
 		XN612041Req req = new XN612041Req();
@@ -36,7 +36,7 @@ public class DemandAOImpl implements IDemandAO {
 		req.setExpCompany(expCompany);
 		req.setName(name);
 		req.setPublisher(publisher);
-		req.setQualityCode(qualityCode);
+		req.setType(type);
 		req.setUrgentLevel(urgentLevel);
 		return BizConnecter.getBizData("612041", JsonUtils.object2Json(req),
 				Object.class);
@@ -49,7 +49,7 @@ public class DemandAOImpl implements IDemandAO {
 	}
 
 	@Override
-	public Object queryPageDemand(String publisher, String qualityCode,
+	public Object queryPageDemand(String publisher, String type,
 			String urgentLevel, String dateStart, String dateEnd,
 			String dealer, String start, String limit) {
 		XN612050Req req = new XN612050Req();
@@ -58,7 +58,7 @@ public class DemandAOImpl implements IDemandAO {
 		req.setDealer(dealer);
 		req.setLimit(limit);
 		req.setPublisher(publisher);
-		req.setQualityCode(qualityCode);
+		req.setType(type);
 		req.setStart(start);
 		req.setUrgentLevel(urgentLevel);
 		return BizConnecter.getBizData("612050", JsonUtils.object2Json(req),

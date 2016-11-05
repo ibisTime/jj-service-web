@@ -8,7 +8,7 @@
 <body>
 <link rel="import" href="../body-top.html?__inline">
 <div class="bigbox">
-    <ul class="name" id="leftNav">
+    <ul class="name leftNav" id="leftNav">
         <!--<li><a href="">运营总监<span>></span></a></li>
         <li><a href="">运营主管<span>></span></a></li>
         <li><a href="">运营<span>></span></a></li>
@@ -19,7 +19,7 @@
     <!--右边-->
     <div class="area">
         <p class="bread-wrap">您所在的位置： 
-            <a href="">服务</a> &gt; <span>我是服务商</span>
+            <a href="./index.html">人才</a> &gt; <span>职位详情</span>
         </p>
     
         <div class="topname bt">职位信息</div>
@@ -109,94 +109,96 @@
             <span><a href="javascript:void(0)" id="cancel">返回</a></span>
         </div>
 
-        <div class="hidden" id="logined">
-            <form id="bottomForm">
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">*</span>
-                        <span>企业名称</span>
+        <div>
+            <div class="hidden" id="logined">
+                <form id="bottomForm">
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">*</span>
+                            <span>企业名称</span>
+                        </div>
+                        <input class="in-width" type="text" id="companyName" disabled />
                     </div>
-                    <input class="in-width" type="text" id="companyName" disabled />
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">*</span>
-                        <span>企业营业执照</span>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">*</span>
+                            <span>企业营业执照</span>
+                        </div>
+                        <div class="file-box inblock va-tt"> 
+                            <img id="gsyyzzh" src="../../images/asad.jpg"/>
+                        </div>
                     </div>
-                    <div class="file-box inblock"> 
-                        <img id="gsyyzzh" src="../../images/asad.jpg"/>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">*</span>
+                            <span>企业图标</span>
+                        </div>
+                        <div class="file-box inblock va-tt"> 
+                            <img id="logo" src="../../images/asad.jpg"/> 
+                        </div>
                     </div>
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">*</span>
-                        <span>企业图标</span>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">*</span>
+                            <span>联系人</span>
+                        </div>
+                        <input class="in-width" type="text" id="contacts" disabled />
                     </div>
-                    <div class="file-box inblock"> 
-                        <img id="logo" src="../../images/asad.jpg"/> 
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">*</span>
+                            <span>联系人手机</span>
+                        </div>
+                        <input class="in-width" type="text" id="mobile" disabled />
                     </div>
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">*</span>
-                        <span>联系人</span>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>联系人邮箱</span>
+                        </div>
+                        <input class="in-width" type="text" id="email" disabled />
                     </div>
-                    <input class="in-width" type="text" id="contacts" disabled />
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">*</span>
-                        <span>联系人手机</span>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>联系人QQ号码</span>
+                        </div>
+                        <input class="in-width" type="text" id="qq" disabled />
                     </div>
-                    <input class="in-width" type="text" id="mobile" disabled />
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">&nbsp;</span>
-                        <span>联系人邮箱</span>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>规模</span>
+                        </div>
+                        <input class="in-width" type="text" id="scale" disabled />
                     </div>
-                    <input class="in-width" type="text" id="email" disabled />
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">&nbsp;</span>
-                        <span>联系人QQ号码</span>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>地址</span>
+                        </div>
+                        <div class="map inblock va-tt break-word" type="text" id="compAddress"></div>
                     </div>
-                    <input class="in-width" type="text" id="qq" disabled />
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">&nbsp;</span>
-                        <span>规模</span>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>简介</span>
+                        </div>
+                        <div class="mt10 ml24" id="compDescription"></div>
                     </div>
-                    <input class="in-width" type="text" id="scale" disabled />
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">&nbsp;</span>
-                        <span>地址</span>
-                    </div>
-                    <input class="map" type="text" id="compAddress" disabled />
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock wb"> 
-                        <span class="xh">&nbsp;</span>
-                        <span>简介</span>
-                    </div>
-                    <div class="mt10 ml24" id="compDescription"></div>
-                </div>
-            </form>
+                </form>
+            </div>
             <div class="hold-box">
-                <input type="submit" class="hold hidden" id="sbtn" value="申请">
+                <input type="button" class="hold hidden" id="sbtn" value="申请">
                 <a href="javascript:void(0)" id="cancel1" class="cancel">取消</a>
             </div>
         </div>

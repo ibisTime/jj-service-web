@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.xnjr.home.front.ao.ICredentialsAO;
 import com.xnjr.home.front.http.BizConnecter;
 import com.xnjr.home.front.http.JsonUtils;
+import com.xnjr.home.front.req.XN806131Req;
 import com.xnjr.home.front.req.XN806140Req;
 import com.xnjr.home.front.req.XN806150Req;
 import com.xnjr.home.front.req.XN806151Req;
@@ -22,10 +23,12 @@ public class CredentialsAOImpl implements ICredentialsAO {
 	}
 
 	@Override
-	public Object queryPageCredentials(String certificateCode,
+	public Object queryPageCredentials(
+			String certificateCode, String certificateType,
 			String companyCode, String status, String approveUser,
 			String start, String limit) {
 		XN806150Req req = new XN806150Req();
+		req.setCertificateType(certificateType);
 		req.setApproveUser(approveUser);
 		req.setCertificateCode(certificateCode);
 		req.setCompanyCode(companyCode);
@@ -53,6 +56,18 @@ public class CredentialsAOImpl implements ICredentialsAO {
 	@Override
 	public Object queryCredentials(String code) {
 		return BizConnecter.getBizData("806152", JsonUtils.string2Json("code", code),
+				Object.class);
+	}
+
+	@Override
+	public Object queryListCredentials1(String type, String name,
+			String status, String updater) {
+		XN806131Req req = new XN806131Req();
+		req.setName(name);
+		req.setStatus("1");
+		req.setType(type);
+		req.setUpdater(updater);
+		return BizConnecter.getBizData("806131", JsonUtils.object2Json(req),
 				Object.class);
 	}
 

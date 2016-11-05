@@ -1,5 +1,7 @@
 package com.xnjr.home.front.ao.impl;
 
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,13 @@ import com.xnjr.home.front.req.XN805043Req;
 import com.xnjr.home.front.req.XN805047Req;
 import com.xnjr.home.front.req.XN805048Req;
 import com.xnjr.home.front.req.XN805049Req;
+import com.xnjr.home.front.req.XN805076Req;
+import com.xnjr.home.front.req.XN806000Req;
+import com.xnjr.home.front.req.XN806004Req;
+import com.xnjr.home.front.req.XN806008Req;
+import com.xnjr.home.front.req.XN806009Req;
+import com.xnjr.home.front.req.XN806014Req;
+import com.xnjr.home.front.req.XN806016Req;
 import com.xnjr.home.front.util.PwdUtil;
 
 
@@ -25,47 +34,71 @@ import com.xnjr.home.front.util.PwdUtil;
 public class UserAOImpl implements IUserAO {
 
     @Override
-    public Object doRegister(String mobile, String userReferee) {
-        XN602601Req req = new XN602601Req();
+    public Object doPersonRegister(String mobile, String loginPwd,
+    		String userReferee, String smsCaptcha) {
+        XN805076Req req = new XN805076Req();
+        req.setLoginPwd(loginPwd);
+        req.setSmsCaptcha(smsCaptcha);
         req.setMobile(mobile);
+        req.setLoginPwdStrength(PwdUtil.calculateSecurityLevel(loginPwd));
         req.setUserReferee(userReferee);
-        return BizConnecter.getBizData("602601", JsonUtils.object2Json(req),
+        return BizConnecter.getBizData("805076", JsonUtils.object2Json(req),
+        		Object.class);
+    }
+    
+    public Object doCompRegister(String type, String name,
+    		String gsyyzzh, String contacts, String mobile,
+    		String loginName, String password, String province,
+    		String city, String area){
+    	XN806000Req req = new XN806000Req();
+    	req.setArea(area);
+    	req.setCity(city);
+    	req.setContacts(contacts);
+    	req.setGsyyzzh(gsyyzzh);
+    	req.setLoginName(loginName);
+    	req.setMobile(mobile);
+    	req.setName(name);
+    	req.setPassword(password);
+    	req.setProvince(province);
+    	req.setType(type);
+    	return BizConnecter.getBizData("806000", JsonUtils.object2Json(req),
         		Object.class);
     }
 
     
     @Override
-    public Object doLogin(String loginName, String loginPwd, String kind) {
-        if (StringUtils.isBlank(loginName)) {
-            throw new BizException("A010001", "登陆名不能为空");
-        }
-        if (StringUtils.isBlank(loginPwd)) {
-            throw new BizException("A010001", "登陆密码不能为空");
-        }
-
+    public Map doPersonLogin(String loginName, String loginPwd) {
         XN805043Req req = new XN805043Req();
         req.setLoginName(loginName);
         req.setLoginPwd(loginPwd);
-        //req.setKind("f1");
-
+        req.setKind("f1");
         return BizConnecter.getBizData("805043", JsonUtils.object2Json(req),
-            Object.class);
+        		Map.class);
+    }
+    
+    @Override
+    public Map doCompLogin(String loginName, String password){
+    	XN806016Req req = new XN806016Req();
+        req.setLoginName(loginName);
+        req.setPassword(password);
+        return BizConnecter.getBizData("806016", JsonUtils.object2Json(req),
+        		Map.class);
     }
 
     @Override
     // XN805056Res
-    public Object doGetUser(String userId) {
+    public Map doGetUser(String userId) {
         if (StringUtils.isBlank(userId)) {
             throw new BizException("A010001", "用户编号不能为空");
         }
         return BizConnecter.getBizData("805056",
-            JsonUtils.string2Json("userId", userId), Object.class);
+            JsonUtils.string2Json("userId", userId), Map.class);
     }
     
     @Override
-    public Object doGetCompanyInfo(String code){
+    public Map doGetCompanyInfo(String code){
     	return BizConnecter.getBizData("806010",
-                JsonUtils.string2Json("code", code), Object.class);
+                JsonUtils.string2Json("code", code), Map.class);
     }
 
     @Override
@@ -88,7 +121,19 @@ public class UserAOImpl implements IUserAO {
         BizConnecter.getBizData("805048", JsonUtils.object2Json(req),
             Object.class);
     }
-
+    
+    @Override
+    public void doFindCompLoginPwd(String loginName, String mobile,
+    		String smsCaptcha, String newPassword){
+    	XN806009Req req = new XN806009Req();
+    	req.setLoginName(loginName);
+    	req.setMobile(mobile);
+    	req.setNewPassword(newPassword);
+    	req.setSmsCaptcha(smsCaptcha);
+    	BizConnecter.getBizData("806009", JsonUtils.object2Json(req),
+                Object.class);
+    }
+    
     @Override
     public void doResetLoginPwd(String userId, String oldLoginPwd,
             String newLoginPwd) {
@@ -109,17 +154,24 @@ public class UserAOImpl implements IUserAO {
         BizConnecter.getBizData("805049", JsonUtils.object2Json(req),
             Object.class);
     }
-
+    
+    public void doResetCompLoginPwd(String code, String oldPassword, String newPassword){
+    	XN806008Req req = new XN806008Req();
+    	req.setCode(code);
+    	req.setNewPassword(newPassword);
+    	req.setOldPassword(oldPassword);
+    	BizConnecter.getBizData("806008", JsonUtils.object2Json(req),
+                Object.class);
+    }
 
     @Override
     public void doChangeMoblie(String userId, String newMobile,
-            String smsCaptcha, String tradePwd) {
+            String smsCaptcha) {
         XN805047Req req = new XN805047Req();
         req.setUserId(userId);
         req.setNewMobile(newMobile);
         req.setSmsCaptcha(smsCaptcha);
-        tradePwd = "888888";
-        req.setTradePwd(tradePwd);
+        req.setTradePwd("888888");
         BizConnecter.getBizData("805047", JsonUtils.object2Json(req),
             Object.class);
     }
@@ -145,11 +197,57 @@ public class UserAOImpl implements IUserAO {
             Object.class);
     }
 
+	@Override
+	public Object editCompanyInfo(String code, String name, String gsyyzzh,
+			String logo, String province, String city, String area,
+			String address, String description, String scale, String contacts,
+			String mobile, String email, String qq, String type, String slogan, String remark) {
+		XN806004Req req = new XN806004Req();
+		req.setAddress(address);
+		req.setArea(area);
+		req.setCity(city);
+		req.setCode(code);
+		req.setContacts(contacts);
+		req.setDescription(description);
+		req.setEmail(email);
+		req.setGsyyzzh(gsyyzzh);
+		req.setLogo(logo);
+		req.setMobile(mobile);
+		req.setName(name);
+		req.setProvince(province);
+		req.setQq(qq);
+		req.setScale(scale);
+		req.setType(type);
+		req.setSlogan(slogan);
+		req.setRemark(remark);
+        return BizConnecter.getBizData("806004", JsonUtils.object2Json(req),
+                Object.class);
+	}
 
 	@Override
-	public Object doReg(String mobile, String loginPwd, String smsCaptcha,
-			String userReferee) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object queryPageCompany(String code, String name, String abbrName,
+			String type, String isDefault, String location, String province,
+			String city, String area, String userId, String start,
+			String limit, String orderColumn, String orderDir, String isHot) {
+		XN806014Req req = new XN806014Req();
+        req.setAbbrName(abbrName);
+        req.setArea(area);
+        req.setCity(city);
+        req.setCode(code);
+        req.setIsDefault(isDefault);
+        req.setLimit(limit);
+        req.setLocation("1");
+        req.setName(name);
+        req.setOrderColumn(orderColumn);
+        req.setOrderDir(orderDir);
+        req.setProvince(province);
+        req.setStart(start);
+        req.setType(type);
+        req.setUserId(userId);
+        req.setIsHot(isHot);
+        return BizConnecter.getBizData("806014", JsonUtils.object2Json(req),
+            Object.class);
 	}
+
+
 }

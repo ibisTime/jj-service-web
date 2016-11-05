@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>修改密码</title>
+<style>
+
+</style>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox clearfix" >
+    <div class="nav-font clearfix">
+        <div class="fast inblock">修改密码</div>
+     </div>
+     
+  <div class="login_box1 ta-l"> 
+    <div class="login-mtb">
+        <div class="message-word">原密码</div>
+        <input type="password" class="login_btn" id="oldLoginPwd"/>
+    </div>
+    <div class="login-mtb">
+        <div class="message-word">新密码</div>
+        <input type="password" class="login_btn" id="newLoginPwd"/>
+    </div>
+    <div class="login-mtb ">
+       <div class="message-word">确认密码</div>
+       <input type="password" class="login_btn" id="rePwd"/>
+    </div>
+    
+    <div class="login-mtb " >
+       <input type="button" value="修改" class="login-font" id="resetBtn"/>
+    </div>
+ </div>
+  
+  
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/ResetPwd']);
+</script>
+</body>
+</html>

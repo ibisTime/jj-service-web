@@ -15,9 +15,6 @@ public class ApplicationProperties implements ServletContextAware {
 
     private ServletContext servletContext;
 
-    @Value("${web.basePath}")
-    private String basePath;
-
     @Value("${web.resourceUrl}")
     private String resourceUrl;
 
@@ -27,17 +24,9 @@ public class ApplicationProperties implements ServletContextAware {
 
     @Override
     public void setServletContext(ServletContext context) {
-        context.setAttribute("basePath", basePath);
         context.setAttribute("resourceUrl", resourceUrl);
     }
 
-    public String getBasePath() {
-        return basePath;
-    }
-
-    public void setBasePath(String basePath) {
-        this.basePath = basePath;
-    }
 
     public String getResourceUrl() {
         return resourceUrl;

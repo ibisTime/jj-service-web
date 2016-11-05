@@ -14,6 +14,7 @@ public interface ICredentialsAO {
 	/**
 	 * 分页查询公司资质
 	 * @param certificateCode
+	 * @param certificateType
 	 * @param companyCode
 	 * @param status
 	 * @param approveUser
@@ -21,7 +22,7 @@ public interface ICredentialsAO {
 	 * @param limit
 	 * @return
 	 */
-	Object queryPageCredentials(String certificateCode,
+	Object queryPageCredentials(String certificateCode, String certificateType,
 			String companyCode, String status, String approveUser,
 			String start, String limit);
 	
@@ -44,4 +45,15 @@ public interface ICredentialsAO {
 	 * @return
 	 */
 	Object queryCredentials(String code);
+	
+	/**
+	 * 列表查询资质
+	 * @param type
+	 * @param name
+	 * @param status
+	 * @param updater
+	 * @return
+	 */
+	Object queryListCredentials1(String type, String name,
+			String status, String updater);
 }

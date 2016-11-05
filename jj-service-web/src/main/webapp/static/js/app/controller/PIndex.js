@@ -14,8 +14,16 @@ define([
     init();
 
     function init(){
+        Handlebars.registerHelper('formatDate', function(num, options){
+            var dd = new Date(num);
+            return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
+        });
+        Handlebars.registerHelper('formtExp', function(num, options){
+            return experience[num];
+        });
         var rcTypes = sessionStorage.getItem("rcTypes");    //人才数据字典
         if(rcTypes){
+            rcTypes = $.parseJSON(rcTypes);
             addLeftNav(rcTypes);
         }else{
             getDictList();
@@ -35,6 +43,17 @@ define([
                 location.href = "./xqlist.html?code=" + code + "&n=" + me.text();
             }
         });
+        $("#getMore").on("click", function(){
+            var li = $("#leftNav").children("li:eq(0)"),
+                code = li.attr("code");
+            //到服务方页面
+            if(base.isCompUser()){
+                location.href = "./fwlist.html?code=" + code + "&n=" + li.text();
+            //到需求方页面
+            }else{
+                location.href = "./xqlist.html?code=" + code + "&n=" + li.text();
+            }
+        });
     }
 
     function getDictList(){
@@ -42,7 +61,7 @@ define([
             .then(function(res){
                 if(res.success){
                     addLeftNav(res.data);
-                    sessionStorage.setItem("rcTypes", res.data);
+                    sessionStorage.setItem("rcTypes", JSON.stringify(res.data));
                 }
             });
     }
@@ -65,7 +84,7 @@ define([
                 }
             }
             rFirst = false;
-            setTimeout(getPagePosition, refreshTime);
+            setTimeout(getHotPagePosition, refreshTime);
         });
     }
 

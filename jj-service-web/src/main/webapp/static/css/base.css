@@ -40,14 +40,19 @@ img {
 
 
 /* 初始化 */
-body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article,
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article,
 aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     margin: 0;
     padding: 0;
     border: 0;
     font-family: Microsoft YaHei;
 }
-
+select{
+    cursor: pointer;
+}
+input[type="button"], input[type="submit"]{
+    border: 0;
+}
 body {
     font-size: 1.2rem;
     position: relative;
@@ -105,10 +110,6 @@ a.disabled {
 /*}*/
 ul, ol, li {
     list-style: none;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-size: 100%;
 }
 
 img {
@@ -505,6 +506,11 @@ textarea {
 
 .pb4 {
     padding-bottom: 4px;
+}
+
+.plr3 {
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 .plr4 {
@@ -1500,6 +1506,9 @@ textarea {
 .hp24p {
     height: 24px;
 }
+.hp25p {
+    height: 25px;
+}
 
 /*定位*/
 .re {
@@ -1892,7 +1901,8 @@ a.blue-link, a.blue-link:active, a.blue-link:hover, a.blue-link:link {
 	background: url(../images/loading.gif) center no-repeat;
 }
 .bg-loading{
-    background: url(../images/loading.gif) center no-repeat;
+    background: url(../images/loading.gif) center no-repeat !important;
+    color: inherit !important;
 }
 .cur_pointer{
     cursor: pointer;
@@ -1933,3 +1943,38 @@ input[type=number]::-webkit-outer-spin-button {
 .sjssbj .inp3{
     margin: 0 1em 0 0;
 }
+input[type="button"],input[type="submit"],input[type="checkbox"]{
+    cursor: pointer;
+}
+.imgCaptcha{
+    margin-left: 10px;
+    width: 86px;
+    height: 36px;
+    cursor: pointer;
+}
+#pagination_div{
+    text-align: center;
+    margin-top: 15px;
+}
+#pagination_div ul li{
+    display: inline-block;
+    margin: 0 5px;
+}
+#pagination_div ul li span{
+    background: #fff;
+    color: #6d6d6d;
+    padding: 4px 10px;
+    border: 1px solid #e7e7e6;
+    cursor: pointer;
+}
+#pagination_div ul li span.current{
+    background: #CB2A2F;
+    color: #fff;
+}
+.leftNav li{
+    cursor: pointer;
+}
+/*input[disabled], textarea[disabled] {
+    background: transparent;
+    border: none;
+}*/

@@ -8,6 +8,7 @@ define([
     var template = __inline("../ui/error-fragment.handlebars"),
         leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         start = 1, companyCode = base.getUrlParam("code"),
+        serverType = Dict.get("serverType"),
         type = base.getUrlParam("t"),
         sName = base.getUrlParam("n");
 
@@ -16,7 +17,7 @@ define([
     function init(){
         var fwTypes = sessionStorage.getItem("fwTypes");
         if(fwTypes){
-            addLeftNav(fwTypes);
+            addLeftNav($.parseJSON(fwTypes));
         }else{
             getDictList();
         }
@@ -64,7 +65,7 @@ define([
         $("#email", topForm).val(data.email);
         $("#qq", topForm).val(data.qq);
         $("#scale", topForm).val(data.scale);
-        $("#address", topForm).val( (data.province || "") + "" + (data.city || "") + (data.area || "") );
+        $("#address", topForm).html( (data.province || "") + "" + (data.city || "") + (data.area || "") + (data.address || ""));
         $("#compDescription", topForm).val(data.description);
 
         $("#compDiv").removeClass("hidden").append(topForm);
@@ -94,13 +95,13 @@ define([
             if(code){
                 location.href = "./detail.html?code=" + code + "&t=" + type + "&return=" + base.makeReturnUrl();
             }else{
-                base.showMsg("您未选择所要申请的职位！");
+                base.showMsg("您未选择所要查看的服务！");
             }
         });
     }
     function getCheckItem(){
         var ele1 = $("#bTable").find(".checkinput.actived");
-        if(tr.length){
+        if(ele1.length){
             return ele1.closest("tr").attr("code");
         }else{
             return "";
@@ -124,11 +125,12 @@ define([
         base.getPageServers({
             start: start,
             limit: "10",
-            type: type
+            type: type,
+            companyCode: companyCode
         }).then(function(res){
             if(res.success){
                 var data = res.data;
-                addTable(data);
+                addTable(data.list);
                 $("#pagination_div").pagination({
                     items: data.totalCount,
                     itemsOnPage: 10,
@@ -154,18 +156,17 @@ define([
             html += '<tr code="'+dd.code+'">'+
                         '<td><input type="checkbox" class="checkinput"></td>'+
                         '<td>'+dd.name+'</td>'+
-                        '<td>'+sName+'</td>'+
-                        '<td>'+dd.companyName+'</td>'+
+                        '<td>'+serverType[dd.type]+'</td>'+
+                        '<td>'+dd.company.name+'</td>'+
                         '<td>￥'+dd.quoteMin+'-￥'+dd.quoteMin+'</td>'+
-                        '<td>'+dd.advert+'</td>'+
                     '</tr>';
         });
         $("#bTable").find("tbody").html( html );
     }
     function addLoading(){
-        $("#r-table").find("tbody").html("<tr><td colspan='6'><i class='loading-icon'></i></td></tr>");
+        $("#r-table").find("tbody").html("<tr><td colspan='5'><i class='loading-icon'></i></td></tr>");
     }
     function doError() {
-        $("#bTable").find("body").html("<tr><td colspan='6'>暂时无法获取服务信息</td></tr>");
+        $("#bTable").find("body").html("<tr><td colspan='5'>暂时无法获取服务信息</td></tr>");
     }
 });

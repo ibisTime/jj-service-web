@@ -1,9 +1,8 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'Handlebars'
-], function (base, Ajax, Dict, Handlebars) {
+], function (base, Dict, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
         lTableTmpl = __inline("../ui/index-ltable.handlebars"),
         rTableTmpl = __inline("../ui/index-rtable.handlebars"),
@@ -13,21 +12,30 @@ define([
     init();
 
     function init(){
-        // Handlebars.registerHelper('formatDate', function(num, options){
-        //     num = num + '';
-        //     return num.replace(/(?=(?!^)(?:\d{3})+(?:\.|$))(\d{3}(\.\d+$)?)/g,',$1');
-        // });
-        getPageServers();
+        Handlebars.registerHelper('formatDate', function(num, options){
+            var dd = new Date(num);
+            return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
+        });
+        getPageComp();
         getPageNews();
+        addListeners();
     }
-
-    function getPageServers(){
-        base.getPageServers({
+    function addListeners(){
+        $("#r-table").on("click", "tr", function(){
+            var me = $(this), code = me.attr("code");
+            location.href = "./news.html?c=" + code;
+        });
+        $("#l-table").on("click", "tr", function(){
+            var me = $(this);
+        });
+    }
+    function getPageComp(){
+        base.getPageComp({
             start: "1",
             limit: "10",
             isHot: "1"
         }).then(function(res){
-            if(res.success){
+            if(res.success && res.data.list.length){
                 $("#l-table").find("tbody").html( lTableTmpl({items: res.data.list}) );
             }else{
                 if(lFirst){
@@ -35,7 +43,7 @@ define([
                 }
             }
             lFirst = false;
-            setTimeout(getPageServers, refreshTime);
+            setTimeout(getPageComp, refreshTime);
         });
     }
 
@@ -45,11 +53,11 @@ define([
             limit: "10",
             type: "2"
         }).then(function(res){
-            if(res.success){
+            if(res.success && res.data.list.length){
                 $("#r-table").find("tbody").html( rTableTmpl({items: res.data.list}) );
             }else{
                 if(rFirst){
-                    doError($("#r-table").find("body"));
+                    doError($("#r-table").find("tbody"));
                 }
             }
             rFirst = false;

@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>我要人才</title>
+<style>
+
+</style>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox">
+    <ul class="name">
+  		<li><a href="./center.html">企业中心<span>></span></a></li>
+        <li><a href="./rclist.html">我要人才<span>></span></a></li>
+        <li><a href="./fwlist.html">展示服务<span>></span></a></li>
+    </ul>
+    <!--右边-->
+    <div class="area clearfix" id="contDiv">
+        <p class="bread-wrap">您所在的位置： 
+            <a href="">会员中心</a> &gt; <span>我要人才</span>
+        </p>
+    
+	    <ul class="lg_tnav_wrap" id="rcUl">
+            <li><a href="javascript:void(0)" class="current">已发布职位</a></li>
+            <li><a href="javascript:void(0)" >应聘简历</a></li>
+            <li><a href="javascript:void(0)" >搜简历</a></li>
+        </ul>
+        <div id="yfbzw" class="rcContent rcContent0">
+            <div> 
+                <div class="cdh" id="zwAdd">发布职位</div>
+                <div class="cdh" id="zwEdit">修改</div>
+                <div class="cdh" id="zwDelete">删除</div>
+                <div class="cdh" id="zwSelect">查看详情</div>
+            </div> 
+            <table class="t-box at" style="float:left;width:100%;" id="yfbzw-table">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>企业名称</th>
+                        <th>职位名称</th>
+                        <th>工作地点</th>
+                        <th>职位月薪</th>
+                        <th>申请日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr>
+                        <td><input type="checkbox"></td>
+                        <td>杭州橙袋科技有限公司</td>
+                        <td>运营</td>
+                        <td>杭州</td>
+                        <td>15k-30k</td>
+                        <td>2016-10-20</td>
+                    </tr>-->
+                </tbody>
+            </table>
+        </div>
+        <div id="ypjl" class="rcContent rcContent1 hidden">
+            <div> 
+                <div class="cdh" id="dealBtn">立即处理</div>
+                <div class="cdh" id="ypjlDownload">下载</div>
+                <div class="cdh" id="ypjlSelect">查看详情</div>
+            </div> 
+            <table class="t-box at" style="float:left;width:100%;" id="ypjl-table">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>简历名称</th>
+                        <th>投递职位</th>
+                        <th>期望工作地点</th>
+                        <th>期望月薪</th>
+                        <th>状态</th>
+                        <th>投递日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>杭州橙袋科技有限公司</td>
+                        <td>运营</td>
+                        <td>杭州</td>
+                        <td>15k-30k</td>
+                        <td class="yxStatus">2016-10-20</td>
+                        <td>2016-10-20</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="sjl" class="rcContent rcContent2 hidden">
+            <div>
+                <select class="hp24p" id="rcType">
+                    <option value="-1">请选择需求类型</option>
+                </select>
+                <select class="hp24p" id="province">
+                    <option value="-1">请选择省份</option>
+                </select>
+                <select class="hp24p" id="city" disabled>
+                    <option value="-1">请选择城市</option>
+                </select>
+                <input type="button" class="btn btn-small ml20" id="searchBtn" value="搜简历"/>
+            </div>
+            <div> 
+                <div class="cdh" id="sjlWatch">预览</div>
+                <div class="cdh" id="sjlLike">感兴趣</div>
+                <div class="cdh" id="sjlDownload">下载</div>
+            </div> 
+            <table class="t-box at" style="float:left;width:100%;" id="sjl-table">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>简历名称</th>
+                        <th>投递职位</th>
+                        <th>工作年限</th>
+                        <th>期望薪资</th>
+                        <th>期望工作地点</th>
+                        <th>更新日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>杭州橙袋科技有限公司</td>
+                        <td>运营</td>
+                        <td>杭州</td>
+                        <td>15k-30k</td>
+                        <td>2016-10-20</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="pagination_div"></div>
+        <!--<div class="page layer" id="pagination">
+            <nav class="jq-pagination">
+                <li class="page-prev"><a href="">&lt;</a></li>
+                <li class="page-number curr"><a href="">1</a></li>
+                <li class="page-number"><a href="">2</a></li>
+                <li class="page-number"><a href="">3</a></li>
+                <li class="page-number"><a href="">...</a></li>
+                <li class="page-number"><a href="">6</a></li>
+                <li class="page-next"><a href="">&gt;</a></li>
+            </nav>
+        </div> -->
+
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/SRCList']);
+</script>
+</body>
+</html>

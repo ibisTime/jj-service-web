@@ -36,7 +36,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setDescription(description);
 		req.setIsDz(isDz);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setPyNum(pyNum);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
@@ -59,7 +59,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setDescription(description);
 		req.setIsDz(isDz);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setPyNum(pyNum);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
@@ -84,7 +84,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setMtrainNum(mtrainNum);
 		req.setMtrainTimes(mtrainTimes);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -109,7 +109,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setMtrainNum(mtrainNum);
 		req.setMtrainTimes(mtrainTimes);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -132,7 +132,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setFeeMode(feeMode);
 		req.setName(name);
 		req.setPayCycle(payCycle);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -155,7 +155,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setFeeMode(feeMode);
 		req.setName(name);
 		req.setPayCycle(payCycle);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -186,7 +186,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setHomeDays(homeDays);
 		req.setHomePrice(homePrice);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -217,7 +217,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setHomeDays(homeDays);
 		req.setHomePrice(homePrice);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -240,7 +240,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setKfNum(kfNum);
 		req.setMtradeAmount(mtradeAmount);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -263,7 +263,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setKfNum(kfNum);
 		req.setMtradeAmount(mtradeAmount);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -283,7 +283,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setDsendNum(dsendNum);
 		req.setGoodsKind(goodsKind);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -304,7 +304,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setDsendNum(dsendNum);
 		req.setGoodsKind(goodsKind);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -320,7 +320,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setCompanyCode(companyCode);
 		req.setDescription(description);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -337,7 +337,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setCompanyCode(companyCode);
 		req.setDescription(description);
 		req.setName(name);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -362,7 +362,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setName(name);
 		req.setPic1(pic1);
 		req.setPic2(pic2);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);
@@ -391,7 +391,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setName(name);
 		req.setPic1(pic1);
 		req.setPic2(pic2);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setQualityCode(qualityCode);
 		req.setQuoteMax(quoteMax);
 		req.setQuoteMin(quoteMin);

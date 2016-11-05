@@ -24,9 +24,9 @@ public class BizConnecter {
 
     // public static final String ACCOUNT_URL =
     // "http://121.43.101.148:6060/xn-home/api";
-    public static final String ACCOUNT_URL = ConfigProperties.Config.ACCOUNT_URL;
+    public static final String USER_URL = ConfigProperties.Config.USER_URL;
 
-    public static final String POST_URL = "...";
+    public static final String SERVICE_URL = ConfigProperties.Config.SERVICE_URL;
 
     public static <T> T getBizData(String code, String json, Class<T> clazz) {
         String data = getBizData(code, json);
@@ -59,11 +59,10 @@ public class BizConnecter {
     }
 
     private static String getPostUrl(String code) {
-        String reqUrl = POST_URL;
-        if (code.contains("806")) {
-            reqUrl = ACCOUNT_URL;
-        } else {
-            reqUrl = POST_URL;
+        String reqUrl = SERVICE_URL;
+        if (code.startsWith("805") || code.startsWith("806")
+                || code.startsWith("807")) {
+            reqUrl = USER_URL;
         }
         return reqUrl;
     }

@@ -21,7 +21,9 @@ public class ConfigProperties {
 
     public static final class Config {
 
-        public static String ACCOUNT_URL = props.getProperty("ACCOUNT_URL");
+        public static String USER_URL = props.getProperty("USER_URL");
+        
+        public static String SERVICE_URL = props.getProperty("SERVICE_URL");
 
         public static String URL_PREFIX = props.getProperty("URL_PREFIX");
 

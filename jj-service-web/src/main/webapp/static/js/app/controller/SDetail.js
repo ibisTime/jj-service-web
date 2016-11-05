@@ -1,17 +1,17 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
-    'app/util/dict'
-], function (base, Ajax, Dict) {
+    'app/util/dict',
+    "Handlebars"
+], function (base, Dict, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
         leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         feeMode = Dict.get("feeMode"),
         isDZ = Dict.get("isDZ"),
         payCycle = Dict.get("payCycle"),
         business = Dict.get("business"),
+        serverType = Dict.get("serverType"),
         goodsKind = Dict.get("goodsKind"),
-        sCode = base.getUrlParam("code"),
-        sType = base.getUrlParam("t");
+        sCode = base.getUrlParam("code");
 
     init();
 
@@ -19,7 +19,7 @@ define([
         if(sCode){
             var fwTypes = sessionStorage.getItem("fwTypes");
             if(fwTypes){
-                addLeftNav(fwTypes);
+                addLeftNav($.parseJSON(fwTypes));
             }else{
                 getDictList();
             }
@@ -49,13 +49,13 @@ define([
         var topForm = $("#topForm").detach();
 
         $("#fwName", topForm).val(data.name);
-        $("#compName", topForm).val(data.companyName);
+        $("#compName", topForm).val(data.company.name);
         $("#price", topForm).val(data.quoteMin + "元 ~ " + data.quoteMax + "元");
-
+        $("#fwType", topForm).val(serverType[data.type]);
         /**
          * 1 软件外包 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6客服外包 7仓配服务 8 产业园
          */
-        switch(sType){
+        switch(data.type){
             case "1":
                 addRjwbInfo(data, topForm);
                 break;
@@ -104,7 +104,7 @@ define([
         $("#resume1", topForm).attr("href", data.resume1);
         $("#resume2", topForm).attr("href", data.resume2);
         $("#resume3", topForm).attr("href", data.resume3);
-        $("#course", topForm).attr("src", data.course);
+        $("#course", topForm).attr("href", data.course);
     }
 
     function addDpdyyInfo(data, topForm){
@@ -116,7 +116,7 @@ define([
         $("#feeMode", topForm).val( feeMode[data.feeMode] );
         $("#payCycle", topForm).val(payCycle[data.payCycle]);
         $("#scyylm", topForm).val(data.scyylm);
-        $("#sucCase", topForm).attr("src", data.sucCase);
+        $("#sucCase", topForm).attr("href", data.sucCase);
     }
 
     function addMgwbInfo(data, topForm){
@@ -131,16 +131,16 @@ define([
         $("#bannerPrice", topForm).val(data.bannerPrice);
         $("#allDays", topForm).val(data.allDays);
         $("#allPrice", topForm).val(data.allPrice);
-        $("#sj-works", topForm).attr("src", data.course);
+        $("#sj-works", topForm).attr("src", data.works);
     }
 
     function addKfwbInfo(data, topForm){
         $("#kfwb", topForm).removeClass("hidden");
         $("#kfNum", topForm).val(data.kfNum);
-        $("#mtradeAmount", topForm).val(data.mtradeAmount + "元");
+        $("#mtradeAmount", topForm).val(data.mtradeAmount);
         $("#business", topForm).val(business[data.business]);
-        $("#feeMode", topForm).val(feeMode[data.feeMode]);
-        $("#kf-sucCase", topForm).attr("src", data.sucCase);
+        $("#feeMode1", topForm).val(feeMode[data.feeMode]);
+        $("#kf-sucCase", topForm).attr("href", data.sucCase);
     }
 
     function addCpfwInfo(data, topForm){
@@ -151,7 +151,6 @@ define([
         for(var i = 0; i < list.length; i++){
             $("#goodsKind"+list[i], topForm)[0].checked = true;
         }
-        $("#feeMode", topForm).val(feeMode[data.feeMode]);
         $("#dsendNum", topForm).val(data.dsendNum);
     }
 
@@ -176,7 +175,6 @@ define([
             .then(function(res){
                 if(res.success){
                     addLeftNav(res.data);
-                    sessionStorage.setItem("fwTypes", res.data);
                 }
             });
     }
@@ -196,6 +194,10 @@ define([
             }else{
                 location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
             }
+        });
+        $("#leftNav").on("click", "li", function(){
+            var me = $(this), code = me.attr("code"), text = me.text();
+            location.href = "./list.html?code=" + code + "&n=" + text.substr(0, text.length - 1);
         });
     }
     //感兴趣

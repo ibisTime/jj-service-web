@@ -5,8 +5,8 @@ public class XN612050Req {
 	//publisher (选填)	用户编号
 	private String publisher;
 
-	//qualityCode (选填)	资质编号
-	private String qualityCode;
+	//qualityCode (选填)	资质类型
+	private String type;
 
 	//urgentLevel (选填)	紧急程度	1 紧急 0 不紧急
 	private String urgentLevel;
@@ -33,13 +33,13 @@ public class XN612050Req {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-
-	public String getQualityCode() {
-		return qualityCode;
+	
+	public String getType() {
+		return type;
 	}
 
-	public void setQualityCode(String qualityCode) {
-		this.qualityCode = qualityCode;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getUrgentLevel() {

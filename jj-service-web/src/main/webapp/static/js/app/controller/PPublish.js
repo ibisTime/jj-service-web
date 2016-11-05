@@ -16,7 +16,9 @@ define([
         loginFlag = base.isLogin();
         var rcTypes = sessionStorage.getItem("rcTypes");    //人才数据字典
         if(rcTypes){
+            rcTypes = $.parseJSON(rcTypes);
             addLeftNav(rcTypes);
+            addPositionDict(rcTypes);
         }else{
             getDictList();
         }
@@ -26,6 +28,8 @@ define([
     function initCitySelect(){
         $("#address")
             .citySelect({
+                prov: localStorage.getItem("province"),
+                city: localStorage.getItem("city"),
                 url: "/static/js/lib/city.min.json"
             });
     }
@@ -48,7 +52,7 @@ define([
             .then(function(res){
                 if(res.success){
                     addLeftNav(res.data);
-                    sessionStorage.setItem("rcTypes", res.data);
+                    sessionStorage.setItem("rcTypes", JSON.stringify(res.data));
                     addPositionDict(res.data);
                 }
             });
@@ -89,10 +93,10 @@ define([
             city: $("#city").val(),
             experience: $("input[name='expType']:checked", $("#experience")).val(),
             education: $("input[name='eduType']:checked", $("#education")).val(),
-            type: $("input[name='zwType']:checked", $("#education")).val(),
+            type: $("input[name='zwType']:checked", $("#zwType")).val(),
             jobNum: $("#jobNum").val(),
             msalary: $("#msalary").val(),
-            description: ""
+            description: $("#description").val()
         }).then(function(res){
             if(res.success){
                 base.showMsg("发布成功！");
@@ -106,7 +110,9 @@ define([
         var zwName = $("#zwName").val();
         if(!zwName || zwName.trim() === ""){
             base.showMsg("职位名称不能为空");
+            return false;
         }
+        return true;
     }
     function goBack(){
         base.goBackUrl("../position/index.html");

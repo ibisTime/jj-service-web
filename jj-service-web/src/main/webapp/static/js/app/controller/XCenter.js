@@ -36,7 +36,7 @@ define([
                     }
                     $("#mobile").text(base.maskMobile(data.mobile));
                 }else{
-
+                    base.showMsg("暂时无法获取公司信息")
                 }
             });
     }

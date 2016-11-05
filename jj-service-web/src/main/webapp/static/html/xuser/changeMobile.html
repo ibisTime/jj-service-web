@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>修改手机号</title>
+<style>
+
+</style>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox clearfix" >
+    <div class="nav-font clearfix">
+        <div class="fast inblock">修改手机号</div>
+     </div>
+     
+  <div class="login_box1 ta-l">
+    <div class="login-mtb">
+        <div class="message-word">请输入新手机号</div>
+        <input type="text" class="login_btn" id="mobile"/>
+    </div>
+    <div class="login-mtb">
+        <div class="message-word">短信验证码</div>
+        <input type="text" class="login-width login_btn" id="smsCaptcha"/>
+        <input type="button" class="get" id="getSmsCode" value="获取验证码"/>
+    </div>
+    <div class="login-mtb " >
+       <input type="button" value="修改" class="login-font" id="changeBtn"/>
+    </div>
+ </div>
+  
+  
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/ChangeMobile']);
+</script>
+</body>
+</html>

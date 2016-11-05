@@ -17,7 +17,7 @@ public class CredentialsController extends BaseController {
     @Autowired
     ICredentialsAO credetialsAO;
     
-    //申请资质
+    //公司申请资质
     @RequestMapping(value = "/apply", method = RequestMethod.POST)
     @ResponseBody
     public Object applyCredentials(
@@ -28,22 +28,24 @@ public class CredentialsController extends BaseController {
     			this.getSessionUser().getCompanyCode());
     }
     
-    //分页查询资质
+    //分页查询公司资质
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPageCredentials(
     		@RequestParam(value = "certificateCode", required = false) String certificateCode,
+    		@RequestParam(value = "certificateType", required = false) String certificateType,
     		@RequestParam(value = "status", required = false) String status,
     		@RequestParam(value = "applyUser", required = false) String applyUser,
     		@RequestParam(value = "approveUser", required = false) String approveUser,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
-    	return credetialsAO.queryPageCredentials(certificateCode,
+    	return credetialsAO.queryPageCredentials(
+    			certificateCode, certificateType,
     			this.getSessionUser().getCompanyCode(),
     			status, approveUser, start, limit);
     }
     
-    //列表查询资质
+    //列表查询公司资质
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object queryListCredentials(
@@ -56,11 +58,22 @@ public class CredentialsController extends BaseController {
     			status, applyUser, approveUser);
     }
     
-    //详情查询资质
+    //详情查询公司资质
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public Object queryCredentials(
     		@RequestParam(value = "code", required = true) String code){
     	return credetialsAO.queryCredentials(code);
+    }
+    
+    //列表查询资质
+    @RequestMapping(value = "/list1", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryListCredentials1(
+    		@RequestParam(value = "type", required = false) String type,
+    		@RequestParam(value = "name", required = false) String name,
+    		@RequestParam(value = "status", required = false) String status,
+    		@RequestParam(value = "updater", required = false) String updater){
+    	return credetialsAO.queryListCredentials1(type, name, status, updater);
     }
 }

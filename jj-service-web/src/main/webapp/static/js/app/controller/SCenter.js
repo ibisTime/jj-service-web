@@ -2,24 +2,26 @@ define([
     'app/controller/base',
     'app/util/ajax',
     'app/util/dict',
+    'lib/Pagination',
     'Handlebars'
-], function (base, Ajax, Dict, Handlebars) {
+], function (base, Ajax, Dict, Pagination, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
-        certificateStatus = Dict.get("certificateStatus");
+        certificateStatus = Dict.get("certificateStatus"),
+        start = 1;
 
     init();
 
     function init(){
-        if(base.isLogin()){
-            getUserInfo();
+        if(base.isCompUser()){
+            getCompanyInfo();
             getPageCredentials();
         }else{
-            //未登录
+            location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
         }
     }
 
-    function getUserInfo(){
-        base.getUserInfo()
+    function getCompanyInfo(){
+        base.getCompanyInfo()
             .then(function(res){
                 if(res.success){
                     var data = res.data;
@@ -32,11 +34,11 @@ define([
     
     function getPageCredentials(){
         base.getPageCredentials({
-            "start": "1",
-            "limit": "5"
+            "start": start,
+            "limit": "10"
         }).then(function(res){
             if(res.success){
-                var list = res.data.list, html = "";
+                var data = res.data, list = data.list, html = "";
                 if(list.length){
                     for(var i = 0; i < list.length; i++){
                         /**
@@ -48,23 +50,37 @@ define([
                             html += '<tr>'+
                                         '<td>软件</td>'+
                                         '<td>待审核</td>'+
-                                        '<td><a href="">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">删除</a></td>'+
+                                        '<td><a class="check" href="./certificate-info.html?code='+list[i].code+'">查看详情</a></td>'+
                                     '</tr>';
                         }else if(list[i].status == "1"){
                             html += '<tr>'+
                                         '<td>软件</td>'+
                                         '<td>通过</td>'+
-                                        '<td><a class="check" href="">查看详情</a></td>'+
+                                        '<td><a class="check" href="./certificate-info.html?code='+list[i].code+'">查看详情</a></td>'+
                                     '</tr>';
                         }else if(list[i].status == "2"){
                             html += '<tr>'+
                                         '<td>软件</td>'+
                                         '<td>不通过</td>'+
-                                        '<td><a href="">重新提交</a></td>'+
+                                        '<td><a title="'+list[i].approveNote+'" href="./apply-certificate2.html?code='+list[i].certificateCode+'&return='+base.makeReturnUrl()+'">重新提交</a></td>'+
                                     '</tr>';
                         }
                     }
                     $("#r-table").find("tbody").html(html);
+                    $("#pagination_div").pagination({
+                        items: data.totalCount,
+                        itemsOnPage: 10,
+                        pages: data.totalPage,
+                        prevText: '<',
+                        nextText: '>',
+                        displayedPages: '2',
+                        currentPage: start,
+                        onPageClick: function(pageNumber){
+                            start = pageNumber;
+                            addLoading();
+                            getPageCredentials();
+                        }
+                    });
                 }else{
                     doError();
                 }
@@ -73,7 +89,9 @@ define([
             }
         });
     }
-
+    function addLoading(){
+        $("#r-table").find("tbody").html("<tr><td colspan='3'><i class='loading-icon'></i></td></tr>");
+    }
     function doError() {
         $("#r-table").find("tbody").html('<tr><td colspan="3">暂无相关资质</td></tr>');
     }

@@ -8,6 +8,8 @@
  */
 package com.xnjr.home.front.ao;
 
+import java.util.Map;
+
 
 /** 
  * @author: miyb 
@@ -24,39 +26,49 @@ public interface IUserAO {
     public Object checkMobileExit(String mobile);
 
     /**
-     * 用户注册
-     * @param mobile
-     * @param userReferee
-     * @return 
-     * @create: 2015年9月19日 上午11:24:33 myb858
-     * @history:
-     */
-    public Object doRegister(String mobile, String userReferee);
-
-    /**
-     * 用户注册(手填密码)
+     * 需求方注册
      * @param mobile
      * @param loginPwd
-     * @param smsCaptcha
      * @param userReferee
-     * @return 
-     * @create: 2016年9月24日 下午4:35:57 wulq
-     * @history:
+     * @param smsCaptcha
+     * @return
      */
-    public Object doReg(String mobile, String loginPwd, String smsCaptcha,
-            String userReferee);
-
+    public Object doPersonRegister(String mobile, String loginPwd,
+    		String userReferee, String smsCaptcha);
     /**
-     * 用户登陆
+     * 服务方注册
+     * @param type
+     * @param name
+     * @param gsyyzzh
+     * @param contacts
+     * @param mobile
+     * @param loginName
+     * @param password
+     * @param province
+     * @param city
+     * @param area
+     * @return
+     */
+    public Object doCompRegister(String type, String name,
+    		String gsyyzzh, String contacts, String mobile,
+    		String loginName, String password, String province,
+    		String city, String area);
+    
+    /**
+     * 需求方登录
      * @param loginName
      * @param loginPwd
-     * @param loginIp
-     * @param kind
-     * @create: 2014-12-10 下午7:37:18 miyb
-     * @history:
+     * @return
      */
-
-    public Object doLogin(String loginName, String loginPwd, String kind);
+    public Map doPersonLogin(String loginName, String loginPwd);
+    
+    /**
+     * 服务方登录
+     * @param loginName
+     * @param password
+     * @return
+     */
+    public Map doCompLogin(String loginName, String password);
 
     /**
      * 查询需求方用户的详细信息
@@ -64,17 +76,17 @@ public interface IUserAO {
      * @create: 2014-12-10 下午7:37:18 miyb
      * @history:
      */
-    public Object doGetUser(String userId);
+    public Map doGetUser(String userId);
     
     /**
      * 详情查询公司
      * @param code
      * @return
      */
-    public Object doGetCompanyInfo(String code);
+    public Map doGetCompanyInfo(String code);
 
     /**
-     * 找回登录密码
+     * 找回需求方登录密码
      * @param mobile
      * @param newLoginPwd
      * @param smsCaptcha
@@ -84,9 +96,19 @@ public interface IUserAO {
      */
     public void doFindLoginPwd(String mobile, String newLoginPwd,
             String smsCaptcha);
+    
+    /**
+     * 找回服务方登录密码
+     * @param loginName
+     * @param mobile
+     * @param smsCaptcha
+     * @param newPassword
+     */
+    public void doFindCompLoginPwd(String loginName, String mobile,
+    		String smsCaptcha, String newPassword);
 
     /**
-     * 重置登陆密码
+     * 重置需求方登陆密码
      * @param userId
      * @param oldPwd
      * @param newPwd
@@ -94,6 +116,14 @@ public interface IUserAO {
      * @history:
      */
     public void doResetLoginPwd(String userId, String oldPwd, String newPwd);
+    
+    /**
+     * 重置服务方登陆密码
+     * @param code
+     * @param oldPassword
+     * @param newPassword
+     */
+    public void doResetCompLoginPwd(String code, String oldPassword, String newPassword);
 
 
     /**
@@ -106,8 +136,7 @@ public interface IUserAO {
      * @create: 2015年9月18日 上午11:21:26 myb858
      * @history:
      */
-    public void doChangeMoblie(String userId, String newMobile,
-            String smsCaptcha, String tradePwd);
+    public void doChangeMoblie(String userId, String newMobile, String smsCaptcha);
 
     /**
      * 获取登录日志
@@ -117,5 +146,55 @@ public interface IUserAO {
      * @history:
      */
     public Object doGetLog(String userId);
+    
+    /**
+     * 修改公司信息
+     * @param code
+     * @param name
+     * @param gsyyzzh
+     * @param logo
+     * @param province
+     * @param city
+     * @param area
+     * @param address
+     * @param description
+     * @param scale
+     * @param contacts
+     * @param mobile
+     * @param email
+     * @param qq
+     * @param slogan
+     * @param remark
+     * @return
+     */
+    public Object editCompanyInfo(String code, String name,
+    		String gsyyzzh, String logo, String province, String city,
+    		String area, String address, String description, String scale,
+    		String contacts, String mobile, String email, String qq,
+    		String type, String slogan, String remark);
+    
+    /**
+     * 分页查询公司
+     * @param code
+     * @param name
+     * @param abbrName
+     * @param type
+     * @param isDefault
+     * @param location
+     * @param province
+     * @param city
+     * @param area
+     * @param userId
+     * @param start
+     * @param limit
+     * @param orderColumn
+     * @param orderDir
+     * @return
+     */
+    public Object queryPageCompany(String code, String name,
+    		String abbrName, String type, String isDefault, String location,
+    		String province, String city, String area, String userId,
+    		String start, String limit, String orderColumn,
+    		String orderDir, String isHot);
 
 }

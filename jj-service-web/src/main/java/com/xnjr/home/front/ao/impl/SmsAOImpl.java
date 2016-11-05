@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 import com.xnjr.home.front.ao.ISmsAO;
 import com.xnjr.home.front.http.BizConnecter;
 import com.xnjr.home.front.http.JsonUtils;
-import com.xnjr.home.front.req.XN799003Req;
-
+import com.xnjr.home.front.req.XN805904Req;
 
 
 /** 
@@ -30,10 +29,10 @@ public class SmsAOImpl implements ISmsAO {
      */
     @Override
     public void sendSmsCaptcha(String mobile, String bizType) {
-    	XN799003Req req = new XN799003Req();
+        XN805904Req req = new XN805904Req();
         req.setMobile(mobile);
         req.setBizType(bizType);
-        BizConnecter.getBizData("799003", JsonUtils.object2Json(req),
+        BizConnecter.getBizData("805904", JsonUtils.object2Json(req),
             Object.class);
     }
 }

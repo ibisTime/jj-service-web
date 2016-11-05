@@ -1,6 +1,6 @@
 package com.xnjr.home.front.req;
 
-public class XN799003Req {
+public class XN805904Req {
 	//手机号
 	private String mobile;
 	//业务类型
