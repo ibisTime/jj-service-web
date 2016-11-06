@@ -13,7 +13,15 @@ public class XN612090Req {
 	private String start;
 	//页面个数
 	private String limit;
+	//种类
+	private String kind;
 	
+	public String getKind() {
+		return kind;
+	}
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 	public String getName() {
 		return name;
 	}

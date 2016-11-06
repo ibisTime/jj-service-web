@@ -1,10 +1,9 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'lib/Pagination',
     'Handlebars'
-], function (base, Ajax, Dict, Pagination, Handlebars) {
+], function (base, Dict, Pagination, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
         certificateStatus = Dict.get("certificateStatus"),
         start = 1;

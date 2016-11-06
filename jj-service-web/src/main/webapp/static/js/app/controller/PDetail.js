@@ -1,9 +1,8 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'Handlebars'
-], function (base, Ajax, Dict, Handlebars) {
+], function (base, Dict, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
         leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         experience = Dict.get("experience"),
@@ -49,7 +48,7 @@ define([
         $("#zwType"+data.type, topForm)[0].checked = true;
         $("#jobNum", topForm).val(data.jobNum);
         $("#msalary", topForm).val(data.msalary);
-        $("#description", topForm).html(data.description);
+        $("#description", topForm).val(data.description);
         $("#topDiv").removeClass("hidden").append(topForm);
     }
 
@@ -58,7 +57,6 @@ define([
             .then(function(res){
                 if(res.success){
                     addLeftNav(res.data);
-                    sessionStorage.setItem("rcTypes", res.data);
                 }
             });
     }

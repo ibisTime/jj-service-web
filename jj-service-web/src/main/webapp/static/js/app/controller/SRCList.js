@@ -1,20 +1,32 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'lib/Pagination',
     'Handlebars'
-], function (base, Ajax, Dict, Pagination, Handlebars) {
-    var template = __inline("../ui/error-fragment.handlebars"),
+], function (base, Dict, Pagination, Handlebars) {
+    var tmplList = __inline("../ui/suser-rclist-rList.handlebars"),
+        tmplList1 = __inline("../ui/suser-rclist-rList1.handlebars"),
+        tmplList2 = __inline("../ui/suser-rclist-rList2.handlebars"),
         certificateStatus = Dict.get("certificateStatus"),
         positionKind = Dict.get("positionKind"),
-        start = 1,
-        urgentLevel = Dict.get("urgentLevel");
+        interestStatus = Dict.get("interestStatus"),
+        urgentLevel = Dict.get("urgentLevel"),
+        start = 1, citylist;
 
     init();
 
     function init(){
         if(base.isCompUser()){
+            Handlebars.registerHelper('formatDate', function(num, options){
+                var dd = new Date(num);
+                return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
+            });
+            Handlebars.registerHelper('formtIStatus', function(num, options){
+                return interestStatus[num];
+            });
+            Handlebars.registerHelper('formtPKind', function(num, options){
+                return positionKind[num];
+            });
             getPagePosition();
             addPositionKind();
             addListener();
@@ -31,19 +43,8 @@ define([
             limit: 10
         }).then(function(res){
                 if(res.success && res.data.list.length){
-                    var data = res.data.list, html = "";
-                    var companyName = base.getSessionUser().name;
-                    $.each(data, function(i, dd){
-                        html += '<tr code="'+dd.code+'">'+
-                                    '<td><input type="checkbox"></td>'+
-                                    '<td>'+companyName+'</td>'+
-                                    '<td>'+dd.name+'</td>'+
-                                    '<td>'+dd.province + dd.city+'</td>'+
-                                    '<td>￥'+dd.msalary+'</td>'+
-                                    '<td>'+dd.publishDatetime+'</td>'+
-                                '</tr>';
-                    });
-                    $("#yfbzw-table").find("tbody").html(html);
+                    var data = res.data;
+                    $("#yfbzw-table").find("tbody").html( tmplList({items: res.data.list}) );
                     $("#pagination_div").pagination({
                         items: data.totalCount,
                         itemsOnPage: 10,
@@ -59,38 +60,50 @@ define([
                         }
                     });
                 }else{
-                    $("#yfbfw-table").find("tbody").empty();
-                    base.showMsg("暂无数据!");
+                    doError($("#yfbfw-table").find("tbody"), 6);
                 }
             });
     }
     //分页查询被感兴趣服务
     function getPageLikeMyPosition(){
-
-    }
-
-    function getPageResume(rcType, province, city){
-        base.getPageResume({
-            expPosition: rcType,
-            expProvince: province,
-            expCity: city,
+        base.getPageInterestPosition({
             start: start,
             limit: 10
         }).then(function(res){
             if(res.success && res.data.list.length){
-                var data = res.data, list = data.list, html = "";
-                $.each(list, function(i, ll){
-                    html += '<tr code = "'+ll.code+'">'+
-                                '<td><input type="checkbox"></td>'+
-                                '<td>'+ll.name+'</td>'+
-                                '<td>'+positionKind[ll.expPosition]+'</td>'+
-                                '<td>'+ll.preWorkTime+'</td>'+
-                                '<td>'+ll.expMsalary +'</td>'+
-                                '<td>'+ll.expProvince + ll.expCity +'</td>'+
-                                '<td>'+ll.publishDatetime+'</td>'+
-                            '</tr>';
+                var data = res.data;
+                $("#ypjl-table").find("tbody").html( tmplList1({items: res.data.list}) );
+                $("#pagination_div").pagination({
+                    items: data.totalCount,
+                    itemsOnPage: 10,
+                    pages: data.totalPage,
+                    prevText: '<',
+                    nextText: '>',
+                    displayedPages: '2',
+                    currentPage: start,
+                    onPageClick: function(pageNumber){
+                        start = pageNumber;
+                        addLoading($("#ypjl-table").find("tbody"), 7);
+                        getPageLikeMyPosition();
+                    }
                 });
-                $("#sjl-table").find("tbody").html(html);
+            }else{
+                doError($("#ypjl-table").find("tbody"), 7);
+            }
+        });
+    }
+
+    function getPageResume(rcType, province, city){
+        base.getPageResume({
+            expPosition: rcType || "",
+            expProvince: province || "",
+            expCity: city || "",
+            start: start,
+            limit: 10
+        }).then(function(res){
+            if(res.success && res.data.list.length){
+                var data = res.data;
+                $("#sjl-table").find("tbody").html( tmplList2({items: res.data.list}) );
                 $("#pagination_div").pagination({
                     items: data.totalCount,
                     itemsOnPage: 10,
@@ -102,12 +115,11 @@ define([
                     onPageClick: function(pageNumber){
                         start = pageNumber;
                         addLoading($("#sjl-table").find("tbody"), 7);
-                        getPageServers();
+                        getPageResume();
                     }
                 });
             }else{
-                $("#sxq").find("table>tbody").empty();
-                base.showMsg("暂无数据");
+                doError($("#sjl-table").find("tbody"), 7);
             }
         });
     }
@@ -116,8 +128,8 @@ define([
         //列表切换
         $("#rcUl").on("click", "li", function(){
             var me = $(this), idx = me.index();
-            $("#rcUl").find("li.current").removeClass("current");
-            me.addClass("current");
+            $("#rcUl").find("li>a.current").removeClass("current");
+            me.find("a").addClass("current");
             var contDiv = $("#contDiv");
             contDiv.find(".rcContent").addClass("hidden");
             contDiv.find("div.rcContent"+idx).removeClass("hidden");
@@ -126,16 +138,19 @@ define([
             var col = 6, ele;
             if(idx == 0){
                 ele = $("#yfbzw-table").find("tbody");
+                addLoading(ele, col);
                 getPagePosition();
             }else if(idx == 1){
+                col = 7;
                 ele = $("#ypjl-table").find("tbody");
+                addLoading(ele, col);
                 getPageLikeMyPosition();
             }else{
                 col = 7;
                 ele = $("#sjl-table").find("tbody");
-                getPageDemand();
+                addLoading(ele, col);
+                getPageResume();
             }
-            addLoading(ele, col);
         });
         /***已发布职位start***/
         //checkbox
@@ -152,13 +167,13 @@ define([
             }
         });
         $("#zwAdd").on("click", function(){
-            location.href = "../position/publish.html?a=add&return=" + base.makeReturnUrl();
+            location.href = "../position/publish.html?return=" + base.makeReturnUrl();
         });
         $("#zwDelete").on("click", function(){
             var tr = getCheckItem("yfbzw-table"),
-                code = tr.attr("code"),
+                code = tr && tr.attr("code") || "",
                 me = $(this);
-            if(!me.has("isDoing")){
+            if(!me.hasClass("isDoing")){
                 if(code){
                     me.addClass("isDoing").text("删除中...");
                     base.deletePosition({code: code})
@@ -177,13 +192,19 @@ define([
             }
         });
         $("#zwEdit").on("click", function(){
-            location.href = "../position/publish.html?a=edit&return=" + base.makeReturnUrl();
+            var tr = getCheckItem("yfbzw-table"),
+                code = tr && tr.attr("code") || "";
+            if(code){
+                location.href = "../position/edit.html?code="+code+"&return=" + base.makeReturnUrl();
+            }else{
+                base.showMsg("您未选择所要修改的职位！");
+            }
         });
         $("#zwSelect").on("click", function(){
-            var tr = getCheckItem("yfbfw-table"), 
-                code = tr.attr("code");
+            var tr = getCheckItem("yfbzw-table"), 
+                code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../position/detail.html?code="+code;
+                location.href = "../position/detail.html?code="+code+"&return="+base.makeReturnUrl();
             }else{
                 base.showMsg("您未选择所要查看的职位！");
             }
@@ -206,9 +227,9 @@ define([
         });
         $("#ypjlSelect").on("click", function(){
             var tr = getCheckItem("ypjl-table"), 
-                code = tr.attr("code");
+                code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/resume-detail.html?code="+code;
+                location.href = "../xuser/resume-detail.html?code="+code+"&return="+base.makeReturnUrl();
             }else{
                 base.showMsg("您未选择所要查看的简历！");
             }
@@ -216,22 +237,24 @@ define([
         $("#dealBtn").on("click", function(){
             var me = $(this);
             var tr = getCheckItem("ypjl-table"), 
-                code = tr.attr("code");
-            if(!me.has("isDoing")){
+                code = tr && tr.attr("code") || "";
+            if(!me.hasClass("isDoing")){
                 if(code){
                     me.addClass("isDoing").text("处理中...");
-                    // base.deleteServer({code: code})
-                    //     .then(function(res){
-                    //         me.removeClass("isDoing").text("立即处理");
-                    //         if(res.success){
-                    //             base.showMsg("处理成功！");
-                    //             tr.find(".yxStatus").text("已完成");
-                    //         }else{
-                    //             base.showMsg("非常抱歉，处理失败！")
-                    //         }
-                    //     });
+                    base.handleInterest({
+                        code: code,
+                        dealNote: "已查看"
+                    }).then(function(res){
+                            me.removeClass("isDoing").text("立即处理");
+                            if(res.success){
+                                base.showMsg("处理成功！");
+                                tr.find(".yxStatus").text("已完成");
+                            }else{
+                                base.showMsg("非常抱歉，处理失败！")
+                            }
+                        });
                 }else{
-                    base.showMsg("您未选择所要处理的意向！");
+                    base.showMsg("您未选择所要处理的简历！");
                 }
             }
         });
@@ -273,7 +296,7 @@ define([
             if(me.val() != "-1"){
                 var prov_id = +me[0].selectedIndex - 1,
                     temp_html = "";
-                $.each(city_json.citylist[prov_id].c,function(i,city){  
+                $.each(citylist[prov_id].c,function(i,city){  
                     temp_html+="<option value='"+city.n+"'>"+city.n+"</option>";  
                 });
                 temp_html = '<option value="-1">请选择城市</option>' + temp_html;
@@ -282,9 +305,9 @@ define([
         });
         $("#sjlWatch").on("click", function(){
             var tr = getCheckItem("sxq-table"), 
-                code = tr.attr("code");
+                code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/resume-detail.html?code="+code;
+                location.href = "../xuser/resume-detail.html?code="+code + "return="+base.makeReturnUrl();
             }else{
                 base.showMsg("您未选择所要查看的简历！");
             }
@@ -292,15 +315,14 @@ define([
         $("#sjlLike").on("click", function(){
             var me = $(this);
             var tr = getCheckItem("sjl-table"), 
-                code = tr.attr("code");
-            if(!me.has("isDoing")){
+                code = tr && tr.attr("code") || "";
+            if(!me.hasClass("isDoing")){
                 if(code){
                     me.addClass("isDoing").text("处理中...");
                     base.interested({
                         toCode : code,
                         type: 4
-                    })
-                        .then(function(res){
+                    }).then(function(res){
                             me.removeClass("isDoing").text("感兴趣");
                             if(res.success){
                                 base.showMsg("操作成功！");
@@ -318,7 +340,7 @@ define([
 
     function getCheckItem(id){
         var ele1 = $("#" + id).find(".checkinput.actived");
-        if(tr.length){
+        if(ele1.length){
             return ele1.closest("tr");
         }else{
             return "";
@@ -334,10 +356,11 @@ define([
     }
 
     function addAddress(){
-        Ajax.get("/static/js/lib/city.min.json")
+        base.getAddress()
             .then(function(res){
                 var temp_html = "";
-                $.each(res.citylist,function(i,prov){  
+                citylist = res.citylist;
+                $.each(citylist,function(i,prov){  
                     temp_html+="<option value='"+prov.p+"'>"+prov.p+"</option>";  
                 }); 
                 $("#province").append(temp_html);
@@ -346,5 +369,9 @@ define([
 
     function addLoading(ele, col){
         ele.html("<tr><td colspan='"+col+"'><i class='loading-icon'></i></td></tr>");
+    }
+
+    function doError(ele, col){
+        ele.html("<tr><td colspan='"+col+"'>暂无数据</td></tr>")
     }
 });

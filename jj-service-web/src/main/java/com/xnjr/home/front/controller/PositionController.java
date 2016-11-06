@@ -25,6 +25,7 @@ public class PositionController extends BaseController {
     		@RequestParam(value = "kind", required = true) String kind,
     		@RequestParam(value = "province", required = true) String province,
     		@RequestParam(value = "city", required = true) String city,
+    		@RequestParam(value = "area", required = false) String area,
     		@RequestParam(value = "experience", required = false) String experience,
     		@RequestParam(value = "education", required = false) String education,
     		@RequestParam(value = "type", required = false) String type,
@@ -32,7 +33,7 @@ public class PositionController extends BaseController {
     		@RequestParam(value = "msalary", required = false) String msalary,
     		@RequestParam(value = "description", required = false) String description,
     		@RequestParam(value = "publisher", required = false) String publisher){
-    	return positionAO.publishPosition(name, kind, province, city,
+    	return positionAO.publishPosition(name, kind, province, city, area,
     			experience, education, type, jobNum, msalary,
     			description, this.getSessionUser().getCompanyCode(), publisher);
     }
@@ -46,6 +47,7 @@ public class PositionController extends BaseController {
     		@RequestParam(value = "kind", required = true) String kind,
     		@RequestParam(value = "province", required = true) String province,
     		@RequestParam(value = "city", required = true) String city,
+    		@RequestParam(value = "area", required = false) String area,
     		@RequestParam(value = "experience", required = false) String experience,
     		@RequestParam(value = "education", required = false) String education,
     		@RequestParam(value = "type", required = false) String type,
@@ -53,7 +55,7 @@ public class PositionController extends BaseController {
     		@RequestParam(value = "msalary", required = false) String msalary,
     		@RequestParam(value = "description", required = false) String description,
     		@RequestParam(value = "publisher", required = false) String publisher){
-    	return positionAO.editPosition(code, name, kind, province, city,
+    	return positionAO.editPosition(code, name, kind, province, city, area,
     			experience, education, type, jobNum, msalary,
     			description, this.getSessionUser().getCompanyCode(), publisher);
     }
@@ -73,11 +75,12 @@ public class PositionController extends BaseController {
     		@RequestParam(value = "name", required = false) String name,
     		@RequestParam(value = "companyCode", required = false) String companyCode,
     		@RequestParam(value = "companyName", required = false) String companyName,
+    		@RequestParam(value = "kind", required = false) String kind,
     		@RequestParam(value = "isHot", required = false) String isHot,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
     	return positionAO.queryPagePosition(name, companyCode, isHot,
-			companyName, start, limit);
+			companyName, kind, start, limit);
     }
     
     //详情查询职位

@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>修改职位</title>
+</head>
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox clearfix">
+    <ul class="name leftNav" id="leftNav">
+        <!--<li><a href="">运营总监<span>></span></a></li>
+        <li><a href="">运营主管<span>></span></a></li>
+        <li><a href="">运营<span>></span></a></li>
+        <li><a href="">设计总监<span>></span></a></li>
+        <li><a href="">设计/美工<span>></span></a></li>
+        <li><a href="">推广专员<span>></span></a></li>-->
+    </ul>
+    <!--右边-->
+    <div class="area">
+        <p class="bread-wrap">您所在的位置： 
+            <a href="">服务</a> &gt; <span>我是服务商</span>
+        </p>
+    
+        <div class="topname bt">职位信息</div>
+        <div id="topDiv">
+        <form class="publish-position" id="topForm">
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>职位名称</span>
+                </div>
+                <input class="in-width" type="text" id="zwName"/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>职位类别</span>
+                </div>
+                <select id="zwKind">
+                    <option value="1">运营总监</option>
+                    <option value="2">运营主管</option>
+                    <option value="3">运营</option>
+                    <option value="4">设计总监</option>
+                    <option value="5">设计/美工</option>
+                    <option value="6">推广专员</option>
+                    <option value="7">客服主管</option>
+                    <option value="8">客服/售后</option>
+                    <option value="9">仓储经理</option>
+                    <option value="10">采购经理</option>
+                    <option value="11">其他</option>
+                </select>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>工作地点</span>
+                </div>
+                <div class="inblock" id="address">
+                    <select id="province" class="prov"></select>
+                    <select id="city" class="city"></select>
+                </div>
+            </div>
+            
+            <div class="mtb" id="experience">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>工作经验</span>
+                </div>
+                <input name="expType" type="radio" value="1"/>1年内
+                <input name="expType" class="ml" type="radio" value="2"/>1-3年
+                <input name="expType" class="ml" type="radio" value="3"/>3-5年
+                <input name="expType" class="ml" type="radio" value="4"/>5年以上
+            </div>
+            
+            <div class="mtb" id="education">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>学历要求</span>
+                </div>
+                <input name="eduType" type="radio" value="1"/>本科
+                <input name="eduType" class="ml" type="radio" value="2"/>大专
+                <input name="eduType" class="ml" type="radio" value="3"/>高中
+                <input name="eduType" class="ml" type="radio" value="4"/>其他
+            </div>
+            
+            <div class="mtb" id="zwType">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>工作性质</span>
+                </div>
+                <input name="zwType" type="radio" value="1"/>全职
+                <input name="zwType" class="ml" type="radio" value="2"/>兼职
+                <input name="zwType" class="ml" type="radio" value="3"/>实习
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>招聘人数</span>
+                </div>
+                <input class="in-width" type="number" id="jobNum"/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>职位月薪</span>
+                </div>
+                <input class="in-width" type="text" id="msalary"/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span >职位描述</span>
+                </div>
+                <textarea class="sell" rows="10" cols="50" id="description"></textarea>
+            </div>
+        </form>
+        </div>
+        <div class="hold-box">
+            <input type="button" id="sbtn" class="hold" value="发布">
+            <a href="javascript:void(0)" class="cancel" id="goBack">取消</a>
+        </div>
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/PEdit']);
+</script>
+</body>
+</html>

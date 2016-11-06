@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>我的需求</title>
+</head>
+
+<body>
+<div class="bigbox clearfix">
+    <ul class="name">
+        <li><a href="./center.html">我的中心<span>></span></a></li>
+        <li><a href="./rclist.html">我是人才<span>></span></a></li>
+        <li><a href="./fwlist.html">我的服务<span>></span></a></li>    
+    </ul>
+    <div class="area clearfix">
+        <p class="bread-wrap">您所在的位置： 
+            <a href="">会员中心</a> &gt; <span>我的服务</span>
+        </p>
+        
+	    <ul class="lg_tnav_wrap">
+            <li><a href="javascript:void(0)" class="current">我的需求</a></li>
+            <li><a href="javascript:void(0)">感兴趣服务</a></li>
+            <li><a href="javascript:void(0)">被感兴趣</a></li>
+        </ul>
+        <div id="wdxq" class="fwContent fwContent0">
+            <div> 
+                <div class="cdh">新增</div>
+                <div class="cdh">修改</div>
+                <div class="cdh">删除</div>
+                <div class="cdh">查看详情</div>
+            </div> 
+            <table class="t-box at" id="wdxqTable">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>需求名称</th>
+                        <th>需求类型</th>
+                        <th>意向企业</th>
+                        <th>紧急程度</th>
+                        <th>更新日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="6"><i class='loading-icon'></i></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="gxqfw" class="fwContent fwContent1 hidden">
+            <div> 
+                <div class="cdh">再找找服务</div>
+                <div class="cdh">删除</div>
+                <div class="cdh">查看详情</div>
+            </div> 
+            <table class="t-box at" id="gxqfwTable">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>感兴趣服务</th>
+                        <th>所属服务</th>
+                        <th>所属企业</th>
+                        <th>价格区间</th>
+                        <th>更新日期</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="bgxq" class="fwContent fwContent2 hidden">
+            <div><div class="cd">查看详情</div></div> 
+            <table class="t-box at" id="bgxqTable">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>企业名称</th>
+                        <th>企业联系人</th>
+                        <th>联系人电话</th>
+                        <th>感兴趣需求类型</th>
+                        <th>更新日期</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        
+        <div id="pagination_div"></div>
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/XFWList']);
+</script>
+</body>
+</html>

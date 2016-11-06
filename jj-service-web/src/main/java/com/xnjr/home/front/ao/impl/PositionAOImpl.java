@@ -13,10 +13,11 @@ import com.xnjr.home.front.req.XN612090Req;
 public class PositionAOImpl implements IPositionAO {
 	@Override
 	public Object publishPosition(String name, String kind, String province,
-			String city, String experience, String education, String type,
+			String city, String area, String experience, String education, String type,
 			String jobNum, String msalary, String description,
 			String companyCode, String publisher) {
 		XN612080Req req = new XN612080Req();
+		req.setArea(area);
 		req.setCity(city);
 		req.setCompanyCode(companyCode);
 		req.setDescription(description);
@@ -27,18 +28,19 @@ public class PositionAOImpl implements IPositionAO {
 		req.setMsalary(msalary);
 		req.setName(name);
 		req.setProvince(province);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setType(type);
 		return BizConnecter.getBizData("612080", JsonUtils.object2Json(req),
 	        Object.class);
 	}
 	@Override
 	public Object editPosition(String code, String name, String kind,
-			String province, String city, String experience,
+			String province, String city, String area, String experience,
 			String education, String type, String jobNum,
 			String msalary, String description, String companyCode,
 			String publisher){
 		XN612081Req req = new XN612081Req();
+		req.setArea(area);
 		req.setCity(city);
 		req.setCompanyCode(companyCode);
 		req.setDescription(description);
@@ -49,7 +51,7 @@ public class PositionAOImpl implements IPositionAO {
 		req.setMsalary(msalary);
 		req.setName(name);
 		req.setProvince(province);
-		req.setPublisher(publisher);
+		req.setPublisher(companyCode);
 		req.setType(type);
 		req.setCode(code);
 		return BizConnecter.getBizData("612081", JsonUtils.object2Json(req),
@@ -62,9 +64,10 @@ public class PositionAOImpl implements IPositionAO {
 	}
 	@Override
     public Object queryPagePosition(String name, String companyCode,
-    		String isHot, String companyName,
+    		String isHot, String companyName, String kind,
     		String start, String limit) {
     	XN612090Req req = new XN612090Req();
+    	req.setKind(kind);
     	req.setIsHot(isHot);
         req.setCompanyCode(companyCode);
         req.setCompanyName(companyName);

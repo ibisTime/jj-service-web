@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>展示服务</title>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox">
+    <ul class="name leftNav" id="leftNav">
+    </ul>
+    <!--右边-->
+    <div class="area clearfix" id="contDiv">
+        <p class="bread-wrap">您所在的位置： 
+            <a href="./index.html">服务</a> &gt; <span>我是服务商</span>
+        </p>
+        
+        <div id="yfbfw" class="fwContent fwContent0">
+            <div> 
+                <div class="cdh" id="fwAdd">增加</div>
+                <div class="cdh" id="fwEdit">修改</div>
+                <div class="cdh" id="fwDelete">删除</div>
+                <div class="cdh" id="fwSelect">查看详情</div>
+            </div> 
+            <table class="t-box at" style="float:left;width:100%;" id="yfbfw-table">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>服务名称</th>
+                        <th>所属服务</th>
+                        <th>所属企业</th>
+                        <th>价格区间</th>
+                        <th>更新日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr>
+                        <td><input type="checkbox"></td>
+                        <td>金夫人婚纱摄影</td>
+                        <td>拍摄/写真</td>
+                        <td>橙袋科技</td>
+                        <td>￥500-￥999</td>
+                        <td>2016-10-20</td>
+                    </tr>-->
+                    <tr><td colspan='6'><i class='loading-icon'></i></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="pagination_div"></div>
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/MFWList']);
+</script>
+</body>
+</html>

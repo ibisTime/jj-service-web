@@ -1,12 +1,10 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'Handlebars',
     'lib/Pagination'
-], function (base, Ajax, Dict, Handlebars, Pagination) {
-    var template = __inline("../ui/error-fragment.handlebars"),
-        leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
+], function (base, Dict, Handlebars, Pagination) {
+    var leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         rightListmpl = __inline("../ui/position-xqList-rList.handlebars"),
         experience = Dict.get("experience"), start = 1,
         navCode = base.getUrlParam("code"),
@@ -59,7 +57,7 @@ define([
         $("#watchBtn").on("click", function(){
             var code = getCheckItem();
             if(code){
-                location.href = "./list-detail.html?code=" + code;
+                location.href = "./list-detail.html?code=" + code+"&return="+base.makeReturnUrl();
             }else{
                 base.showMsg("您未选择所要查看的职位！");
             }
@@ -67,8 +65,8 @@ define([
         //发布职位
         $("#applyBtn").on("click", function(){
             var me = $(this);
-            me.val("").addClass("bg-loading").attr("disabled", "disabled");
-            location.href = "./publish.html?return=" + base.makeReturnUrl();
+            me.addClass("bg-loading").attr("disabled", "disabled");
+            getListCredentials();
         });
     }
 
@@ -78,21 +76,18 @@ define([
                 if(res.success){
                     var data = res.data;
                     for(var i = 0; i < data.length; i++){
-                        if(data[i].type == "9"){
+                        if(data[i].certificateType == "9"){
                             location.href = "./publish.html?return=" + base.makeReturnUrl();
                             return;
                         }
                     }
                     base.showMsg("非常抱歉，您没有当前服务的资质！");
                     setTimeout(function(){
-                        location.href = "";
-                    }, 1500);
+                        location.href = "../suser/apply-certificate1.html";
+                    }, 1000);
                 }else{
                     base.showMsg("非常抱歉，暂时无法查询您是否具备当前服务的资质！");
-                    $("#applyBtn")
-                        .val("发布职位")
-                        .removeClass("bg-loading")
-                        .removeAttr("disabled");
+                    $("#applyBtn").removeClass("bg-loading").removeAttr("disabled");
                 }
             });
     }
@@ -122,7 +117,8 @@ define([
     function getPagePosition(){
         base.getPagePosition({
             start: start,
-            limit: "10"
+            limit: "10",
+            kind: navCode
         }).then(function(res){
             if(res.success && res.data.list.length){
                 var data = res.data;
@@ -142,7 +138,7 @@ define([
                     }
                 });
             }else{
-                doError($("#r-table"));
+                doError($("#r-table").find("tbody"));
             }
         });
     }
@@ -150,6 +146,6 @@ define([
         $("#r-table").find("tbody").html("<tr><td colspan='6'><i class='loading-icon'></i></td></tr>");
     }
     function doError(ele) {
-        ele.html(template);
+        ele.html('<tr><td colspan="6">暂时没有相关职位</td></tr>')
     }
 });

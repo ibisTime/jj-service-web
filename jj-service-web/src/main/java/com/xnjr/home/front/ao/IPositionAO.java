@@ -18,7 +18,7 @@ public interface IPositionAO {
 	 * @return
 	 */
 	public Object publishPosition(String name, String kind,
-			String province, String city, String experience,
+			String province, String city, String area, String experience,
 			String education, String type, String jobNum,
 			String msalary, String description, String companyCode,
 			String publisher);
@@ -41,7 +41,7 @@ public interface IPositionAO {
 	 * @return
 	 */
 	public Object editPosition(String code, String name, String kind,
-			String province, String city, String experience,
+			String province, String city, String area, String experience,
 			String education, String type, String jobNum,
 			String msalary, String description, String companyCode,
 			String publisher);
@@ -64,7 +64,7 @@ public interface IPositionAO {
 	 * @return
 	 */
 	public Object queryPagePosition(String name, String companyCode, String isHot,
-    		String companyName, String start, String limit);
+    		String companyName, String kind, String start, String limit);
 	
 	/**
 	 * 详情查询职位

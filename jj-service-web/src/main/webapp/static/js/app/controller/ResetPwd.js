@@ -1,7 +1,6 @@
 define([
     'app/controller/base',
-    'app/util/ajax'
-], function (base, Ajax) {
+], function (base) {
     var type = base.getUrlParam("t") || "1";    //1:需求方、2:服务方
 
     init();

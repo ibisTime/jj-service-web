@@ -86,10 +86,6 @@ define([
                 editCompUserInfo();
             }
         });
-        //返回
-        $("#goBack").on("click", function(){
-            base.goBackUrl("./center.html");
-        });
         $("#sfzBtn").on("click", function(){
             if(!judgeImgType("sfzFile")){
                 base.showMsg("图片格式不支持!");

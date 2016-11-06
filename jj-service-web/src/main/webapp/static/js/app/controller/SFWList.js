@@ -1,16 +1,17 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'lib/Pagination',
     'Handlebars'
-], function (base, Ajax, Dict, Pagination, Handlebars) {
-    var template = __inline("../ui/error-fragment.handlebars"),
-        tmplList = __inline("../ui/suser-fwlist-rList.handlebars"),
+], function (base, Dict, Pagination, Handlebars) {
+    var tmplList = __inline("../ui/suser-fwlist-rList.handlebars"),
+        tmplList1 = __inline("../ui/suser-fwlist-rList1.handlebars"),
+        tmplList2 = __inline("../ui/suser-fwlist-rList2.handlebars"),
         certificateStatus = Dict.get("certificateStatus"),
         serverType = Dict.get("serverType"),
-        start = 1,
-        urgentLevel = Dict.get("urgentLevel");
+        interestStatus = Dict.get("interestStatus"),
+        urgentLevel = Dict.get("urgentLevel"),
+        start = 1;
 
     init();
 
@@ -22,6 +23,12 @@ define([
             });
             Handlebars.registerHelper('formtSType', function(num, options){
                 return serverType[num];
+            });
+            Handlebars.registerHelper('formtULevel', function(num, options){
+                return urgentLevel[num];
+            });
+            Handlebars.registerHelper('formtIStatus', function(num, options){
+                return interestStatus[num];
             });
             getPageServers();
             addServerType();
@@ -39,6 +46,7 @@ define([
         }).then(function(res){
                 if(res.success && res.data.list.length){
                     $("#yfbfw-table").find("tbody").html( tmplList({items: res.data.list}) );
+                    var data = res.data;
                     $("#pagination_div").pagination({
                         items: data.totalCount,
                         itemsOnPage: 10,
@@ -54,36 +62,49 @@ define([
                         }
                     });
                 }else{
-                    $("#yfbfw-table").find("tbody").empty();
-                    base.showMsg("暂无数据");
+                    doError($("#yfbfw-table").find("tbody"), 6);
                 }
             });
     }
     //分页查询被感兴趣服务
     function getPageLikeMyServer(){
-
-    }
-
-    function getPageDemand(value){
-        base.getPageDemand({
-            type: value,
+        base.getPageInterestServer({
             start: start,
             limit: 10
         }).then(function(res){
             if(res.success && res.data.list.length){
-                var data = res.data, list = data.list, html = "";
-                $.each(list, function(i, ll){
-                    html += '<tr code = "'+ll.code+'">'+
-                                '<td><input type="checkbox" class="checkinput"></td>'+
-                                '<td>'+ll.name+'</td>'+
-                                '<td>'+serverType[ll.type]+'</td>'+
-                                '<td>'+("需求联系人")+'</td>'+
-                                '<td>'+ll.mobile+'</td>'+
-                                '<td>'+urgentLevel[ll.urgentLevel]+'</td>'+
-                                '<td>'+ll.publishDatetime+'</td>'+
-                            '</tr>';
+                var data = res.data;
+                $("#bgxqfw-table").find("tbody").html( tmplList1({items: res.data.list}) );
+                var data = res.data;
+                $("#pagination_div").pagination({
+                    items: data.totalCount,
+                    itemsOnPage: 10,
+                    pages: data.totalPage,
+                    prevText: '<',
+                    nextText: '>',
+                    displayedPages: '2',
+                    currentPage: start,
+                    onPageClick: function(pageNumber){
+                        start = pageNumber;
+                        addLoading($("#bgxqfw-table").find("tbody"), 6);
+                        getPageLikeMyServer();
+                    }
                 });
-                $("#sxq-table").find("tbody").html(html);
+            }else{
+                doError($("#bgxqfw-table").find("tbody"), 6);
+            }
+        })
+    }
+
+    function getPageDemand(value){
+        base.getPageDemand({
+            type: value || "",
+            start: start,
+            limit: 10
+        }).then(function(res){
+            if(res.success && res.data.list.length){
+                var data = res.data;
+                $("#sxq-table").find("tbody").html(tmplList2({items: res.data.list}));
                 $("#pagination_div").pagination({
                     items: data.totalCount,
                     itemsOnPage: 10,
@@ -95,12 +116,11 @@ define([
                     onPageClick: function(pageNumber){
                         start = pageNumber;
                         addLoading($("#sxq-table").find("tbody"), 7);
-                        getPageServers();
+                        getPageDemand(value);
                     }
                 });
             }else{
-                $("#sxq-table").find("tbody").empty();
-                base.showMsg("暂无数据");
+                doError($("#sxq-table").find("tbody"), 7);
             }
         });
     }
@@ -119,16 +139,18 @@ define([
             var col = 6, ele;
             if(idx == 0){
                 ele = $("#yfbfw-table").find("tbody");
+                addLoading(ele, col);
                 getPageServers();
             }else if(idx == 1){
                 ele = $("#bgxqfw-table").find("tbody");
+                addLoading(ele, col);
                 getPageLikeMyServer();
             }else{
                 col = 7;
                 ele = $("#sxq-table").find("tbody");
+                addLoading(ele, col);
                 getPageDemand();
             }
-            addLoading(ele, col);
         });
         /***已发布服务start***/
         //checkbox
@@ -203,16 +225,15 @@ define([
                 me.removeClass("actived");
             }
         });
-        // $("#bgxqSelect").on("click", function(){
-        //     var tr = getCheckItem("bgxqfw-table"), 
-        //         code = tr.attr("code"),
-        //         sType = tr.attr("fType");
-        //     if(code){
-        //         location.href = "../server/detail.html?code="+code+"&t=" + sType;
-        //     }else{
-        //         base.showMsg("您未选择所要查看的服务！");
-        //     }
-        // });
+        $("#bgxqSelect").on("click", function(){
+            var tr = getCheckItem("bgxqfw-table"), 
+                code = tr && tr.attr("sCode") || "";
+            if(code){
+                location.href = "../server/detail.html?code="+code+"&return=" + base.makeReturnUrl();
+            }else{
+                base.showMsg("您未选择所要查看的服务！");
+            }
+        });
         $("#bgxqDeal").on("click", function(){
             var me = $(this);
             var tr = getCheckItem("bgxqfw-table"), 
@@ -220,8 +241,10 @@ define([
             if(!me.hasClass("isDoing")){
                 if(code){
                     me.addClass("isDoing").text("处理中...");
-                    base.deleteServer({code: code})
-                        .then(function(res){
+                    base.handleInterest({
+                        code: code,
+                        dealNote: "已查看"
+                    }).then(function(res){
                             me.removeClass("isDoing").text("立即处理");
                             if(res.success){
                                 base.showMsg("处理成功！");
@@ -254,6 +277,7 @@ define([
         $("#searchBtn").on("click", function(){
             var value = $("#fwType").val();
             start = 1;
+            addLoading($("#sxq-table").find("tbody"), 7);
             if(value != "-1"){
                 getPageDemand(value);
             }else{
@@ -262,7 +286,7 @@ define([
         });
         $("#sxqSelect").on("click", function(){
             var tr = getCheckItem("sxq-table"), 
-                code = tr.attr("code");
+                code = tr && tr.attr("code") || "";
             if(code){
                 location.href = "../xuser/detail.html?code="+code;
             }else{
@@ -291,5 +315,9 @@ define([
 
     function addLoading(ele, col){
         ele.html("<tr><td colspan='"+col+"'><i class='loading-icon'></i></td></tr>");
+    }
+
+    function doError(ele, col){
+        ele.html("<tr><td colspan='"+col+"'>暂无数据</td></tr>");
     }
 });

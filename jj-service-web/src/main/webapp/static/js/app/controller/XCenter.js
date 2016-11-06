@@ -1,19 +1,18 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'Handlebars'
-], function (base, Ajax, Dict, Handlebars) {
+], function (base, Dict, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
         pwdStrength = Dict.get("pwdStrength");
 
     init();
 
     function init(){
-        if(base.isLogin()){
+        if(base.isLogin() && base.isPerson()){
             getUserInfo();
         }else{
-            //未登录
+            location.href = "./login.html?return=" + base.makeReturnUrl();
         }
     }
 

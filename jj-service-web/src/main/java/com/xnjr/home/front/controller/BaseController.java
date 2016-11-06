@@ -31,6 +31,9 @@ public class BaseController {
      */
     protected SessionUser getSessionUser() {
         SessionUser user = (SessionUser) sessionProvider.getUserDetail();
+        if(user == null){
+        	user = new SessionUser();
+        }
         return user;
     }
 

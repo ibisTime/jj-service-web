@@ -1,7 +1,6 @@
 define([
     'app/controller/base',
-    'app/util/ajax'
-], function (base, Ajax) {
+], function (base) {
     var time;
     init();
 

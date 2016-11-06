@@ -1,16 +1,15 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'Handlebars',
     'lib/Pagination'
-], function (base, Ajax, Dict, Handlebars, Pagination) {
+], function (base, Dict, Handlebars, Pagination) {
     var template = __inline("../ui/error-fragment.handlebars"),
         leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
-        start = 1, companyCode = base.getUrlParam("code"),
+        start = 1,
         serverType = Dict.get("serverType"),
-        type = base.getUrlParam("t"),
-        sName = base.getUrlParam("n");
+        companyCode = base.getUrlParam("code"),
+        type = base.getUrlParam("t") || "";
 
     init();
 
@@ -93,7 +92,7 @@ define([
         $("#watchBtn").on("click", function(){
             var code = getCheckItem();
             if(code){
-                location.href = "./detail.html?code=" + code + "&t=" + type + "&return=" + base.makeReturnUrl();
+                location.href = "./detail.html?code=" + code + "&return=" + base.makeReturnUrl();
             }else{
                 base.showMsg("您未选择所要查看的服务！");
             }

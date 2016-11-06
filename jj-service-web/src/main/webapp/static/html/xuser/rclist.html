@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>我是人才</title>
+</head>
+
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox clearfix">
+    <ul class="name">
+        <li><a href="./center.html">企业中心<span>></span></a></li>
+        <li><a href="./rclist.html">我是人才<span>></span></a></li>
+        <li><a href="./fwlist.html">展示服务<span>></span></a></li>
+    </ul>
+    <div class="area clearfix">
+        <p class="bread-wrap">您所在的位置： 
+            <a href="./center.html">会员中心</a> &gt; <span>我是人才</span>
+        </p>
+        
+        <ul class="lg_tnav_wrap" id="rcUl">
+            <li><a href="javascript:void(0)" class="current" >我的简历</a></li>
+            <li><a href="javascript:void(0)">已应聘简历</a></li>
+            <li><a href="javascript:void(0)" >被感兴趣</a></li>
+        </ul>
+        <div id="wdjl" class="rcContent rcContent0">
+            <div> 
+                <div class="cdh" id="addJl">增加</div>
+                <div class="cdh" id="editJl">修改</div>
+                <div class="cdh" id="deleteJl">删除</div>
+                <div class="cdh" id="selectJl">查看详情</div>
+            </div>
+            <table class="t-box rencai rc-mt" id="wdjlTable">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>简历名称</th>
+                        <th>申请职位</th>
+                        <th>期望工作地点</th>
+                        <th>更新日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan='5'><i class='loading-icon'></i></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="yypzw" class="rcContent rcContent1 hidden">
+            <div>
+                <div class="cdh" id="deleteZw">删除</div>
+                <div class="cdh" id="selectZw">查看详情</div>
+            </div>
+            <table class="t-box rencai rc-mt" id="yypzwTable">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>企业名称</th>
+                        <th>申请的职位</th>
+                        <th>工作地点</th>
+                        <th>职位月薪</th>
+                        <th>简历名称</th>
+                        <th>更新日期</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="bgxq" class="rcContent rcContent2 hidden">
+            <div>
+                <div class="cdh" id="selectXq">查看详情</div>
+            </div>
+            <table class="t-box rencai rc-mt" id="bgxqTable">
+                <thead>
+                    <tr class="apply-j">
+                        <th>&nbsp;</th>
+                        <th>简历名称</th>
+                        <th>感兴趣企业</th>
+                        <th>企业联系人</th>
+                        <th>联系人手机</th>
+                        <th>更新日期</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="pagination_div"></div>
+    </div>
+</div>
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/XRCList']);
+</script>
+</body>
+</html>

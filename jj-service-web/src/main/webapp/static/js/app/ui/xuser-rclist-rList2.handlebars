@@ -1,0 +1,10 @@
+{{#each items}}
+    <tr code="{{code}}" cCode="{{companyCode}}">
+        <td><input type="checkbox" class="checkinput"/></td>
+        <td>{{name}}</td>
+        <td>{{companyName}}</td>
+        <td>{{companyContacts}}</td>
+        <td>{{companyMobile}}</td>
+        <td>{{formatDate publishDatetime}}</td>
+    </tr>
+{{/each}}

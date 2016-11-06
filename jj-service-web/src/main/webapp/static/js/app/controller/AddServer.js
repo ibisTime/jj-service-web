@@ -223,7 +223,7 @@ define([
         }else if( !/^\d+(\.\d{1,2})?$/.test(quoteMax) ){
             base.showMsg("最大价格不能超过两位小数");
             return;
-        }else if(quoteMin > quoteMax){
+        }else if(+quoteMin > +quoteMax){
             base.showMsg("最小价格不能大于最大价格");
             return;
         }

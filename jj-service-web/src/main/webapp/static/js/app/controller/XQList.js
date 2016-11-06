@@ -1,10 +1,9 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'Handlebars',
     'lib/Pagination'
-], function (base, Ajax, Dict, Handlebars, Pagination) {
+], function (base, Dict, Handlebars, Pagination) {
     var leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         rightListmpl = __inline("../ui/position-xqList-rList.handlebars"),
         experience = Dict.get("experience"), start = 1,

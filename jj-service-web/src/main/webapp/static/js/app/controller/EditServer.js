@@ -19,6 +19,7 @@ define([
     function init(){
         if(base.isCompUser()){
             getServerInfo();
+            addListener();
             $("#compName").val(base.getSessionUser().name);
             var fwTypes = sessionStorage.getItem("fwTypes");
             if(fwTypes){
@@ -110,13 +111,6 @@ define([
                 ajaxImgUpload("pic1File", "pic1", "pic1Url");
             }
         });
-        // //服务类型改变
-        // $("#fwType").on("change", function(){
-        //     var topDiv = $("#topDiv"),
-        //         type = $(this).find("option:selected").attr("cType");
-        //     topDiv.find("choseCont").addClass("hidden");
-        //     topDiv.find("choseCont" + type).removeClass("hidden");
-        // })
     }
 
     function addServerInfo(data){
@@ -124,7 +118,9 @@ define([
 
         $("#fwName", topForm).val(data.name);
         $("#compName", topForm).val(data.company.name);
-        $("#price", topForm).val(data.quoteMin + "元 ~ " + data.quoteMax + "元");
+        $("#quoteMin", topForm).val(data.quoteMin);
+        $("#quoteMax", topForm).val(data.quoteMax);
+        $("#realType", topForm).val(data.type);
         $("#fwType", topForm).val(serverType[data.type]);
         /**
          * 1 软件外包 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6客服外包 7仓配服务 8 产业园
@@ -343,25 +339,25 @@ define([
         }else if( !/^\d+(\.\d{1,2})?$/.test(quoteMax) ){
             base.showMsg("最大价格不能超过两位小数");
             return;
-        }else if(quoteMin > quoteMax){
+        }else if(+quoteMin > +quoteMax){
             base.showMsg("最小价格不能大于最大价格");
             return;
         }
         config.quoteMax = quoteMax;
         config.quoteMin = quoteMin;
-        var opt = $("#fwType").find("option:selected");
-        if(!opt.length){
+        var type = $("#realType").val();
+        if(!type){
             base.showMsg("未选择所属服务");
             return;
         }
-        config.qualityCode = $("#fwType").val();
-        var type = opt.attr("ctype");
+        //config.qualityCode = type;
         var description = $("#description").val();
         if(!description || description.trim() === ""){
             base.showMsg("详细描述不能为空");
             return;
         }
         config.description = description;
+        config.code = sCode;
         /**
          * 1 软件外包 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6客服外包 7仓配服务 8 产业园
          */

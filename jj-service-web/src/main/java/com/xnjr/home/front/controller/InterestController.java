@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xnjr.home.front.ao.IInterestAO;
+import com.xnjr.home.front.session.SessionUser;
 
 @Controller
 @RequestMapping(value = "/interest")
@@ -23,9 +24,13 @@ public class InterestController extends BaseController {
     		@RequestParam(value = "fromUser", required = false) String fromUser,
     		@RequestParam(value = "type", required = true) String type,
     		@RequestParam(value = "toCode", required = true) String toCode){
-    	String uId = this.getSessionUser().getUserId();
-    	if(uId == null || uId == ""){
-    		uId = this.getSessionUser().getCompanyCode();
+    	SessionUser user = this.getSessionUser();
+    	String uId = "";
+    	if(user != null){
+    		uId = user.getUserId();
+    		if(uId == null || uId == ""){
+        		uId = user.getCompanyCode();
+        	}
     	}
     	return interestAO.interested(uId, toCode, type);
     }
@@ -58,15 +63,26 @@ public class InterestController extends BaseController {
     	return interestAO.handle(code, dealNote, this.getSessionUser().getCompanyCode());
     }
     
-    //感兴趣分页查询服务
+    //分页查询感兴趣服务(或被感兴趣)
     @RequestMapping(value = "/page/server", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPageInterestServer(
+    		@RequestParam(value = "fromUser", required = false) String fromUser,
     		@RequestParam(value = "toCode", required = false) String toCode,
     		@RequestParam(value = "companyCode", required = false) String companyCode,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
-    	return interestAO.queryPageInterestServer(this.getSessionUser().getUserId(),
+    	SessionUser user = this.getSessionUser();
+    	if(user != null){
+	    	//需求方
+	    	if(user.getKind().equals("f1")){
+	    		fromUser = user.getUserId();
+	    	//服务方(查询被感兴趣服务)
+	    	}else if(user.getKind().equals("comp")){
+	    		companyCode = user.getCompanyCode();
+	    	}
+    	}
+    	return interestAO.queryPageInterestServer(fromUser,
     			toCode, companyCode, start, limit);
     }
     
@@ -90,8 +106,17 @@ public class InterestController extends BaseController {
     		@RequestParam(value = "companyCode", required = false) String companyCode,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
-    	return interestAO.queryPageInterestResume(this.getSessionUser().getCompanyCode(),
-    			publisher, start, limit);
+    	SessionUser user = this.getSessionUser();
+    	if(user != null){
+	    	//需求方
+	    	if(user.getKind().equals("f1")){
+	    		publisher = user.getUserId();
+	    	//服务方
+	    	}else if(user.getKind().equals("comp")){
+	    		companyCode = user.getCompanyCode();
+	    	}
+    	}
+    	return interestAO.queryPageInterestResume(companyCode, publisher, start, limit);
     }
     
     //分页查询申请职位或者应聘简历信息
@@ -99,10 +124,21 @@ public class InterestController extends BaseController {
     @ResponseBody
     public Object queryPageInterestPosition(
     		@RequestParam(value = "companyCode", required = false) String companyCode,
+    		@RequestParam(value = "fromUser", required = false) String fromUser,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
+    	SessionUser user = this.getSessionUser();
+    	if(user != null){
+    		//需求方
+        	if(user.getKind().equals("f1")){
+        		fromUser = user.getUserId();
+        	//服务方
+        	}else if(user.getKind().equals("comp")){
+        		companyCode = user.getCompanyCode();
+        	}
+    	}
     	return interestAO.queryPageInterestPosition(companyCode,
-    			this.getSessionUser().getUserId(), start, limit);
+    			fromUser, start, limit);
     }
     
 }

@@ -1926,6 +1926,9 @@ input[type=number]::-webkit-outer-spin-button {
 .va-tt{
     vertical-align: text-top;
 }
+.va-b{
+    vertical-align: bottom;
+}
 .sjssbj input{
     width: 100px;
 }
@@ -1974,7 +1977,10 @@ input[type="button"],input[type="submit"],input[type="checkbox"]{
 .leftNav li{
     cursor: pointer;
 }
-/*input[disabled], textarea[disabled] {
+input[type="text"][disabled], textarea[disabled] {
     background: transparent;
     border: none;
-}*/
+}
+.rcContent table, .fwContent table{
+    width: 100%;
+}

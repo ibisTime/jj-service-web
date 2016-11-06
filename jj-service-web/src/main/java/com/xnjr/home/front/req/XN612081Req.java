@@ -17,6 +17,8 @@ public class XN612081Req {
 	//city(必填)	城市
 	private String city;
 	
+	private String area;
+	
 	//experience (必填)	工作经验 1 1年内 2 1-3年 3 3-5年 4 5年以上
 	private String experience;
 	
@@ -40,6 +42,14 @@ public class XN612081Req {
 	
 	//publisher(必填)	发布人
 	private String publisher;
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	public String getCode() {
 		return code;

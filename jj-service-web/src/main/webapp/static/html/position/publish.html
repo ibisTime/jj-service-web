@@ -6,14 +6,8 @@
 </head>
 <body>
 <link rel="import" href="../body-top.html?__inline">
-<div class="bigbox">
-    <ul class="name" id="leftNav">
-        <!--<li><a href="">运营总监<span>></span></a></li>
-        <li><a href="">运营主管<span>></span></a></li>
-        <li><a href="">运营<span>></span></a></li>
-        <li><a href="">设计总监<span>></span></a></li>
-        <li><a href="">设计/美工<span>></span></a></li>
-        <li><a href="">推广专员<span>></span></a></li>-->
+<div class="bigbox clearfix">
+    <ul class="name leftNav" id="leftNav">
     </ul>
     <!--右边-->
     <div class="area">
@@ -48,13 +42,12 @@
                 <div class="inblock" id="address">
                     <select id="province" class="prov"></select>
                     <select id="city" class="city"></select>
-                    <select class="dist"></select>
                 </div>
             </div>
             
             <div class="mtb" id="experience">
                 <div class="inblock wb"> 
-                    <span class="xh">&nbsp;</span>
+                    <span class="xh">*</span>
                     <span>工作经验</span>
                 </div>
                 <input name="expType" type="radio" value="1" checked/>1年内
@@ -65,7 +58,7 @@
             
             <div class="mtb" id="education">
                 <div class="inblock wb"> 
-                    <span class="xh">&nbsp;</span>
+                    <span class="xh">*</span>
                     <span>学历要求</span>
                 </div>
                 <input name="eduType" type="radio" value="1" checked/>本科
@@ -76,7 +69,7 @@
             
             <div class="mtb" id="zwType">
                 <div class="inblock wb"> 
-                    <span class="xh">&nbsp;</span>
+                    <span class="xh">*</span>
                     <span>工作性质</span>
                 </div>
                 <input name="zwType" type="radio" value="1" checked/>全职
@@ -86,7 +79,7 @@
             
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">&nbsp;</span>
+                    <span class="xh">*</span>
                     <span>招聘人数</span>
                 </div>
                 <input class="in-width" type="number" id="jobNum"/>
@@ -94,7 +87,7 @@
             
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">&nbsp;</span>
+                    <span class="xh">*</span>
                     <span>职位月薪</span>
                 </div>
                 <input class="in-width" type="text" id="msalary"/>
@@ -102,7 +95,7 @@
             
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">&nbsp;</span>
+                    <span class="xh">*</span>
                     <span >职位描述</span>
                 </div>
                 <textarea class="sell" rows="10" cols="50" id="description"></textarea>
@@ -111,7 +104,7 @@
 
         <div class="hold-box">
             <input type="button" id="sbtn" class="hold" value="发布">
-            <a href="" class="cancel" id="goBack">取消</a>
+            <a href="javascript:void(0)" class="cancel" id="goBack">取消</a>
         </div>
     </div>
 </div>

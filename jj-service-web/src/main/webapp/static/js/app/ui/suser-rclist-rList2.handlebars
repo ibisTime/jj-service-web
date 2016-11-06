@@ -1,0 +1,11 @@
+{{#each items}}
+    <tr code="{{code}}">
+        <td><input type="checkbox" class="checkinput"/></td>
+        <td>{{name}}</td>
+        <td>{{formtPKind expPosition}}</td>
+        <td>{{preWorkTime}}</td>
+        <td>￥{{expMsalary}}</td>           
+        <td>{{expProvince}}{{expCity}}</td>
+        <td>{{formatDate publishDatetime}}</td>
+    </tr>
+{{/each}}

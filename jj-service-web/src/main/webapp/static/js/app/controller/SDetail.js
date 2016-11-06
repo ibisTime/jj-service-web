@@ -3,8 +3,7 @@ define([
     'app/util/dict',
     "Handlebars"
 ], function (base, Dict, Handlebars) {
-    var template = __inline("../ui/error-fragment.handlebars"),
-        leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
+    var leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         feeMode = Dict.get("feeMode"),
         isDZ = Dict.get("isDZ"),
         payCycle = Dict.get("payCycle"),
@@ -81,7 +80,8 @@ define([
                 addCyyInfo(data, topForm);
                 break;
         }
-        $("#description", topForm).html(data.description);
+        //$("#description", topForm).html(data.description);
+        $("#description", topForm).val(data.description);
         $("#topDiv").removeClass("hidden").append(topForm);
     }
 

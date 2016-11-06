@@ -87,6 +87,7 @@ public class MemberController extends BaseController {
         Map map = userAO.doPersonLogin(loginName, loginPwd);
         Map map1 = userAO.doGetUser((String)map.get("userId"));
         SessionUser sessionUser = new SessionUser();
+        sessionUser.setKind("f1");
         sessionUser.setUserId((String)map.get("userId"));
         // 创建session
         setSessionUser(sessionUser);
@@ -110,6 +111,7 @@ public class MemberController extends BaseController {
     	Map map = userAO.doCompLogin(loginName, password);
         Map map1 = userAO.doGetCompanyInfo((String)map.get("companyCode"));
         SessionUser sessionUser = new SessionUser();
+        sessionUser.setKind("comp");
         sessionUser.setCompanyCode((String)map.get("companyCode"));
         // 创建session
         setSessionUser(sessionUser);

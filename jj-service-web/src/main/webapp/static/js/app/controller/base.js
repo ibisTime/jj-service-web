@@ -177,8 +177,13 @@ define([
                 location.href = url || "../home/index.html";
             }
         },
+        //上传图片
         uploadImg: function(photo){
             return Ajax.post(APIURL + "/upload/img",{photo: photo});
+        },
+        //获取地址json
+        getAddress: function(){
+            return Ajax.get("/static/js/lib/city.min.json");
         },
         //是否登录
         isLogin: function(){
@@ -456,6 +461,10 @@ define([
         publishPosition: function(config){
             return Ajax.post(APIURL + "/position/publish", config);
         },
+        //修改职位
+        editPosition: function(config){
+            return Ajax.post(APIURL + "/position/edit", config);
+        },
         //获取需求方用户详情
         getUserInfo: function(){
             return Ajax.get(APIURL + "/user/info/person");
@@ -468,6 +477,14 @@ define([
         getPageComp: function(config){
             return Ajax.get(APIURL + "/user/comp/page", config);
         },
+        //新增简历
+        publishResume: function(config){
+            return Ajax.post(APIURL + "/resume/publish", config);
+        },
+        //修改简历
+        editResume: function(config){
+            return Ajax.post(APIURL + "/resume/edit", config);
+        },
         //分页查询简历
         getPageResume: function(config){
             return Ajax.get(APIURL + "/resume/page", config);
@@ -476,9 +493,13 @@ define([
         getListResume: function(config){
             return Ajax.get(APIURL + "/resume/list", config);
         },
-        //职位申请
-        applyPosition: function(config){
-            return Ajax.post(APIURL + "/interest/apply/position", config);
+        //删除简历
+        deleteResume: function(config){
+            return Ajax.post(APIURL + "/resume/delete", config);
+        },
+        //详情查询简历
+        getResumeInfo: function(config){
+            return Ajax.get(APIURL + "/resume/info", config);
         },
         //列表查询公司资质
         getListCredentials: function(config){
@@ -503,6 +524,30 @@ define([
         //需求方对服务感兴趣，公司对需求感兴趣，公司对简历感兴趣
         interested: function(config){
             return Ajax.post(APIURL + "/interest/interested", config);
+        },
+        //职位申请
+        applyPosition: function(config){
+            return Ajax.post(APIURL + "/interest/apply/position", config);
+        },
+        //分页查询感兴趣服务(或被感兴趣)
+        getPageInterestServer: function(config){
+            return Ajax.get(APIURL + "/interest/page/server", config);
+        },
+        //处理意向
+        handleInterest: function(config){
+            return Ajax.post(APIURL + "/interest/handle", config);
+        },
+        //分页查询申请职位或者应聘简历信息
+        getPageInterestPosition: function(config){
+            return Ajax.get(APIURL + "/interest/page/position", config);
+        },
+        //分页查询感兴趣简历(或被感兴趣简历)
+        getPageInterestResume: function(config){
+            return Ajax.get(APIURL + "/interest/page/resume", config);
+        },
+        //删除感兴趣服务
+        deleteInterest: function(config){
+            return Ajax.post(APIURL + "/interest/delete", config);
         },
         //分页查询需求
         getPageDemand: function(config){
@@ -595,14 +640,14 @@ define([
             }
         });
         $("#choosePlace").on("click", function(){
-            $("#city").find(".city").prop("disabled", "disabled");
-            $("#mask, #city").removeClass("hidden");
+            $("#city1").find(".city").prop("disabled", "disabled");
+            $("#mask, #city1").removeClass("hidden");
         });
         $("#choseCancel").on("click", function(){
-            $("#mask, #city").addClass("hidden");
+            $("#mask, #city1").addClass("hidden");
         });
         $("#choseOk").on("click", function(){
-            var cont = $("#city");
+            var cont = $("#city1");
             var province = cont.find(".prov").val(),
                 city = cont.find(".city").val(),
                 area = cont.find(".dist").val();

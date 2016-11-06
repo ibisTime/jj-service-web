@@ -1,9 +1,8 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'Handlebars'
-], function (base, Ajax, Dict, Handlebars) {
+], function (base, Dict, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
         leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         rightListmpl = __inline("../ui/position-index-rList.handlebars"),
@@ -76,7 +75,7 @@ define([
             limit: "10",
             isHot: "1"
         }).then(function(res){
-            if(res.success){
+            if(res.success && res.data.list.length){
                 $("#r-list").html( rightListmpl({items: res.data.list}) );
             }else{
                 if(rFirst){

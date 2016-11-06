@@ -1,9 +1,8 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'Handlebars'
-], function (base, Ajax, Dict, Handlebars) {
+], function (base, Dict, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
         leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         loginFlag = false,

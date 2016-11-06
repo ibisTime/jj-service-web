@@ -1,20 +1,17 @@
 define([
     'app/controller/base',
-    'app/util/ajax',
     'app/util/dict',
     'Handlebars',
     'lib/Pagination'
-], function (base, Ajax, Dict, Handlebars, Pagination) {
+], function (base, Dict, Handlebars, Pagination) {
     var template = __inline("../ui/error-fragment.handlebars"),
         leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         rightListmpl = __inline("../ui/server-list-rList.handlebars"),
-        start = 1, navCode = base.getUrlParam("code"),
-        title = base.getUrlParam("n");
+        start = 1, navCode = base.getUrlParam("code") || "1";
 
     init();
 
     function init(){
-        document.title = title;
         var fwTypes = sessionStorage.getItem("fwTypes");
         if(fwTypes){
             addLeftNav($.parseJSON(fwTypes));
@@ -41,7 +38,7 @@ define([
             }
         });
         $("#rList").on("click", ".img-box", function(){
-            location.href = "./comp-detail.html?code=" + $(this).attr("code") + "&t=" + navCode + "&n=" + title;
+            location.href = "./comp-detail.html?code=" + $(this).attr("code") + "&t=" + navCode;
         });
     }
 
@@ -52,7 +49,7 @@ define([
                     var data = res.data;
                     for(var i = 0; i < data.length; i++){
                         if(data[i].certificateType == navCode){
-                            location.href = "./mfwlist.html?code=" + navCode;
+                            location.href = "./mfwlist.html?type=" + navCode;
                             return;
                         }
                     }
