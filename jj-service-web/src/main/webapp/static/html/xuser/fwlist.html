@@ -6,28 +6,29 @@
 </head>
 
 <body>
+<link rel="import" href="../body-top.html?__inline">
 <div class="bigbox clearfix">
     <ul class="name">
         <li><a href="./center.html">我的中心<span>></span></a></li>
         <li><a href="./rclist.html">我是人才<span>></span></a></li>
-        <li><a href="./fwlist.html">我的服务<span>></span></a></li>    
+        <li class="current"><a href="./fwlist.html">我的服务<span>></span></a></li>    
     </ul>
-    <div class="area clearfix">
+    <div class="area clearfix" id="contDiv">
         <p class="bread-wrap">您所在的位置： 
             <a href="">会员中心</a> &gt; <span>我的服务</span>
         </p>
         
-	    <ul class="lg_tnav_wrap">
+	    <ul class="lg_tnav_wrap" id="fwUl">
             <li><a href="javascript:void(0)" class="current">我的需求</a></li>
             <li><a href="javascript:void(0)">感兴趣服务</a></li>
             <li><a href="javascript:void(0)">被感兴趣</a></li>
         </ul>
         <div id="wdxq" class="fwContent fwContent0">
             <div> 
-                <div class="cdh">新增</div>
-                <div class="cdh">修改</div>
-                <div class="cdh">删除</div>
-                <div class="cdh">查看详情</div>
+                <div class="cdh" id="wdxqAdd">新增</div>
+                <div class="cdh" id="wdxqEdit">修改</div>
+                <div class="cdh" id="wdxqDelete">删除</div>
+                <div class="cdh" id="wdxqSelect">查看详情</div>
             </div> 
             <table class="t-box at" id="wdxqTable">
                 <thead>
@@ -47,9 +48,9 @@
         </div>
         <div id="gxqfw" class="fwContent fwContent1 hidden">
             <div> 
-                <div class="cdh">再找找服务</div>
-                <div class="cdh">删除</div>
-                <div class="cdh">查看详情</div>
+                <div class="cdh" id="gxqfwSearch">再找找服务</div>
+                <div class="cdh" id="gxqfwDelete">删除</div>
+                <div class="cdh" id="gxqfwSelect">查看详情</div>
             </div> 
             <table class="t-box at" id="gxqfwTable">
                 <thead>
@@ -66,7 +67,7 @@
             </table>
         </div>
         <div id="bgxq" class="fwContent fwContent2 hidden">
-            <div><div class="cd">查看详情</div></div> 
+            <div><div class="cd" id="bgxqSelect">查看详情</div></div> 
             <table class="t-box at" id="bgxqTable">
                 <thead>
                     <tr class="apply-j">

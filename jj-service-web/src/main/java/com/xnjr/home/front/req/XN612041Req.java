@@ -9,7 +9,7 @@ public class XN612041Req {
 	private String name;
 	
 	//qualityCode (必填)	资质类型
-	private String type;
+	private String qualityCode;
 
 	//expCompany (选填)	期望企业
 	private String expCompany;
@@ -38,13 +38,13 @@ public class XN612041Req {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getType() {
-		return type;
+	
+	public String getQualityCode() {
+		return qualityCode;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setQualityCode(String qualityCode) {
+		this.qualityCode = qualityCode;
 	}
 
 	public String getExpCompany() {

@@ -10,6 +10,7 @@ define([
     init();
 
     function init(){
+        $("#rcA").addClass("current");
         if(base.isCompUser()){
             var rcTypes = sessionStorage.getItem("rcTypes");    //人才数据字典
             if(rcTypes){
@@ -51,7 +52,7 @@ define([
                 });
                 $("#province").append(temp_html);
                 $("#city").append(temp_html1);
-            })
+            });
     }
 
 

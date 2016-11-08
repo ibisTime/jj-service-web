@@ -1,8 +1,9 @@
 define([
     'app/controller/base',
     'app/util/dict',
+    'lib/swiper-3.3.1.jquery.min',
     'Handlebars'
-], function (base, Dict, Handlebars) {
+], function (base, Dict, Swiper, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
         leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         rightListmpl = __inline("../ui/position-index-rList.handlebars"),
@@ -13,6 +14,7 @@ define([
     init();
 
     function init(){
+        $("#rcA").addClass("current");
         Handlebars.registerHelper('formatDate', function(num, options){
             var dd = new Date(num);
             return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
@@ -28,9 +30,37 @@ define([
             getDictList();
         }
         getHotPagePosition();
+        getBannerList();
         addListeners();
     }
-
+    function getBannerList(){
+        base.getBannerList({location: "2"})
+            .then(function(res){
+                if(res.success){
+                    if(res.data.list){
+                        var data = res.data, html = "";
+                        for(var i = 0; i < data.length; i++){
+                            html += '<div class="swiper-slide"><img src="'+data[i].pic+'"></div>';
+                        }
+                        if(data.length == 1){
+                            $("#swiper-pagination").remove();
+                        }
+                        $("#swr").html(html);
+                        swiperImg();
+                    }
+                }else{
+					base.showMsg("非常抱歉，暂时无法获取banner!");
+				}
+            });
+    }
+    function swiperImg(){
+        var mySwiper = new Swiper ('.swiper-container', {
+            direction: 'horizontal',
+            autoplay: 2000,
+            autoplayDisableOnInteraction: false,
+            pagination: '.swiper-pagination'
+        });
+    }
     function addListeners(){
         $("#leftNav").on("click", "li", function(){
             var me = $(this), code = me.attr("code");
@@ -53,6 +83,17 @@ define([
                 location.href = "./xqlist.html?code=" + code + "&n=" + li.text();
             }
         });
+        $("#r-list").on("click", ".information-l", function(){
+            var code = $(this).attr("code");
+            location.href = "./list-detail.html?code=" + code + "&return=" + base.makeReturnUrl();
+        });
+        $("#swiper-container").on("click", "img", function(){
+            if(base.isCompUser()){
+                location.href = "./fwlist.html";
+            }else{
+                location.href = "./xqlist.html";
+            }
+        });
     }
 
     function getDictList(){
@@ -73,7 +114,9 @@ define([
         base.getPagePosition({
             start: "1",
             limit: "10",
-            isHot: "1"
+            isHot: "1",
+            gsProvince: localStorage.getItem("province"),
+            gsCity: localStorage.getItem("city")
         }).then(function(res){
             if(res.success && res.data.list.length){
                 $("#r-list").html( rightListmpl({items: res.data.list}) );

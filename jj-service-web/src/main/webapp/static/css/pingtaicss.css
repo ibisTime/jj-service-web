@@ -106,14 +106,49 @@ a:hover {
 .linefont{float:left;margin-right:40px;}
 .fc{color:#CB2A2F;}
 .line{font-size:16px;margin-left:140px;}
+.logoline .line .linefont a{
+    padding-left: 24px;
+}
+.logoline .line .linefont a.current{
+    color: #CB2A2F;
+}
+.logoline .line .linefont a.home-a{
+    background: url(../images/fggh.png) no-repeat;
+}
+
+.logoline .line .linefont a.home-a.current, .logoline .line .linefont a.home-a:hover{
+    background: url(../images/cfggh.png) no-repeat;
+}
+.logoline .line .linefont a.rc-a{
+    background: url(../images/dg.png) no-repeat;
+}
+.logoline .line .linefont a.rc-a.current, .logoline .line .linefont a.rc-a:hover{
+    background: url(../images/ghgfh.png) no-repeat;  
+}
+.logoline .line .linefont a.fw-a{
+    background: url(../images/ddf.png) no-repeat;
+}
+.logoline .line .linefont a.fw-a.current, .logoline .line .linefont a.fw-a:hover{
+    background: url(../images/vfggh.png) no-repeat;  
+}
+.logoline .line .linefont a.user-a{
+    background: url(../images/fgdf.png) no-repeat;
+}
+.logoline .line .linefont a.user-a.current, .logoline .line .linefont a.user-a:hover{
+    background: url(../images/dsfdfg.png) no-repeat;  
+}
 .place-set{margin-left:20px;}
 .place{display:inline-block;font-size:14px;}
 .site{font-size:12px;color:#F97E11;}
 .back{background-color:#E1E1E1; border-radius:20px;padding:4px 8px;}
 .linefont a:hover{color:#ce3239;}
 
-.name{border:1px solid #CCC; border-radius:6px;width:230px;padding:4px 16px;float:left;line-height:24px;}
-.name li{padding:4px 0;}
+.name{border:1px solid #CCC; border-radius:6px;width:230px;padding:0px;float:left;line-height:24px;}
+.name li{border-radius: 6px;}
+.name li a{padding: 8px 16px;}
+.name li.current, .name li:hover{
+    background: #fff;
+}
 .name span{float:right;}
 .name a{width:100%;}
 
@@ -279,7 +314,7 @@ textarea{vertical-align:text-top;}
 
 /*我是人才*/
 .rencai{margin-top:20px;}
-.rencai td{padding:6px 69px;border:#CCC 1px solid;}
+.rencai td{padding:6px 6px;border:#CCC 1px solid;}
 .rc-mt{margin-bottom:40px;}
 
 .lg_tnav_wrap li {display: inline-block;margin-right:24px;position: relative;margin-bottom:24px;}
@@ -364,7 +399,7 @@ textarea{vertical-align:text-top;}
     color: #839192;
     font-size: 14px;
     line-height: 36px;}
-.login-width{ width: 195px;}
+.login-width{ width: 198px;}
 .agree{width: 280px;}
 .get{padding:8px 10px;background:#CB2A2F;border-radius: 3px;color:white;margin-left:10px;width: 86px;}
 .login-mtb{margin:20px 0px;}
@@ -420,7 +455,7 @@ textarea{vertical-align:text-top;}
 .sc:hover{line-height:28px;padding:4px 16px;border-radius:4px;background:#CB2A2F;color:white;}
 
 /*登录（需求方）*/
-.big-img{background:url(images/denglu-datu.png) no-repeat;position:relative;height:600px;width:100%;}
+.big-img{position:relative;height:600px;width:100%;}
 .li-box{width:360px;height:350px;background:#fff;position:absolute;top:240px;left:56%;text-align:center;}
 .member{text-align:center;font-size:16px;font-weight:bold;border-bottom: 1px solid  #E3E3E3;padding:16px 0;}
 .Personal-login{background:url(images/qwe.png) no-repeat; color: #CB2A2F;border-right:1px #CCCCCC solid; padding-right:64px;}

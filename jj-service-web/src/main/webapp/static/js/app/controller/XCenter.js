@@ -9,6 +9,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isLogin() && base.isPerson()){
             getUserInfo();
         }else{

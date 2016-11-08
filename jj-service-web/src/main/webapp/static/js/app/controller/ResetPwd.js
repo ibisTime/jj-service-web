@@ -6,6 +6,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         addListeners();
     }
 
@@ -13,6 +14,12 @@ define([
         $("#resetBtn").on("click", function(){
             if(validate()){
                 doResetPwd();
+            }
+        });
+        $("#oldLoginPwd, #newLoginPwd, #smsCaptcha").on("keyup", function(e){
+            var code = e.charCode || e.keyCode;
+            if(code == "13"){
+                $("#resetBtn").click();
             }
         });
     }
@@ -60,8 +67,8 @@ define([
                         location.href = "./login.html?return=" + base.getReturnParam();
                     }, 1500);
                 }else{
-                    base.showMsg("修改密码失败！");
-                    $("#findBtn").val("修改").removeAttr("disabled");
+                    base.showMsg(res.msg);
+                    $("#resetBtn").val("修改").removeAttr("disabled");
                 }
             });
     }
@@ -80,8 +87,8 @@ define([
                             location.href = "./login.html?return=" + base.getReturnParam();
                         }, 1500);
                     }else{
-                        base.showMsg("修改密码失败！");
-                        $("#findBtn").val("修改").removeAttr("disabled");
+                        base.showMsg(res.msg);
+                        $("#resetBtn").val("修改").removeAttr("disabled");
                     }
                 }
             });

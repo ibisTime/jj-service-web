@@ -15,7 +15,31 @@ public class XN612090Req {
 	private String limit;
 	//种类
 	private String kind;
+	//
+	private String gsProvince;
 	
+	private String gsCity;
+	
+	private String gsArea;
+	
+	public String getGsProvince() {
+		return gsProvince;
+	}
+	public void setGsProvince(String gsProvince) {
+		this.gsProvince = gsProvince;
+	}
+	public String getGsCity() {
+		return gsCity;
+	}
+	public void setGsCity(String gsCity) {
+		this.gsCity = gsCity;
+	}
+	public String getGsArea() {
+		return gsArea;
+	}
+	public void setGsArea(String gsArea) {
+		this.gsArea = gsArea;
+	}
 	public String getKind() {
 		return kind;
 	}

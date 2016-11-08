@@ -2,20 +2,20 @@
 <html>
 <head>
     <link rel="import" href="../head.html?__inline">
-    <title>申请资质</title>
+    <title>修改信息</title>
 </head>
 
 <body>
 <link rel="import" href="../body-top.html?__inline">
-<div class="bigbox">
+<div class="bigbox clearfix">
     <ul  class="name">
-  		  <li><a href="./center.html">企业中心<span>></span></a></li>
+  		  <li class="current"><a href="./center.html">企业中心<span>></span></a></li>
         <li><a href="./rclist.html">我要人才<span>></span></a></li>
         <li><a href="./fwlist.html">展示服务<span>></span></a></li>
     </ul>
     <div class="area">
         <p class="bread-wrap">您所在的位置： 
-          <a href="./center.html">会员中心</a> &gt; <span>申请资质1</span>
+          <a href="./center.html">企业中心</a> &gt; <span>修改信息</span>
         </p>
 
         <form>
@@ -33,14 +33,13 @@
                     <span class="xh">*</span>
                     <span>身份证照片</span>
                 </div>
-                <div class="file-box inblock">
+                <div class="file-box inblock va-tt">
+                    <a href="javascript:void(0);" class="file1">选择图片
+                        <input type="file" name="file" id="sfzFile" accept="image/png, image/jpeg"/>
+                    </a>
+                    <input type="button" value="上传" id="sfzBtn" class="sc ml20"/>
                     <img src="" id="sfz"/>
-                    <div class="re">
-                      <input type='button' class='btn' value='浏览...' /> 
-                      <input type="file" name="fileField" class="file" id="sfzFile"/>
-                    </div>
-                    <input type="button" name="submit" class="btn" value="上传" id="sfzBtn"/>
-                    <input type="text" class="hidden" value="" id="sfzUrl"/>
+                    <input type="text" id="sfzUrl" class="hidden"/>
                 </div>
               </div>
           
@@ -49,14 +48,13 @@
                   <span class="xh">*</span>
                   <span>个体户图标</span>
                 </div>
-                <div class="file-box inblock"> 
+                <div class="file-box inblock va-tt">
+                    <a href="javascript:void(0);" class="file1">选择图片
+                        <input type="file" name="file" id="gthtbFile" accept="image/png, image/jpeg"/>
+                    </a>
+                    <input type="button" value="上传" id="gthtbBtn" class="sc ml20"/>
                     <img src="" id="gthtb"/>
-                    <div class="re">
-                      <input type='button' class='btn' value='浏览...' /> 
-                      <input type="file" name="fileField" class="file" id="gthtbFile"/>
-                    </div>
-                    <input type="button" class="btn" value="上传" id="gthtbBtn"/>
-                    <input type="text" class="hidden" value="" id="gthtbUrl"/>
+                    <input type="text" id="gthtbUrl" class="hidden"/>
                 </div>
               </div>
             </div>
@@ -75,8 +73,8 @@
                     <span>企业营业执照</span>
                 </div>
                 <div class="file-box inblock va-tt">
-                    <a href="javascript:void(0);" class="file1">选择文件
-                        <input type="file" name="file" id="qyyyzzFile"/>
+                    <a href="javascript:void(0);" class="file1">选择图片
+                        <input type="file" name="file" id="qyyyzzFile" accept="image/png, image/jpeg"/>
                     </a>
                     <input type="button" value="上传" id="qyyyzzBtn" class="sc ml20"/>
                     <img src="" id="qyyyzzImg"/>
@@ -90,8 +88,8 @@
                   <span>企业图标</span>
                 </div>
                 <div class="file-box inblock va-tt">
-                    <a href="javascript:void(0);" class="file1">选择文件
-                        <input type="file" name="file" id="qytbFile"/>
+                    <a href="javascript:void(0);" class="file1">选择图片
+                        <input type="file" name="file" id="qytbFile" accept="image/png, image/jpeg"/>
                     </a>
                     <input type="button" value="上传" id="qytbBtn" class="sc ml20"/>
                     <img src="" id="qytbImg"/>
@@ -154,7 +152,7 @@
             </div>
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">&nbsp;</span>
+                    <span class="xh">*</span>
                     <span>广告语</span>
                 </div>
                 <input class="in-width" type="text" id="slogan"/>
@@ -162,8 +160,8 @@
             
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">&nbsp;</span>
-                    <span>报价区间</span>
+                    <span class="xh">*</span>
+                    <span>报价区间(元)</span>
                 </div>
                 <input class="in-width" type="text" id="remark"/>
             </div>

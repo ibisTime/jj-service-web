@@ -4,7 +4,6 @@ define([
     'Handlebars'
 ], function (base, Dict, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
-        leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         feeMode = Dict.get("feeMode"),
         isDZ = Dict.get("isDZ"),
         payCycle = Dict.get("payCycle"),
@@ -17,15 +16,10 @@ define([
     init();
 
     function init(){
+        $("#fwA").addClass("current");
         if(base.isCompUser()){
             getListCredentials();
             $("#compName").val(base.getSessionUser().name);
-            var fwTypes = sessionStorage.getItem("fwTypes");
-            if(fwTypes){
-                addLeftNav($.parseJSON(fwTypes));
-            }else{
-                getDictList();
-            }
         }else{
             base.showMsg("您不是企业用户，无法新增服务！");
             setTimeout(function(){
@@ -43,7 +37,9 @@ define([
                         addListener();
                         var html = "";
                         for(var i = 0; i < data.length; i++){
-                            html += '<option value="'+data[i].certificateCode+'" cType="'+data[i].certificateType+'">'+serverType[data[i].certificateType]+'</option>';
+                            if(data[i].certificateType != "9"){
+                                html += '<option value="'+data[i].certificateCode+'" cType="'+data[i].certificateType+'">'+serverType[data[i].certificateType]+'</option>';
+                            }
                         }
                         $("#fwType").html(html);
                         $("#fwType").trigger("change");
@@ -65,75 +61,78 @@ define([
         $("#sbtn").on("click", function(){
             addServerInfo();
         });
-        $("#leftNav").on("click", "li", function(){
-            var me = $(this), code = me.attr("code"), text = me.text();
-            location.href = "./list.html?code=" + code + "&n=" + text.substr(0, text.length - 1);
-        });
         //拍摄/摄影 代表作品
         $("#worksBtn").on("click", function(){
             if(judgeImgType("worksFile")){
-                ajaxImgUpload("worksFile", "works", "worksUrl");
+                ajaxImgUpload("worksFile", "works", "worksUrl", "worksBtn");
             }
         });
         //培训简历1
         $("#resume1Btn").on("click", function(){
             if(judgeFile("resume1File")){
-                ajaxFileUpload("resume1File", "resume1Url");
+                ajaxFileUpload("resume1File", "resume1Url", "resume1Btn");
             }
         });
         //培训简历2
         $("#resume2Btn").on("click", function(){
             if(judgeFile("resume2File")){
-                ajaxFileUpload("resume2File", "resume2Url");
+                ajaxFileUpload("resume2File", "resume2Url", "resume2Btn");
             }
         });
         //培训简历3
         $("#resume3Btn").on("click", function(){
             if(judgeFile("resume3File")){
-                ajaxFileUpload("resume3File", "resume3Url");
+                ajaxFileUpload("resume3File", "resume3Url", "resume3Btn");
             }
         });
         //培训课程
         $("#courseBtn").on("click", function(){
             if(judgeFile("courseFile")){
-                ajaxFileUpload("courseFile", "courseUrl");
+                ajaxFileUpload("courseFile", "courseUrl", "courseBtn");
             }
         });
         //店铺代运营-成功案例展示
         $("#sucCaseBtn").on("click", function(){
             if(judgeFile("sucCaseFile")){
-                ajaxFileUpload("sucCaseFile", "sucCaseUrl");
+                ajaxFileUpload("sucCaseFile", "sucCaseUrl", "sucCaseBtn");
             }
         });
         //美工外包 设计作品案例 
         $("#sj-worksBtn").on("click", function(){
             if(judgeImgType("sj-worksFile")){
-                ajaxImgUpload("sj-worksFile", "sj-works", "sj-worksUrl");
+                ajaxImgUpload("sj-worksFile", "sj-works", "sj-worksUrl", "sj-worksBtn");
             }
         });
         //客服外包 成功案例展示
         $("#kf-sucCaseBtn").on("click", function(){
             if(judgeFile("kf-sucCaseFile")){
-                ajaxFileUpload("kf-sucCaseFile", "kf-sucCaseUrl");
+                ajaxFileUpload("kf-sucCaseFile", "kf-sucCaseUrl", "kf-sucCaseBtn");
             }
         });
-        //产业园 产业园照片  
+        //产业园 产业园照片1  
         $("#pic1Btn").on("click", function(){
             if(judgeImgType("pic1File")){
-                ajaxImgUpload("pic1File", "pic1", "pic1Url");
+                ajaxImgUpload("pic1File", "pic1", "pic1Url", "pic1Btn");
+            }
+        });
+        //产业园 产业园照片2  
+        $("#pic2Btn").on("click", function(){
+            if(judgeImgType("pic2File")){
+                ajaxImgUpload("pic2File", "pic2", "pic2Url", "pic2Btn");
             }
         });
         //服务类型改变
         $("#fwType").on("change", function(){
             var topDiv = $("#topDiv"),
                 type = $(this).find("option:selected").attr("cType");
-            topDiv.find("choseCont").addClass("hidden");
-            topDiv.find("choseCont" + type).removeClass("hidden");
+            topDiv.find(".choseCont").addClass("hidden");
+            topDiv.find(".choseCont" + type).removeClass("hidden");
             config = {};
         })
     }
 
-    function ajaxImgUpload(fileId, imgId, urlId) {
+    function ajaxImgUpload(fileId, imgId, urlId, btnId) {
+        $("#" + btnId).addClass("bg-loading").attr("disabled", "disabled");
         $.ajaxFileUpload({
             url: APIURL + '/upload/file/img', //用于文件上传的服务器端请求地址
             secureuri: false, //是否需要安全协议，一般设置为false
@@ -141,22 +140,19 @@ define([
             dataType: 'json', //返回值类型 一般设置为json
             success: function (data, status){  //服务器成功响应处理函数
                 $("#" + imgId).attr("src", data.url);
-                $("#" + urlId).val(data.url)
-                if (typeof (data.error) != 'undefined') {
-                    if (data.error != '') {
-                        alert(data.error);
-                    } else {
-                        alert(data.msg);
-                    }
-                }
+                $("#" + urlId).val(data.url);
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                base.showMsg("上传成功", 1000);
             },
             error: function (data, status, e){//服务器响应失败处理函数
                 base.showMsg("非常抱歉，图片上传失败!");
-                $("#fileId")[0].value = "";
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                $("#" + fileId)[0].value = "";
             }
         });
     }
-    function ajaxFileUpload(fileId, urlId) {
+    function ajaxFileUpload(fileId, urlId, btnId) {
+        $("#" + btnId).addClass("bg-loading").attr("disabled", "disabled");      
         $.ajaxFileUpload({
             url: APIURL + '/upload/file', //用于文件上传的服务器端请求地址
             secureuri: false, //是否需要安全协议，一般设置为false
@@ -164,17 +160,13 @@ define([
             dataType: 'json', //返回值类型 一般设置为json
             success: function (data, status){  //服务器成功响应处理函数
                 $("#" + urlId).val(data.url)
-                if (typeof (data.error) != 'undefined') {
-                    if (data.error != '') {
-                        alert(data.error);
-                    } else {
-                        alert(data.msg);
-                    }
-                }
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                base.showMsg("上传成功", 1000);
             },
             error: function (data, status, e){//服务器响应失败处理函数
-                base.showMsg("非常抱歉，图片上传失败!");
-                $("#fileId")[0].value = "";
+                base.showMsg("非常抱歉，文件上传失败!");
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");                
+                $("#" + fileId)[0].value = "";
             }
         });
     }
@@ -227,8 +219,8 @@ define([
             base.showMsg("最小价格不能大于最大价格");
             return;
         }
-        config.quoteMax = quoteMax;
-        config.quoteMin = quoteMin;
+        config.quoteMax = +quoteMax * 1000;
+        config.quoteMin = +quoteMin * 1000;
         var opt = $("#fwType").find("option:selected");
         if(!opt.length){
             base.showMsg("未选择所属服务");
@@ -243,7 +235,7 @@ define([
         }
         config.description = description;
         /**
-         * 1 软件外包 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6客服外包 7仓配服务 8 产业园
+         * 1 软件开发 2摄影/拍摄 3 培训  4 店铺代运营 5 美工外包 6 客服外包 7 仓配服务 8 产业园 9 人才招聘
          */
         switch(type){
             case "1":
@@ -302,7 +294,7 @@ define([
         }
         config.sysNum = sysNum;
         var isDz = $("#isDz").val();
-        if(!isDz || isDz.trim() === ""){
+        if(null == isDz || isDz.trim() === ""){
             base.showMsg("是否接受定制需求不能为空");
             return;
         }
@@ -478,7 +470,7 @@ define([
             base.showMsg("首页价格必须为2位以内小数");
             return;
         }
-        config.homePrice = homePrice;
+        config.homePrice = +homePrice * 1000;
         var detailDays = $("#detailDays").val();
         if(!detailDays || detailDays.trim() === ""){
             base.showMsg("详情页天数不能为空");
@@ -496,7 +488,7 @@ define([
             base.showMsg("详情页价格必须为2位以内小数");
             return;
         }
-        config.detailPrice = detailPrice;
+        config.detailPrice = +detailPrice * 1000;
         var bannerDays = $("#bannerDays").val();
         if(!bannerDays || bannerDays.trim() === ""){
             base.showMsg("海报图天数不能为空");
@@ -514,7 +506,7 @@ define([
             base.showMsg("海报图价格必须为2位以内小数");
             return;
         }
-        config.bannerPrice = bannerPrice;
+        config.bannerPrice = +bannerPrice * 1000;
         var allDays = $("#allDays").val();
         if(!allDays || allDays.trim() === ""){
             base.showMsg("全店设计天数不能为空");
@@ -532,7 +524,7 @@ define([
             base.showMsg("全店设计价格必须为2位以内小数");
             return;
         }
-        config.allPrice = allPrice;
+        config.allPrice = +allPrice * 1000;
         var works = $("#sj-worksUrl").val();
         if(!works || works.trim() === ""){
             base.showMsg("设计作品案例不能为空");
@@ -570,7 +562,7 @@ define([
             base.showMsg("月均交易额必须为2位以内小数");
             return;
         }
-        config.mtradeAmount = mtradeAmount;
+        config.mtradeAmount = +mtradeAmount * 1000;
         var checkbox = $("#business").find("input[type='checkbox']:checked");
         if(!checkbox.length){
             base.showMsg("客服业务不能为空");
@@ -718,10 +710,16 @@ define([
         config.yhPolicy = yhPolicy;
         var pic1Url = $("#pic1Url").val();
         if(!pic1Url || pic1Url.trim() === ""){
-            base.showMsg("产业园照片不能为空");
+            base.showMsg("产业园照片1不能为空");
             return;
         }
         config.pic1 = pic1Url;
+        var pic2Url = $("#pic2Url").val();
+        if(!pic2Url || pic2Url.trim() === ""){
+            base.showMsg("产业园照片2不能为空");
+            return;
+        }
+        config.pic2 = pic2Url;
         base.addCyyInfo(config)
             .then(function(res){
                 if(res.success){
@@ -742,9 +740,5 @@ define([
                     addLeftNav(res.data);
                 }
             });
-    }
-    //添加左侧导航栏
-    function addLeftNav(data){
-        $("#leftNav").html( leftNavTmpl({items: data}) );
     }
 });

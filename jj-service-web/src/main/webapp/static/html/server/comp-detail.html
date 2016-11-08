@@ -7,17 +7,16 @@
 
 <body>
 <link rel="import" href="../body-top.html?__inline">
-<div class="bigbox">
+<div class="bigbox clearfix">
     <ul class="name leftNav" id="leftNav">
-        <!--<li><a href="">培训<span>></span></a></li>
-        <li><a href="">拍摄/摄影<span>></span></a></li>
-        <li><a href="">美工外包<span>></span></a></li>
-        <li><a href="">店铺代运营<span>></span></a></li>
-        <li><a href="">客服外包<span>></span></a></li>
-        <li><a href="">仓配服务<span>></span></a></li>
-        <li><a href="">客服主管<span>></span></a></li>
-        <li><a href="">软件开发<span>></span></a></li>
-        <li><a href="">产业园<span>></span></a></li>-->
+        <li code="3"><a href="./list.html?code=3">培训<span>></span></a></li>
+        <li code="2"><a href="./list.html?code=2">拍摄/摄影<span>></span></a></li>
+        <li code="5"><a href="./list.html?code=5">美工外包<span>></span></a></li>
+        <li code="4"><a href="./list.html?code=4">店铺代运营<span>></span></a></li>
+        <li code="6"><a href="./list.html?code=6">客服外包<span>></span></a></li>
+        <li code="7"><a href="./list.html?code=7">仓配服务<span>></span></a></li>
+        <li code="1"><a href="./list.html?code=1">软件开发<span>></span></a></li>
+        <li code="8"><a href="./list.html?code=8">产业园<span>></span></a></li>
     </ul>
     <!--右边-->
     <div class="area">
@@ -28,7 +27,7 @@
         <div class="topname bt cm">公司信息</div>
         <div id="noLogin" class="hidden">
             <div class="company-head">
-                <div style="margin-top:56px">欲知详情，请先登录</div>
+                <div style="margin-top:56px">欲知详情，请先<a class="t_bluelight2 cur_pointer ml4" href="javascript:void(0)" id="gtLogin">登录</a></div>
             </div>
         </div>
         <div id="compDiv" class="hidden">
@@ -139,6 +138,14 @@
                     </div>
                     <div class="map inblock va-tt break-word" type="text" id="address"></div>
                 </div>
+
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>广告语</span>
+                    </div>
+                    <div class="map inblock va-tt break-word" type="text" id="slogan"></div>
+                </div>
                 
                 <div class="mtb">
                     <div class="inblock wb"> 
@@ -153,7 +160,7 @@
         <div class="topname bt cm">服务信息</div>
      
         <div class="cd cur_pointer" id="watchBtn">查看详情</div>
-        <table class="t-box pad" id="bTable">
+        <table class="t-box pad wp100" id="bTable">
             <thead>
                 <tr class="apply-j">
                     <th>&nbsp;</th>
@@ -161,6 +168,7 @@
                     <th>所属服务</th>
                     <th>所属企业</th>
                     <th>价格区间</th>
+                    <th>更新日期</th>
                 </tr>
             </thead>
             <tbody>
@@ -173,7 +181,7 @@
                     <td>广告语广告语广告语</td>
                     
                 </tr>-->
-                <tr><td colspan='5'><i class='loading-icon'></i></td></tr>
+                <tr><td colspan='6'><i class='loading-icon'></i></td></tr>
             </tbody>
         </table>
         <div id="pagination_div"></div>

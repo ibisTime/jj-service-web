@@ -3,8 +3,7 @@ define([
     'app/util/dict',
     "Handlebars"
 ], function (base, Dict, Handlebars) {
-    var leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
-        feeMode = Dict.get("feeMode"),
+    var feeMode = Dict.get("feeMode"),
         isDZ = Dict.get("isDZ"),
         payCycle = Dict.get("payCycle"),
         business = Dict.get("business"),
@@ -15,13 +14,8 @@ define([
     init();
 
     function init(){
+        $("#fwA").addClass("current");
         if(sCode){
-            var fwTypes = sessionStorage.getItem("fwTypes");
-            if(fwTypes){
-                addLeftNav($.parseJSON(fwTypes));
-            }else{
-                getDictList();
-            }
             getServerInfo();
             addListener();
             if(!base.isCompUser()){
@@ -49,35 +43,35 @@ define([
 
         $("#fwName", topForm).val(data.name);
         $("#compName", topForm).val(data.company.name);
-        $("#price", topForm).val(data.quoteMin + "元 ~ " + data.quoteMax + "元");
+        $("#price", topForm).val((+data.quoteMin / 1000) + "元 ~ " + (+data.quoteMax / 1000) + "元");
         $("#fwType", topForm).val(serverType[data.type]);
         /**
-         * 1 软件外包 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6客服外包 7仓配服务 8 产业园
+         * 1 软件开发 2摄影/拍摄 3 培训  4 店铺代运营 5 美工外包 6 客服外包 7 仓配服务 8 产业园
          */
         switch(data.type){
             case "1":
                 addRjwbInfo(data, topForm);
                 break;
             case "2":
-                addSypsInfo(data, topForm);
+                addSypsInfo(data.servePhoto, topForm);
                 break;
             case "3":
-                addPxInfo(data, topForm);
+                addPxInfo(data.serveTrain, topForm);
                 break;
             case "4":
-                addDpdyyInfo(data, topForm);
+                addDpdyyInfo(data.serveShop, topForm);
                 break;
             case "5":
-                addMgwbInfo(data, topForm);
+                addMgwbInfo(data.serveArt, topForm);
                 break;
             case "6":
-                addKfwbInfo(data, topForm);
+                addKfwbInfo(data.serveKfwb, topForm);
                 break;
             case "7":
-                addCpfwInfo(data, topForm);
+                addCpfwInfo(data.serveCp, topForm);
                 break;
             case "8":
-                addCyyInfo(data, topForm);
+                addCyyInfo(data.serveCyy, topForm);
                 break;
         }
         //$("#description", topForm).html(data.description);
@@ -124,20 +118,20 @@ define([
         $("#designNum", topForm).val(data.designNum);
         $("#sclm", topForm).val(data.sclm);
         $("#homeDays", topForm).val(data.homeDays);
-        $("#homePrice", topForm).val(data.homePrice);
+        $("#homePrice", topForm).val(+data.homePrice / 1000);
         $("#detailDays", topForm).val(data.detailDays);
-        $("#detailPrice", topForm).val(data.detailPrice);
+        $("#detailPrice", topForm).val(+data.detailPrice / 1000);
         $("#bannerDays", topForm).val(data.bannerDays);
-        $("#bannerPrice", topForm).val(data.bannerPrice);
+        $("#bannerPrice", topForm).val(+data.bannerPrice / 1000);
         $("#allDays", topForm).val(data.allDays);
-        $("#allPrice", topForm).val(data.allPrice);
+        $("#allPrice", topForm).val(+data.allPrice / 1000);
         $("#sj-works", topForm).attr("src", data.works);
     }
 
     function addKfwbInfo(data, topForm){
         $("#kfwb", topForm).removeClass("hidden");
         $("#kfNum", topForm).val(data.kfNum);
-        $("#mtradeAmount", topForm).val(data.mtradeAmount);
+        $("#mtradeAmount", topForm).val(+data.mtradeAmount / 1000);
         $("#business", topForm).val(business[data.business]);
         $("#feeMode1", topForm).val(feeMode[data.feeMode]);
         $("#kf-sucCase", topForm).attr("href", data.sucCase);
@@ -166,21 +160,8 @@ define([
         }
         $("#introduce", topForm).html(data.introduce);
         $("#yhPolicy", topForm).html(data.yhPolicy);
-        data.pic1 && $("#pic1", topForm).attr("src", data.pic1);
-        data.pic2 && $("#pic2", topForm).attr("src", data.pic2);
-    }
-
-    function getDictList(){
-        base.getServerDictList()
-            .then(function(res){
-                if(res.success){
-                    addLeftNav(res.data);
-                }
-            });
-    }
-    //添加左侧导航栏
-    function addLeftNav(data){
-        $("#leftNav").html( leftNavTmpl({items: data}) );
+        $("#pic1", topForm).attr("src", data.pic1);
+        $("#pic2", topForm).attr("src", data.pic2);
     }
 
     function addListener(){
@@ -194,10 +175,6 @@ define([
             }else{
                 location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
             }
-        });
-        $("#leftNav").on("click", "li", function(){
-            var me = $(this), code = me.attr("code"), text = me.text();
-            location.href = "./list.html?code=" + code + "&n=" + text.substr(0, text.length - 1);
         });
     }
     //感兴趣

@@ -5,11 +5,13 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isLogin()){
             if(base.isCompUser()){
                 getCompanyInfo();
                 addListeners();
             }else{
+                base.showMsg("您不是企业用户，请先进行企业注册！");
                 setTimeout(function(){
                     location.href = "../xuser/login.html?return="+base.makeReturnUrl();
                 }, 1000);
@@ -21,7 +23,7 @@ define([
     }
 
     function getCompanyInfo(){
-        base.getCompanyInfo()
+        base.getCompanyInfo({code: base.getCompanyCode()})
             .then(function(res){
                 if(res.success){
                     var data = res.data;
@@ -91,21 +93,21 @@ define([
                 base.showMsg("图片格式不支持!");
                 return;
             }
-            ajaxFileUpload("sfzFile", "sfz", "sfzUrl");
+            ajaxFileUpload("sfzFile", "sfz", "sfzUrl", "sfzBtn");
         });
         $("#gthtbBtn").on("click", function(){
             if(judgeImgType("gthtbFile")){
-                ajaxFileUpload("gthtbFile", "gthtb", "gthtbUrl");
+                ajaxFileUpload("gthtbFile", "gthtb", "gthtbUrl", "gthtbBtn");
             }
         });
         $("#qyyyzzBtn").on("click", function(){
             if(judgeImgType("qyyyzzFile")){
-                ajaxFileUpload("qyyyzzFile", "qyyyzzImg", "qyyyzzUrl");
+                ajaxFileUpload("qyyyzzFile", "qyyyzzImg", "qyyyzzUrl", "qyyyzzBtn");
             }
         });
         $("#qytbBtn").on("click", function(){
             if(judgeImgType("qytbFile")){
-                ajaxFileUpload("qytbFile", "qytbImg", "qytbUrl");
+                ajaxFileUpload("qytbFile", "qytbImg", "qytbUrl", "qytbBtn");
             }
         });
     }
@@ -150,14 +152,18 @@ define([
         base.editCompInfo(config)
             .then(function(res){
                 if(res.success){
-                    base.goBackUrl("./center.html");
+                    base.showMsg("修改成功！");
+                    setTimeout(function(){
+                        base.goBackUrl("./center.html");
+                    }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改公司信息失败！");
+                    base.showMsg(res.msg);
                 }
             });
     }
 
-    function ajaxFileUpload(fileId, imgId, urlId) {
+    function ajaxFileUpload(fileId, imgId, urlId, btnId) {
+        $("#" + btnId).addClass("bg-loading").attr("disabled", "disabled");
         $.ajaxFileUpload({
             url: APIURL + '/upload/file/img', //用于文件上传的服务器端请求地址
             secureuri: false, //是否需要安全协议，一般设置为false
@@ -166,17 +172,13 @@ define([
             success: function (data, status){  //服务器成功响应处理函数
                 $("#" + imgId).attr("src", data.url);
                 $("#" + urlId).val(data.url)
-                if (typeof (data.error) != 'undefined') {
-                    if (data.error != '') {
-                        alert(data.error);
-                    } else {
-                        alert(data.msg);
-                    }
-                }
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                base.showMsg("上传成功", 1000);
             },
             error: function (data, status, e){//服务器响应失败处理函数
                 base.showMsg("非常抱歉，图片上传失败!");
-                $("#fileId")[0].value = "";
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                $("#" + fileId)[0].value = "";
             }
         });
     }
@@ -236,6 +238,16 @@ define([
                 base.showMsg("邮箱格式错误");
                 return;
             }
+        }
+        var slogan = $("#slogan").val();
+        if(!slogan || slogan.trim() === ""){
+            base.showMsg("广告语不能为空");
+            return false;
+        }
+        var remark = $("#remark").val();
+        if(!remark || remark.trim() === ""){
+            base.showMsg("报价区间不能为空");
+            return false;
         }
         return true;
     }

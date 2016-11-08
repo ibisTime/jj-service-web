@@ -6,6 +6,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(type == "2"){
             $("#compName").removeClass("hidden");
         }
@@ -19,6 +20,12 @@ define([
         $("#findBtn").on("click", function(){
             if(validate()){
                 doFindPwd();
+            }
+        });
+        $("#loginName, #mobile, #smsCaptcha, #password, #rePwd").on("keyup", function(e){
+            var code = e.charCode || e.keyCode;
+            if(code == "13"){
+                $("#findBtn").click();
             }
         });
     }
@@ -79,6 +86,7 @@ define([
                     $("#getSmsCode").removeAttr("disabled");
                 }
             },function(){
+                base.showMsg("验证码发送失败!");
                 $("#getSmsCode").removeAttr("disabled");
             });
     }
@@ -86,7 +94,7 @@ define([
         if(type == "2"){
             var loginName = $("#loginName").val();
             if(!loginName || loginName.trim() === ""){
-                base.showMsg("登录名不能为空");
+                base.showMsg("用户名不能为空");
                 return false;
             }
         }
@@ -101,8 +109,10 @@ define([
         var smsCaptcha = $("#smsCaptcha").val();
         if(!smsCaptcha){
             base.showMsg("验证码不能为空");
+            return false;
         }else if(!/^[\d\w]{4}$/.test(smsCaptcha)){
             base.showMsg("验证码格式错误");
+            return false;
         }
         var password = $("#password").val();
         if(!password || password.trim() === ""){
@@ -162,7 +172,7 @@ define([
                         location.href = "./login.html?return=" + base.getReturnParam();
                     }, 1500);
                 }else{
-                    base.showMsg("找回密码失败！");
+                    base.showMsg(res.msg);
                     $("#findBtn").val("找回").removeAttr("disabled");
                 }
             })

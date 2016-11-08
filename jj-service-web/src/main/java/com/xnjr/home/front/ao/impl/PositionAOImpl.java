@@ -65,8 +65,12 @@ public class PositionAOImpl implements IPositionAO {
 	@Override
     public Object queryPagePosition(String name, String companyCode,
     		String isHot, String companyName, String kind,
-    		String start, String limit) {
+    		String start, String limit, String gsProvince,
+    		String gsCity, String gsArea) {
     	XN612090Req req = new XN612090Req();
+    	req.setGsArea(gsArea);
+    	req.setGsCity(gsCity);
+    	req.setGsProvince(gsProvince);
     	req.setKind(kind);
     	req.setIsHot(isHot);
         req.setCompanyCode(companyCode);

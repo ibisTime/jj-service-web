@@ -64,7 +64,8 @@ public interface IPositionAO {
 	 * @return
 	 */
 	public Object queryPagePosition(String name, String companyCode, String isHot,
-    		String companyName, String kind, String start, String limit);
+    		String companyName, String kind, String start, String limit,
+    		String gsProvince, String gsCity, String gsArea);
 	
 	/**
 	 * 详情查询职位

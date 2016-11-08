@@ -4,6 +4,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isLogin()){
             if(base.isCompUser()){
                 addListeners();

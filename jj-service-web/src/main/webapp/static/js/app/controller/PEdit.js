@@ -4,13 +4,16 @@ define([
     'Handlebars'
 ], function (base, Dict, Handlebars) {
     var leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
-        loginFlag = false, experience = Dict.get("experience"),
+        loginFlag = false,
+        experience = Dict.get("experience"),
         education = Dict.get("education"),
+        positionKind = Dict.get("positionKind"),
         pCode = base.getUrlParam("code"), citylist;
 
     init();
 
     function init(){
+        $("#rcA").addClass("current");
         if(pCode){
             if(base.isCompUser()){
                 getPositionInfo();
@@ -45,6 +48,7 @@ define([
         var topForm = $("#topForm").detach();
         addAddress(topForm, data.province, data.city);
         $("#zwName", topForm).val(data.name);
+        addPositionDict(topForm);
         $("#zwKind", topForm).find("option[value='"+data.kind+"']")[0].selected = true;
         $("#experience", topForm).find("input[type='radio'][value='"+data.experience+"']")[0].checked = true;
         $("#education", topForm).find("input[type='radio'][value='"+data.education+"']")[0].checked = true;
@@ -53,6 +57,14 @@ define([
         $("#msalary", topForm).val(data.msalary);
         $("#description", topForm).val(data.description);
         $("#topDiv").removeClass("hidden").append(topForm);
+    }
+
+    function addPositionDict(topForm){
+        var html = "";
+        $.each(positionKind, function(i, dd){
+            html += '<option value="'+i+'">'+dd+'</option>'
+        });
+        $("#zwKind", topForm).html(html);
     }
 
     function addAddress(topForm, province, city){

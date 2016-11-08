@@ -7,6 +7,8 @@ import com.xnjr.home.front.http.BizConnecter;
 import com.xnjr.home.front.http.JsonUtils;
 import com.xnjr.home.front.req.XN806131Req;
 import com.xnjr.home.front.req.XN806140Req;
+import com.xnjr.home.front.req.XN806142Req;
+import com.xnjr.home.front.req.XN806143Req;
 import com.xnjr.home.front.req.XN806150Req;
 import com.xnjr.home.front.req.XN806151Req;
 
@@ -68,6 +70,26 @@ public class CredentialsAOImpl implements ICredentialsAO {
 		req.setType(type);
 		req.setUpdater(updater);
 		return BizConnecter.getBizData("806131", JsonUtils.object2Json(req),
+				Object.class);
+	}
+
+	@Override
+	public Object deleteCertificates(String code, String userId) {
+		XN806142Req req = new XN806142Req();
+		req.setCode(code);
+		req.setUserId(userId);
+		return BizConnecter.getBizData("806142", JsonUtils.object2Json(req),
+				Object.class);
+	}
+
+	@Override
+	public Object editCertificates(String code, String certificateCode,
+			String applyUser) {
+		XN806143Req req = new XN806143Req();
+		req.setApplyUser(applyUser);
+		req.setCertificateCode(certificateCode);
+		req.setCode(code);
+		return BizConnecter.getBizData("806143", JsonUtils.object2Json(req),
 				Object.class);
 	}
 

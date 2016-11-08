@@ -1,11 +1,11 @@
 {{#each items}}
-    <tr class="apply-j" code="{{code}}">
+    <tr class="apply-j" code="{{resumeCode}}">
         <td><input type="checkbox" class="checkinput"/></td>
         <td>{{resumeName}}</td>
         <td>{{positionName}}</td>
         <td>{{expCity}}</td>
         <td>￥{{expMsalary}}</td>
         <td class="yxStatus">{{formtIStatus status}}</td>
-        <td>{{formatDate dealDatetime}}</td>
+        <td>{{formatDate fromDatetime}}</td>
     </tr>
 {{/each}}

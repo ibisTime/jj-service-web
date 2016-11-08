@@ -4,7 +4,6 @@ define([
     'Handlebars'
 ], function (base, Dict, Handlebars) {
     var template = __inline("../ui/error-fragment.handlebars"),
-        leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
         feeMode = Dict.get("feeMode"),
         isDZ = Dict.get("isDZ"),
         payCycle = Dict.get("payCycle"),
@@ -17,16 +16,11 @@ define([
     init();
 
     function init(){
+        $("#fwA").addClass("current");
         if(base.isCompUser()){
             getServerInfo();
             addListener();
             $("#compName").val(base.getSessionUser().name);
-            var fwTypes = sessionStorage.getItem("fwTypes");
-            if(fwTypes){
-                addLeftNav($.parseJSON(fwTypes));
-            }else{
-                getDictList();
-            }
         }else{
             base.showMsg("您不是企业用户，无法新增服务！");
             setTimeout(function(){
@@ -53,62 +47,64 @@ define([
         $("#sbtn").on("click", function(){
             editServerInfo();
         });
-        $("#leftNav").on("click", "li", function(){
-            var me = $(this), code = me.attr("code"), text = me.text();
-            location.href = "./list.html?code=" + code + "&n=" + text.substr(0, text.length - 1);
-        });
         //拍摄/摄影 代表作品
         $("#worksBtn").on("click", function(){
             if(judgeImgType("worksFile")){
-                ajaxImgUpload("worksFile", "works", "worksUrl");
+                ajaxImgUpload("worksFile", "works", "worksUrl", "worksBtn");
             }
         });
         //培训简历1
         $("#resume1Btn").on("click", function(){
             if(judgeFile("resume1File")){
-                ajaxFileUpload("resume1File", "resume1Url");
+                ajaxFileUpload("resume1File", "resume1Url", "resume1Btn");
             }
         });
         //培训简历2
         $("#resume2Btn").on("click", function(){
             if(judgeFile("resume2File")){
-                ajaxFileUpload("resume2File", "resume2Url");
+                ajaxFileUpload("resume2File", "resume2Url", "resume2Btn");
             }
         });
         //培训简历3
         $("#resume3Btn").on("click", function(){
             if(judgeFile("resume3File")){
-                ajaxFileUpload("resume3File", "resume3Url");
+                ajaxFileUpload("resume3File", "resume3Url", "resume3Btn");
             }
         });
         //培训课程
         $("#courseBtn").on("click", function(){
             if(judgeFile("courseFile")){
-                ajaxFileUpload("courseFile", "courseUrl");
+                ajaxFileUpload("courseFile", "courseUrl", "courseBtn");
             }
         });
         //店铺代运营-成功案例展示
         $("#sucCaseBtn").on("click", function(){
             if(judgeFile("sucCaseFile")){
-                ajaxFileUpload("sucCaseFile", "sucCaseUrl");
+                ajaxFileUpload("sucCaseFile", "sucCaseUrl", "sucCaseBtn");
             }
         });
         //美工外包 设计作品案例 
         $("#sj-worksBtn").on("click", function(){
             if(judgeImgType("sj-worksFile")){
-                ajaxImgUpload("sj-worksFile", "sj-works", "sj-worksUrl");
+                ajaxImgUpload("sj-worksFile", "sj-works", "sj-worksUrl", "sj-worksBtn");
             }
         });
         //客服外包 成功案例展示
         $("#kf-sucCaseBtn").on("click", function(){
             if(judgeFile("kf-sucCaseFile")){
-                ajaxFileUpload("kf-sucCaseFile", "kf-sucCaseUrl");
+                ajaxFileUpload("kf-sucCaseFile", "kf-sucCaseUrl", "kf-sucCaseBtn");
             }
         });
-        //产业园 产业园照片  
+        //产业园 产业园照片1 
         $("#pic1Btn").on("click", function(){
             if(judgeImgType("pic1File")){
-                ajaxImgUpload("pic1File", "pic1", "pic1Url");
+                ajaxImgUpload("pic1File", "pic1", "pic1Url", "pic1Btn");
+            }
+        });
+        //产业园 产业园照片2 
+        $("#pic2Btn").on("click", function(){
+            if(judgeImgType("pic2File")){
+                ajaxImgUpload("pic2File", "pic2", "pic2Url", "pic2Btn");
             }
         });
     }
@@ -118,37 +114,37 @@ define([
 
         $("#fwName", topForm).val(data.name);
         $("#compName", topForm).val(data.company.name);
-        $("#quoteMin", topForm).val(data.quoteMin);
-        $("#quoteMax", topForm).val(data.quoteMax);
+        $("#quoteMin", topForm).val(+data.quoteMin / 1000);
+        $("#quoteMax", topForm).val(+data.quoteMax / 1000);
         $("#realType", topForm).val(data.type);
         $("#fwType", topForm).val(serverType[data.type]);
         /**
-         * 1 软件外包 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6客服外包 7仓配服务 8 产业园
+         * 1 软件开发 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6 客服外包 7 仓配服务 8 产业园
          */
         switch(data.type){
             case "1":
                 addRjwbInfo(data, topForm);
                 break;
             case "2":
-                addSypsInfo(data, topForm);
+                addSypsInfo(data.servePhoto, topForm);
                 break;
             case "3":
-                addPxInfo(data, topForm);
+                addPxInfo(data.serveTrain, topForm);
                 break;
             case "4":
-                addDpdyyInfo(data, topForm);
+                addDpdyyInfo(data.serveShop, topForm);
                 break;
             case "5":
-                addMgwbInfo(data, topForm);
+                addMgwbInfo(data.serveArt, topForm);
                 break;
             case "6":
-                addKfwbInfo(data, topForm);
+                addKfwbInfo(data.serveKfwb, topForm);
                 break;
             case "7":
-                addCpfwInfo(data, topForm);
+                addCpfwInfo(data.serveCp, topForm);
                 break;
             case "8":
-                addCyyInfo(data, topForm);
+                addCyyInfo(data.serveCyy, topForm);
                 break;
         }
         $("#description", topForm).val(data.description);
@@ -200,13 +196,13 @@ define([
         $("#designNum", topForm).val(data.designNum);
         $("#sclm", topForm).val(data.sclm);
         $("#homeDays", topForm).val(data.homeDays);
-        $("#homePrice", topForm).val(data.homePrice);
+        $("#homePrice", topForm).val(+data.homePrice / 1000);
         $("#detailDays", topForm).val(data.detailDays);
-        $("#detailPrice", topForm).val(data.detailPrice);
+        $("#detailPrice", topForm).val(+data.detailPrice / 1000);
         $("#bannerDays", topForm).val(data.bannerDays);
-        $("#bannerPrice", topForm).val(data.bannerPrice);
+        $("#bannerPrice", topForm).val(+data.bannerPrice / 1000);
         $("#allDays", topForm).val(data.allDays);
-        $("#allPrice", topForm).val(data.allPrice);
+        $("#allPrice", topForm).val(+data.allPrice / 1000);
         $("#sj-works", topForm).attr("src", data.works);
         $("#sj-worksUrl", topForm).val(data.works);
     }
@@ -214,7 +210,7 @@ define([
     function addKfwbInfo(data, topForm){
         $("#kfwb", topForm).removeClass("hidden");
         $("#kfNum", topForm).val(data.kfNum);
-        $("#mtradeAmount", topForm).val(data.mtradeAmount);
+        $("#mtradeAmount", topForm).val(+data.mtradeAmount / 1000);
         $("#business", topForm).find("option[value='"+data.business+"']")[0].selected = true;
         $("#feeMode1", topForm).find("option[value='"+data.feeMode+"']")[0].selected = true;
         $("#kf-sucCaseUrl", topForm).val(data.sucCase);
@@ -246,9 +242,12 @@ define([
         $("#yhPolicy", topForm).html(data.yhPolicy);
         $("#pic1", topForm).attr("src", data.pic1);
         $("#pic1Url", topForm).val(data.pic1);
+        $("#pic2", topForm).attr("src", data.pic2);
+        $("#pic2Url", topForm).val(data.pic2);
     }
 
-    function ajaxImgUpload(fileId, imgId, urlId) {
+    function ajaxImgUpload(fileId, imgId, urlId, btnId) {
+        $("#" + btnId).addClass("bg-loading").attr("disabled", "disabled");
         $.ajaxFileUpload({
             url: APIURL + '/upload/file/img', //用于文件上传的服务器端请求地址
             secureuri: false, //是否需要安全协议，一般设置为false
@@ -257,21 +256,18 @@ define([
             success: function (data, status){  //服务器成功响应处理函数
                 $("#" + imgId).attr("src", data.url);
                 $("#" + urlId).val(data.url);
-                if (typeof (data.error) != 'undefined') {
-                    if (data.error != '') {
-                        alert(data.error);
-                    } else {
-                        alert(data.msg);
-                    }
-                }
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                base.showMsg("上传成功", 1000);
             },
             error: function (data, status, e){//服务器响应失败处理函数
                 base.showMsg("非常抱歉，图片上传失败!");
-                $("#fileId")[0].value = "";
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                $("#" + fileId)[0].value = "";
             }
         });
     }
-    function ajaxFileUpload(fileId, urlId) {
+    function ajaxFileUpload(fileId, urlId, btnId) {
+        $("#" + btnId).addClass("bg-loading").attr("disabled", "disabled");
         $.ajaxFileUpload({
             url: APIURL + '/upload/file', //用于文件上传的服务器端请求地址
             secureuri: false, //是否需要安全协议，一般设置为false
@@ -280,17 +276,13 @@ define([
             success: function (data, status){  //服务器成功响应处理函数
                 $("#" + urlId).val(data.url);
                 $("#" + urlId + "1").text(data.url);
-                if (typeof (data.error) != 'undefined') {
-                    if (data.error != '') {
-                        alert(data.error);
-                    } else {
-                        alert(data.msg);
-                    }
-                }
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                base.showMsg("上传成功", 1000);
             },
             error: function (data, status, e){//服务器响应失败处理函数
-                base.showMsg("非常抱歉，图片上传失败!");
-                $("#fileId")[0].value = "";
+                base.showMsg("非常抱歉，文件上传失败!");
+                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                $("#" + fileId)[0].value = "";
             }
         });
     }
@@ -343,8 +335,8 @@ define([
             base.showMsg("最小价格不能大于最大价格");
             return;
         }
-        config.quoteMax = quoteMax;
-        config.quoteMin = quoteMin;
+        config.quoteMax = +quoteMax * 1000;
+        config.quoteMin = +quoteMin * 1000;
         var type = $("#realType").val();
         if(!type){
             base.showMsg("未选择所属服务");
@@ -359,7 +351,7 @@ define([
         config.description = description;
         config.code = sCode;
         /**
-         * 1 软件外包 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6客服外包 7仓配服务 8 产业园
+         * 1 软件开发 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6 客服外包 7 仓配服务 8 产业园
          */
         switch(type){
             case "1":
@@ -418,7 +410,7 @@ define([
         }
         config.sysNum = sysNum;
         var isDz = $("#isDz").val();
-        if(!isDz || isDz.trim() === ""){
+        if(null == isDz || isDz.trim() === ""){
             base.showMsg("是否接受定制需求不能为空");
             return;
         }
@@ -594,7 +586,7 @@ define([
             base.showMsg("首页价格必须为2位以内小数");
             return;
         }
-        config.homePrice = homePrice;
+        config.homePrice = +homePrice * 1000;
         var detailDays = $("#detailDays").val();
         if(!detailDays || detailDays.trim() === ""){
             base.showMsg("详情页天数不能为空");
@@ -612,7 +604,7 @@ define([
             base.showMsg("详情页价格必须为2位以内小数");
             return;
         }
-        config.detailPrice = detailPrice;
+        config.detailPrice = +detailPrice * 1000;
         var bannerDays = $("#bannerDays").val();
         if(!bannerDays || bannerDays.trim() === ""){
             base.showMsg("海报图天数不能为空");
@@ -630,7 +622,7 @@ define([
             base.showMsg("海报图价格必须为2位以内小数");
             return;
         }
-        config.bannerPrice = bannerPrice;
+        config.bannerPrice = +bannerPrice * 1000;
         var allDays = $("#allDays").val();
         if(!allDays || allDays.trim() === ""){
             base.showMsg("全店设计天数不能为空");
@@ -648,7 +640,7 @@ define([
             base.showMsg("全店设计价格必须为2位以内小数");
             return;
         }
-        config.allPrice = allPrice;
+        config.allPrice = +allPrice * 1000;
         var works = $("#sj-worksUrl").val();
         if(!works || works.trim() === ""){
             base.showMsg("设计作品案例不能为空");
@@ -686,7 +678,7 @@ define([
             base.showMsg("月均交易额必须为2位以内小数");
             return;
         }
-        config.mtradeAmount = mtradeAmount;
+        config.mtradeAmount = +mtradeAmount * 1000;
         var checkbox = $("#business").find("input[type='checkbox']:checked");
         if(!checkbox.length){
             base.showMsg("客服业务不能为空");
@@ -834,10 +826,16 @@ define([
         config.yhPolicy = yhPolicy;
         var pic1Url = $("#pic1Url").val();
         if(!pic1Url || pic1Url.trim() === ""){
-            base.showMsg("产业园照片不能为空");
+            base.showMsg("产业园照片1不能为空");
             return;
         }
         config.pic1 = pic1Url;
+        var pic2Url = $("#pic2Url").val();
+        if(!pic2Url || pic2Url.trim() === ""){
+            base.showMsg("产业园照片2不能为空");
+            return;
+        }
+        config.pic2 = pic2Url;
         base.editCyyInfo(config)
             .then(function(res){
                 if(res.success){
@@ -849,18 +847,5 @@ define([
                     base.showMsg("非常抱歉，修改服务失败！");
                 }
             });
-    }
-
-    function getDictList(){
-        base.getServerDictList()
-            .then(function(res){
-                if(res.success){
-                    addLeftNav(res.data);
-                }
-            });
-    }
-    //添加左侧导航栏
-    function addLeftNav(data){
-        $("#leftNav").html( leftNavTmpl({items: data}) );
     }
 });

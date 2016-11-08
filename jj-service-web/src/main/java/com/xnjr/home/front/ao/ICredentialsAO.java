@@ -47,6 +47,23 @@ public interface ICredentialsAO {
 	Object queryCredentials(String code);
 	
 	/**
+	 * 删除公司资质
+	 * @param code
+	 * @param userId
+	 * @return
+	 */
+	Object deleteCertificates(String code, String userId);
+	
+	/**
+	 * 修改公司资质
+	 * @param code
+	 * @param certificateCode
+	 * @param applyUser
+	 * @return
+	 */
+	Object editCertificates(String code, String certificateCode, String applyUser);
+	
+	/**
 	 * 列表查询资质
 	 * @param type
 	 * @param name

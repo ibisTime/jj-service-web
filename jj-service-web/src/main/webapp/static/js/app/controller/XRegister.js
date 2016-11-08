@@ -5,6 +5,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         addListeners();
     }
 
@@ -16,6 +17,12 @@ define([
         });
         $("#getSmsCode").on("click", function(){
             sendSmsCode();
+        });
+        $("#mobile, #smsCaptcha, #loginPwd, #rePwd").on("keyup", function(e){
+            var code = e.charCode || e.keyCode;
+            if(code == "13"){
+                $("#registerBtn").click();
+            }
         });
     }
     
@@ -100,11 +107,11 @@ define([
                 if(res.success){
                     base.showMsg("注册成功！");
                     setTimeout(function(){
-                        location.href = "./login.html?return=" + base.getReturnParam();
+                        base.goBackUrl("../home/index.html");
                     }, 1000);
                 }else{
                     $("#registerBtn").val("注册").removeAttr("disabled");
-                    base.showMsg("注册失败！");
+                    base.showMsg(res.msg);
                 }
             });
     }

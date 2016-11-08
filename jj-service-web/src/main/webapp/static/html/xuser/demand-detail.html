@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>修改需求</title>
+</head>
+<body>
+<link rel="import" href="../body-top.html?__inline">
+<div class="bigbox clearfix">
+    <ul class="name">
+        <li><a href="./center.html">我的中心<span>></span></a></li>
+        <li><a href="./rclist.html">我是人才<span>></span></a></li>
+        <li class="current"><a href="./fwlist.html">我的服务<span>></span></a></li>   
+    </ul>
+    <div class="area">
+        <p class="bread-wrap">您所在的位置： 
+            <a href="./center.html">会员中心</a> &gt; <span>需求详情</span>
+        </p>
+        
+
+        <form>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>需求名称</span>
+                </div>
+                <input class="in-width" type="text" id="name" disabled/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>需求类型</span>
+                </div>
+                <input class="in-width" type="text" id="qualityCode" disabled/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>意向企业</span>
+                </div>
+                <input class="in-width" type="text" id="expCompany" disabled/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>紧急程度</span>
+                </div>
+                <input class="in-width" type="text" id="urgentLevel" disabled/>
+            </div>
+            
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">*</span>
+                    <span>需求描述</span>
+                </div>
+                <textarea class="sell" rows="10" cols="50" id="description" disabled></textarea>
+            </div>
+        </form>
+    
+        <div class="hold-box">
+            <input type="button" id="sbtn" class="hold hidden" value="感兴趣"/>
+            <a href="javascript:void(0)" id="goBack" class="cancel">返回</a>
+        </div>
+    
+    </div>
+</div>
+<!--页尾-->
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/DemandDetail']);
+</script>
+</body>
+</html>
+
+

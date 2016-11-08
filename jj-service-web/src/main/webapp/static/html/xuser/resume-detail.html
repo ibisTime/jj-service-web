@@ -10,7 +10,7 @@
 <div class="bigbox clearfix">
     <ul class="name">
         <li><a href="./center.html">企业中心<span>></span></a></li>
-        <li><a href="./rclist.html">我是人才<span>></span></a></li>
+        <li class="current"><a href="./rclist.html">我是人才<span>></span></a></li>
         <li><a href="./fwlist.html">展示服务<span>></span></a></li>
     </ul>
     <div class="area" id="topDiv">
@@ -18,179 +18,170 @@
             <a href="./center.html">会员中心</a> &gt; <span>简历详情</span>
         </p>
         <div id="topForm" class="hidden">
-            <div class="mtb">
-                <div class="inblock kuandu"> 
-                    <span class="xh">*</span>
-                    <span>简历名称</span>
+            <!--startprint1-->
+            <div id="printCont">
+                <div class="mtb">
+                    <div class="inblock kuandu"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>简历名称</span>
+                    </div>
+                    <input class="in-width" type="text" id="name" disabled/>
                 </div>
-                <input class="in-width" type="text" id="name" disabled/>
+                <div class="topname bt">最近工作/实习经验</div>
+                <form>
+                    
+                    <div class="mtb">
+                        <div class="inblock kuandu"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>是否有实习/工作经验</span>
+                        </div>
+                        <input class="in-width" type="text" id="isWork" disabled/>
+                    </div>
+                    <div id="hasWork" class="hidden">
+                        <div class="mtb">
+                            <div class="inblock kuandu"> 
+                                <span class="xh">&nbsp;</span>
+                                <span>公司名称</span>
+                            </div>
+                            <input class="in-width" type="text" id="preCompName" disabled/>
+                        </div>
+                        
+                        <div class="mtb">
+                            <div class="inblock kuandu"> 
+                                <span class="xh">&nbsp;</span>
+                                <span>职位名称</span>
+                            </div>
+                            <input class="in-width" type="text" id="prePosName" disabled/>
+                        </div>
+                        
+                        <div class="mtb">
+                            <div class="inblock kuandu"> 
+                                <span class="xh">&nbsp;</span>
+                                <span>工作时间</span>
+                            </div>
+                            <input class="in-width" type="text" id="preWorkTime" disabled/>
+                        </div>
+                        
+                        <div class="mtb">
+                            <div class="inblock kuandu"> 
+                                <span class="xh">&nbsp;</span>
+                                <span>职位月薪</span>
+                            </div>
+                            <input class="in-width" type="text" id="preMsalary" disabled/>
+                        </div>
+                        
+                        
+                        <div class="mtb">
+                            <div class="inblock kuandu"> 
+                                <span class="xh">&nbsp;</span>
+                                <span>工作描述</span>
+                            </div>
+                            <textarea class="sell" rows="10" cols="50" id="preDescription" disabled></textarea>
+                        </div>
+                    </div>
+                </form>
+                <div class="topname bt cm">教育经历</div>
+                <form>
+                    <div class="mtb" id="education">
+                        <div class="inblock kuandu"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>学历/学位</span>
+                        </div>
+                        <input type="radio" name="edu" value="1" disabled>本科
+                        <input type="radio" name="edu" class="ml" value="2" disabled>大专
+                        <input type="radio" name="edu" class="ml" value="3" disabled>高中
+                        <input type="radio" name="edu" class="ml" value="4" disabled>其他
+                    </div>
+                
+                    <div class="mtb" id="isTz">
+                        <div class="inblock kuandu"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>是否统招</span>
+                        </div>
+                        <input type="radio" name="tzRadio" value="1" disabled>是
+                        <input class="ml" type="radio" value="0" name="tzRadio" disabled>否
+                    </div>
+                
+                    <div class="mtb" >
+                        <div class="inblock kuandu" style="vertical-align:top;"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>就读时间</span>
+                        </div>
+                        <input class="in-width" type="text" id="studyTime" disabled/>
+                    </div>
+                
+                    <div class="mtb">
+                        <div class="inblock kuandu"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>学校名称</span>
+                        </div>
+                        <input class="in-width" type="text" id="school" disabled/>
+                    </div>
+                
+                    <div class="mtb">
+                        <div class="inblock kuandu"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>专业名称</span>
+                        </div>
+                        <input class="in-width" type="text" id="profession" disabled/>
+                    </div>
+                </form>
+                <div class="topname bt cm">求职意向</div>
+                <form>
+                    <div class="mtb" id="type">
+                        <div class="inblock kuandu"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>工作性质</span>
+                        </div>
+                        <input type="radio" name="wType" value="1" disabled>全职
+                        <input class="ml" type="radio" value="2" name="wType" disabled>兼职
+                        <input class="ml" type="radio" value="3" name="wType" disabled>实习
+                    </div>
+                
+                    <div class="mtb">
+                        <div class="inblock kuandu" style="vertical-align:top;"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>期望从事职业</span>
+                        </div>
+                        <div class="inblock in-width va-tt" style="width: 260px" id="expPosition"></div>
+                    </div>
+                    
+                    <div class="mtb" >
+                        <div class="inblock kuandu" style="vertical-align:top;"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>期望月薪</span>
+                        </div>
+                        <input class="in-width" type="text" id="expMsalary" disabled/>
+                    </div>
+                    
+                    <div class="mtb">
+                        <div class="inblock kuandu"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>期望工作地点</span>
+                        </div>
+                        <input class="in-width" type="text" id="address" disabled/>
+                    </div>
+                    
+                    <div class="mtb">
+                        <div class="inblock kuandu"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>工作状态</span>
+                        </div>
+                        <input class="in-width" type="text" id="workStatus" disabled/>
+                    </div>
+                    
+                    <div class="mtb">
+                        <div class="inblock kuandu"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>是否公开简历</span>
+                        </div>
+                        <input class="in-width" type="text" id="isOpen" disabled/>
+                    </div>
+                </form>
             </div>
-            <div class="topname bt">最近工作/实习经验</div>
-        
-            <form>
-                
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>是否有实习/工作经验</span>
-                    </div>
-                    <input class="in-width" type="text" id="isWork" disabled/>
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>公司名称</span>
-                    </div>
-                    <input class="in-width" type="text" id="preCompName" disabled/>
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>职位名称</span>
-                    </div>
-                    <input class="in-width" type="text" id="prePosName" disabled/>
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>工作时间</span>
-                    </div>
-                    <input class="in-width" type="text" id="preWorkTime" disabled/>
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>职位月薪</span>
-                    </div>
-                    <input class="in-width" type="text" id="preMsalary" disabled/>
-                </div>
-                
-                
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>工作描述</span>
-                    </div>
-                    <textarea class="sell" rows="10" cols="50" id="preDescription" disabled></textarea>
-                </div>
-            </form>
-
-        
-            <div class="topname bt cm">教育经历</div>
-            <form>
-                <div class="mtb" id="education">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>学历/学位</span>
-                    </div>
-                    <input type="radio" name="edu" value="1" disabled>本科
-                    <input type="radio" name="edu" class="ml" value="2" disabled>大专
-                    <input type="radio" name="edu" class="ml" value="3" disabled>高中
-                    <input type="radio" name="edu" class="ml" value="4" disabled>其他
-                </div>
-            
-                <div class="mtb" id="isTz">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>是否统招</span>
-                    </div>
-                    <input type="radio" name="tzRadio" value="1" disabled>是
-                    <input class="ml" type="radio" value="0" name="tzRadio" disabled>否
-                </div>
-            
-                <div class="mtb" >
-                    <div class="inblock kuandu" style="vertical-align:top;"> 
-                        <span class="xh">*</span>
-                        <span>就读时间</span>
-                    </div>
-                    <input class="in-width" type="text" id="studyTime" disabled/>
-                </div>
-            
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>学校名称</span>
-                    </div>
-                    <input class="in-width" type="text" id="school" disabled/>
-                </div>
-            
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>专业名称</span>
-                    </div>
-                    <input class="in-width" type="text" id="profession" disabled/>
-                </div>
-            </form>
-            <div class="topname bt cm">求职意向</div>
-            <form>
-                <div class="mtb" id="type">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>工作性质</span>
-                    </div>
-                    <input type="radio" name="wType" value="1" disabled>全职
-                    <input class="ml" type="radio" value="2" name="wType" disabled>兼职
-                    <input class="ml" type="radio" value="3" name="wType" disabled>实习
-                </div>
-            
-                <div class="mtb">
-                    <div class="inblock kuandu" style="vertical-align:top;"> 
-                        <span class="xh">*</span>
-                        <span>期望从事职业</span>
-                    </div>
-                    <div class="inblock in-width va-tt" id="expPosition">
-                        <input type="checkbox" value="1" disabled/>运营总监
-                        <input type="checkbox" value="2" disabled/>运营主管
-                        <input type="checkbox" value="3" disabled/>运营
-                        <input type="checkbox" value="4" disabled/>设计总监
-                        <input type="checkbox" value="5" disabled/>设计/美工
-                        <input type="checkbox" value="6" disabled/>推广专员
-                        <input type="checkbox" value="7" disabled/>客服主管
-                        <input type="checkbox" value="8" disabled/>客服/售后
-                        <input type="checkbox" value="9" disabled/>仓储经理
-                        <input type="checkbox" value="10" disabled/>采购经理
-                        <input type="checkbox" value="11" disabled/>其他
-                    </div>
-                </div>
-                
-                <div class="mtb" >
-                    <div class="inblock kuandu" style="vertical-align:top;"> 
-                        <span class="xh">*</span>
-                        <span>期望月薪</span>
-                    </div>
-                    <input class="in-width" type="text" id="expMsalary" disabled/>
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>期望工作地点</span>
-                    </div>
-                    <input class="in-width" type="text" id="address" disabled/>
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>工作状态</span>
-                    </div>
-                    <input class="in-width" type="text" id="workStatus" disabled/>
-                </div>
-                
-                <div class="mtb">
-                    <div class="inblock kuandu"> 
-                        <span class="xh">*</span>
-                        <span>是否公开简历</span>
-                    </div>
-                    <input class="in-width" type="text" id="isOpen" disabled/>
-                </div>
-            </form>
+            <!--endprint1-->
             <div class="hold-box">
+                <input type="button" id="print" class="hold" value="打印">
                 <a href="javascript:void(0)" class="cancel" id="goBack">返回</a>
             </div>
         </div>

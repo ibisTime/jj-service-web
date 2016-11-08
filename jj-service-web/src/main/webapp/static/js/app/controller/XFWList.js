@@ -4,39 +4,47 @@ define([
     'lib/Pagination',
     'Handlebars'
 ], function (base, Dict, Pagination, Handlebars) {
-    var tmplList = __inline("../ui/xuser-rclist-rList.handlebars"),
-        tmplList1 = __inline("../ui/xuser-rclist-rList1.handlebars"),
-        tmplList2 = __inline("../ui/xuser-rclist-rList2.handlebars"),
-        positionKind = Dict.get("positionKind"),
+    var tmplList = __inline("../ui/xuser-fwlist-rList.handlebars"),
+        tmplList1 = __inline("../ui/xuser-fwlist-rList1.handlebars"),
+        tmplList2 = __inline("../ui/xuser-fwlist-rList2.handlebars"),
+        serverType = Dict.get("serverType1"),
+        urgentLevel = Dict.get("urgentLevel"),
         start = 1;
 
-    //init();
+    init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isLogin() && base.isPerson()){
             Handlebars.registerHelper('formatDate', function(num, options){
                 var dd = new Date(num);
                 return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
             });
-            Handlebars.registerHelper('formtPKind', function(num, options){
-                return positionKind[num];
+            Handlebars.registerHelper('formtSType', function(num, options){
+                return serverType[num];
             });
-            getPageResume();
+            Handlebars.registerHelper('formtULevel', function(num, options){
+                return urgentLevel[num];
+            });
+            Handlebars.registerHelper('formatPrice', function(num, options){
+                return num && (+num / 1000);
+            });
+            getPageDemand();
             addListener();
         }else{
             location.href = "./login.html?return=" + base.makeReturnUrl();
         }
     }
-    //分页查询我的简历
-    function getPageResume(){
-        base.getPageResume({
+    //分页查询我的需求
+    function getPageDemand(){
+        base.getPageDemand({
             publisher: base.getPersonUserId(),
             start: start,
             limit: 10
         }).then(function(res){
                 if(res.success && res.data.list.length){
                     var data = res.data;
-                    $("#wdjlTable").find("tbody").html( tmplList({items: res.data.list}) );
+                    $("#wdxqTable").find("tbody").html( tmplList({items: res.data.list}) );
                     $("#pagination_div").pagination({
                         items: data.totalCount,
                         itemsOnPage: 10,
@@ -47,24 +55,24 @@ define([
                         currentPage: start,
                         onPageClick: function(pageNumber){
                             start = pageNumber;
-                            addLoading($("#wdjlTable").find("tbody"), 5);
+                            addLoading($("#wdxqTable").find("tbody"), 6);
                             getPageResume();
                         }
                     });
                 }else{
-                    doError($("#wdjlTable").find("tbody"), 5);
+                    doError($("#wdxqTable").find("tbody"), 6);
                 }
             });
     }
-    //分页查询已应聘职位
-    function getPageInterestPosition(){
-        base.getPageInterestPosition({
+    //分页查询感兴趣服务
+    function getPageInterestServer(){
+        base.getPageInterestServer({
             start: start,
             limit: 10
         }).then(function(res){
             if(res.success && res.data.list.length){
                 var data = res.data;
-                $("#yypzwTable").find("tbody").html( tmplList1({items: res.data.list}) );
+                $("#gxqfwTable").find("tbody").html( tmplList1({items: res.data.list}) );
                 $("#pagination_div").pagination({
                     items: data.totalCount,
                     itemsOnPage: 10,
@@ -75,18 +83,18 @@ define([
                     currentPage: start,
                     onPageClick: function(pageNumber){
                         start = pageNumber;
-                        addLoading($("#yypzwTable").find("tbody"), 7);
-                        getPageInterestPosition();
+                        addLoading($("#gxqfwTable").find("tbody"), 6);
+                        getPageInterestServer();
                     }
                 });
             }else{
-                doError($("#yypzwTable").find("tbody"), 7);
+                doError($("#gxqfwTable").find("tbody"), 6);
             }
         });
     }
 
-    function getPageInterestResume(){
-        base.getPageInterestResume({
+    function getPageInterestDemand(){
+        base.getPageInterestDemand({
             start: start,
             limit: 10
         }).then(function(res){
@@ -104,7 +112,7 @@ define([
                     onPageClick: function(pageNumber){
                         start = pageNumber;
                         addLoading($("#bgxqTable").find("tbody"), 6);
-                        getPageInterestResume();
+                        getPageInterestDemand();
                     }
                 });
             }else{
@@ -115,58 +123,63 @@ define([
 
     function addListener(){
         //列表切换
-        $("#rcUl").on("click", "li", function(){
+        $("#fwUl").on("click", "li", function(){
             var me = $(this), idx = me.index();
-            $("#rcUl").find("li>a.current").removeClass("current");
+            $("#fwUl").find("li>a.current").removeClass("current");
             me.find("a").addClass("current");
             var contDiv = $("#contDiv");
-            contDiv.find(".rcContent").addClass("hidden");
-            contDiv.find("div.rcContent"+idx).removeClass("hidden");
+            contDiv.find(".fwContent").addClass("hidden");
+            contDiv.find("div.fwContent"+idx).removeClass("hidden");
             start = 1;
             $("#pagination_div").empty();
             var col, ele;
             if(idx == 0){
-                ele = $("#wdjlTable").find("tbody");
-                col = 5;
+                ele = $("#wdxqTable").find("tbody");
+                col = 6;
                 addLoading(ele, col);
-                getPageResume();
+                getPageDemand();
             }else if(idx == 1){
-                col = 7;
+                col = 6;
                 ele = $("#yypzwTable").find("tbody");
                 addLoading(ele, col);
-                getPageInterestPosition();
+                getPageInterestServer();
             }else{
                 col = 6;
                 ele = $("#bgxqTable").find("tbody");
                 addLoading(ele, col);
-                getPageInterestResume();
+                getPageInterestDemand();
             }
         });
-        /***我的简历start***/
+        /***我的需求start***/
         //checkbox
-        $("#wdjlTable").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
-                var checkList = $("#wdjlTable").find(".checkinput.actived");
+        $("#wdxqTable").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
+                var checkList = $("#wdxqTable").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
-        $("#addJl").on("click", function(){
-            location.href = "../xuser/add-resume.html?return=" + base.makeReturnUrl();
+        $("#wdxqAdd").on("click", function(){
+            location.href = "../xuser/add-demand.html?return=" + base.makeReturnUrl();
         });
-        $("#deleteJl").on("click", function(){
-            var tr = getCheckItem("wdjlTable"),
+        $("#wdxqDelete").on("click", function(){
+            var tr = getCheckItem("wdxqTable"),
                 code = tr && tr.attr("code") || "",
                 me = $(this);
             if(!me.hasClass("isDoing")){
                 if(code){
                     me.addClass("isDoing").text("删除中...");
-                    base.deleteResume({code: code})
+                    base.deleteDemand({code: code})
                         .then(function(res){
                             me.removeClass("isDoing").text("删除");
                             if(res.success){
@@ -177,56 +190,64 @@ define([
                             }
                         });
                 }else{
-                    base.showMsg("您未选择所要删除的简历！");
+                    base.showMsg("您未选择所要删除的需求！");
                 }
             }
         });
-        $("#editJl").on("click", function(){
-            var tr = getCheckItem("wdjlTable"),
+        $("#wdxqEdit").on("click", function(){
+            var tr = getCheckItem("wdxqTable"),
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/edit-resume.html?code="+code+"&return=" + base.makeReturnUrl();
+                location.href = "../xuser/edit-demand.html?code="+code+"&return=" + base.makeReturnUrl();
             }else{
-                base.showMsg("您未选择所要修改的简历！");
+                base.showMsg("您未选择所要修改的需求！");
             }
         });
-        $("#selectJl").on("click", function(){
-            var tr = getCheckItem("wdjlTable"), 
+        $("#wdxqSelect").on("click", function(){
+            var tr = getCheckItem("wdxqTable"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/resume-detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../xuser/demand-detail.html?code="+code+"&return="+base.makeReturnUrl();
             }else{
-                base.showMsg("您未选择所要查看的简历！");
+                base.showMsg("您未选择所要查看的需求！");
             }
         });
-        /***我的简历end***/
+        /***我的需求end***/
 
-        /***已应聘职位start***/
+        /***感兴趣服务start***/
         //checkbox
-        $("#yypzwTable").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
-                var checkList = $("#yypzwTable").find(".checkinput.actived");
+        $("#gxqfwTable").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
+                var checkList = $("#gxqfwTable").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
-        $("#selectZw").on("click", function(){
-            var tr = getCheckItem("yypzwTable"), 
-                code = tr && tr.attr("pCode") || "";
+        $("#gxqfwSearch").on("click", function(){
+            location.href = "../server/list.html";
+        });
+        $("#gxqfwSelect").on("click", function(){
+            var tr = getCheckItem("gxqfwTable"), 
+                code = tr && tr.attr("sCode") || "";
             if(code){
-                location.href = "../position/detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../server/detail.html?code="+code+"&return="+base.makeReturnUrl();
             }else{
-                base.showMsg("您未选择所要查看的信息！");
+                base.showMsg("您未选择所要查看的服务！");
             }
         });
-        $("#deleteZw").on("click", function(){
+        $("#gxqfwDelete").on("click", function(){
             var me = $(this);
-            var tr = getCheckItem("yypzwTable"), 
+            var tr = getCheckItem("gxqfwTable"), 
                 code = tr && tr.attr("code") || "";
             if(!me.hasClass("isDoing")){
                 if(code){
@@ -243,33 +264,38 @@ define([
                             }
                         });
                 }else{
-                    base.showMsg("您未选择所要删除的信息！");
+                    base.showMsg("您未选择所要删除的服务！");
                 }
             }
         });
-        /***已应聘职位end***/
+        /***感兴趣服务end***/
 
         /***被感兴趣start***/
         //checkbox
-        $("#bgxqTable").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#bgxqTable").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#bgxqTable").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
-        $("#selectXq").on("click", function(){
+        $("#bgxqSelect").on("click", function(){
             var tr = getCheckItem("bgxqTable"), 
-                code = tr && tr.attr("cCode") || "";
+            code = tr && tr.attr("cCode") || "";
             if(code){
-                location.href = "../xuser/comp-detail.html?code="+code + "return="+base.makeReturnUrl();
+                location.href = "../suser/detail.html?code="+code+"&return="+base.makeReturnUrl();
             }else{
-                base.showMsg("您未选择所要查看的简历！");
+                base.showMsg("您未选择所要查看的信息！");
             }
         });
         /***被感兴趣end***/
@@ -282,14 +308,6 @@ define([
         }else{
             return "";
         }
-    }
-
-    function addPositionKind(){
-        html = "";
-        $.each(positionKind, function(n, type){
-            html += '<option value="'+n+'">'+type+'</option>'
-        });
-        $("#rcType").append(html);
     }
 
     function addLoading(ele, col){

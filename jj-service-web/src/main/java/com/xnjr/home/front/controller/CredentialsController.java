@@ -66,6 +66,24 @@ public class CredentialsController extends BaseController {
     	return credetialsAO.queryCredentials(code);
     }
     
+    //删除公司资质
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Object deleteCertificates(
+    		@RequestParam(value = "code", required = true) String code){
+    	return credetialsAO.deleteCertificates(code, this.getSessionUser().getCompanyCode());
+    }
+    
+    //修改公司资质
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Object queryListCredentials(
+    		@RequestParam(value = "certificateCode", required = true) String certificateCode,
+    		@RequestParam(value = "code", required = true) String code){
+    	return credetialsAO.editCertificates(code,
+    			certificateCode, this.getSessionUser().getCompanyCode());
+    }
+    
     //列表查询资质
     @RequestMapping(value = "/list1", method = RequestMethod.GET)
     @ResponseBody

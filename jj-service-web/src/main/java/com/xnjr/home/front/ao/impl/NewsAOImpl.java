@@ -18,7 +18,7 @@ public class NewsAOImpl implements INewsAO {
 		req.setCompanyCode(companyCode);
 		req.setLimit(limit);
 		req.setStart(start);
-		req.setStatus("1");
+		//req.setStatus("1");
 		req.setTitle(title);
 		req.setToCompany(toCompany);
 		req.setToLevel(toLevel);

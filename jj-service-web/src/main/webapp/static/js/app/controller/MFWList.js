@@ -4,8 +4,7 @@ define([
     'lib/Pagination',
     'Handlebars'
 ], function (base, Dict, Pagination, Handlebars) {
-    var leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
-        tmplList = __inline("../ui/suser-fwlist-rList.handlebars"),
+    var tmplList = __inline("../ui/suser-fwlist-rList.handlebars"),
         certificateStatus = Dict.get("certificateStatus"),
         serverType = Dict.get("serverType"),
         start = 1, sType = base.getUrlParam("type"),
@@ -14,6 +13,7 @@ define([
     init();
 
     function init(){
+        $("#fwA").addClass("current");
         if(base.isCompUser()){
             Handlebars.registerHelper('formatDate', function(num, options){
                 var dd = new Date(num);
@@ -22,11 +22,11 @@ define([
             Handlebars.registerHelper('formtSType', function(num, options){
                 return serverType[num];
             });
-            var fwTypes = sessionStorage.getItem("fwTypes");
-            if(fwTypes){
-                addLeftNav($.parseJSON(fwTypes));
-            }else{
-                getDictList();
+            Handlebars.registerHelper('formatPrice', function(num, options){
+                return num && (+num / 1000);
+            });
+            if(sType){
+                $("#leftNav").find("li[code='"+sType+"']").addClass("current");
             }
             getPageServers();
             addListener();
@@ -35,13 +35,13 @@ define([
         }
     }
 
-    function getPageServers(){
+    function getPageServers(flag){
         base.getPageServers({
             companyCode: base.getCompanyCode(),
             start: start,
             type: sType,
             limit: 10
-        }).then(function(res){
+        }, flag).then(function(res){
                 if(res.success && res.data.list.length){
                     $("#yfbfw-table").find("tbody").html( tmplList({items: res.data.list}) );
                     var data = res.data;
@@ -65,35 +65,23 @@ define([
             });
     }
 
-    function getDictList(){
-        base.getServerDictList()
-            .then(function(res){
-                if(res.success){
-                    addLeftNav(res.data);
-                }
-            });
-    }
-    //添加左侧导航栏
-    function addLeftNav(data){
-        $("#leftNav").html( leftNavTmpl({items: data}) );
-    }
-
     function addListener(){
-        $("#leftNav").on("click", "li", function(){
-            var me = $(this), code = me.attr("code"), text = me.text();
-            location.href = "./list.html?code=" + code + "&n=" + text.substr(0, text.length - 1);
-        });
         //checkbox
-        $("#yfbfw-table").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#yfbfw-table").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#yfbfw-table").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#fwAdd").on("click", function(){
@@ -111,6 +99,8 @@ define([
                             me.removeClass("isDoing").text("删除");
                             if(res.success){
                                 base.showMsg("删除成功！");
+                                addLoading($("#yfbfw-table").find("tbody"), 6);
+                                getPageServers(true);
                                 tr.remove();
                             }else{
                                 base.showMsg("非常抱歉，删除失败！");

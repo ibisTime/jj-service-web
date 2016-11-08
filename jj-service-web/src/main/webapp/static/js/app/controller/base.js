@@ -183,7 +183,13 @@ define([
         },
         //获取地址json
         getAddress: function(){
-            return Ajax.get("/static/js/lib/city.min.json");
+            return Ajax.get("/static/js/lib/city.min.json")
+                .then(function(res){
+                    if(res.citylist){
+                        return res;
+                    }
+                    return $.parseJSON(res);
+                });
         },
         //是否登录
         isLogin: function(){
@@ -277,6 +283,8 @@ define([
                 .then(function(res){
                     Base.clearSessionUser();
                     return res;
+                }, function(res){
+                    Base.clearSessionUser();
                 });
         },
         //需求方登录
@@ -305,11 +313,27 @@ define([
         },
         //服务方注册
         companyRegister: function(config){
-            return Ajax.post(APIURL + "/user/regist/comp", config);
+            return Ajax.post(APIURL + "/user/regist/comp", config)
+                .then(function(res){
+                    if(res.success){
+                        sessionStorage.setItem("login", true);
+                        sessionStorage.setItem("type", 2);
+                        sessionStorage.setItem("user", JSON.stringify(res.data));
+                    }
+                    return res;
+                });
         },
         //需求方注册
         personRegister: function(config){
-            return Ajax.post(APIURL + "/user/regist/person", config);
+            return Ajax.post(APIURL + "/user/regist/person", config)
+                .then(function(res){
+                    if(res.success){
+                        sessionStorage.setItem("login", true);
+                        sessionStorage.setItem("type", 1);
+                        sessionStorage.setItem("user", JSON.stringify(res.data));
+                    }
+                    return res;
+                });
         },
         //需求方找回密码
         personFindPwd: function(config){
@@ -331,9 +355,13 @@ define([
         editCompInfo: function(config){
             return Ajax.post(APIURL + "/user/comp/edit", config);
         },
+        //需求方修改手机号
+        changeMoblie: function(config){
+            return Ajax.post(APIURL + "/user/mobile/change", config);
+        },
         //分页查询服务
-        getPageServers: function(config){
-            return Ajax.get(APIURL + "/server/page", config);
+        getPageServers: function(config, flag){
+            return Ajax.get(APIURL + "/server/page", config, flag || false);
         },
         //详情查询服务
         getServerInfo: function(config){
@@ -412,8 +440,8 @@ define([
             return Ajax.get(APIURL + "/news/page", config);
         },
         //详情查询公告
-        getNewsInfo: function(code){
-            return Ajax.get(APIURL + "/news/info", {code: code});
+        getNewsInfo: function(config){
+            return Ajax.get(APIURL + "/news/info", config);
         },
         //列表查询数据字典
         getDictList: function(config){
@@ -446,8 +474,8 @@ define([
                 });
         },
         //分页查询职位
-        getPagePosition: function(config){
-            return Ajax.get(APIURL + "/position/page", config);
+        getPagePosition: function(config, falg){
+            return Ajax.get(APIURL + "/position/page", config, falg || false);
         },
         //详情查询职位
         getPositionInfo: function(config){
@@ -476,6 +504,10 @@ define([
         //分页查询公司
         getPageComp: function(config){
             return Ajax.get(APIURL + "/user/comp/page", config);
+        },
+        //列表查询公司
+        getListComp: function(config){
+            return Ajax.get(APIURL + "/user/comp/list", config);
         },
         //新增简历
         publishResume: function(config){
@@ -519,7 +551,15 @@ define([
         },
         //公司申请资质
         applyCredentials: function(config){
-            return Ajax.post(APIURL + "/credentials/apply", config)
+            return Ajax.post(APIURL + "/credentials/apply", config);
+        },
+        //修改公司资质
+        editCertificates: function(config){
+            return Ajax.post(APIURL + "/credentials/edit", config);
+        },
+        //删除公司资质
+        deleteCertificates: function(config){
+            return Ajax.post(APIURL + "/credentials/delete", config);
         },
         //需求方对服务感兴趣，公司对需求感兴趣，公司对简历感兴趣
         interested: function(config){
@@ -545,6 +585,10 @@ define([
         getPageInterestResume: function(config){
             return Ajax.get(APIURL + "/interest/page/resume", config);
         },
+        //分页查询感兴趣需求
+        getPageInterestDemand: function(config){
+            return Ajax.get(APIURL + "/interest/page/demand", config);
+        },
         //删除感兴趣服务
         deleteInterest: function(config){
             return Ajax.post(APIURL + "/interest/delete", config);
@@ -552,6 +596,22 @@ define([
         //分页查询需求
         getPageDemand: function(config){
             return Ajax.get(APIURL + "/demand/page", config);
+        },
+        //新增需求
+        addDemand: function(config){
+            return Ajax.post(APIURL + "/demand/add", config);
+        },
+        //修改需求
+        editDemand: function(config){
+            return Ajax.post(APIURL + "/demand/edit", config);
+        },
+        //删除需求
+        deleteDemand: function(config){
+            return Ajax.post(APIURL + "/demand/delete", config);
+        },
+        //详情查询需求
+        getDemandInfo: function(config){
+            return Ajax.get(APIURL + "/demand/info", config);
         },
         //发送需求方注册验证码
         sendRegisterSms: function(mobile){
@@ -568,46 +628,87 @@ define([
         //发送需求方更改手机号验证码
         sendPersonChangeMobileSms: function(mobile){
             return Ajax.post(APIURL + "/gene/changemobile/send", {mobile: mobile});
+        },
+        //获取banner
+        getBannerList: function(config){
+            return Ajax.get(APIURL + "/navigate/banner/list", config);
         }
     };
     function init(){
-
+        
+        if(location.pathname.indexOf("/login.html")){
+            $(".end").css({
+                "position": "absolute",
+                "bottom": "0px",
+                "width": "100%",
+                "margin-top": "0px"
+            })
+        }else{
+            $(".bigbox").css( "min-height", ($(window).height() - 295) + "px" );
+        }
         if(Base.isLogin()){
             var user = Base.getSessionUser(), username = "";
             if(Base.isCompUser()){
-                username = user.name;
+                username = user.loginName;
             }else{
-                username = user.nickname || user.mobile;
+                username = user.mobile;
             }
             $("#header").append('<div class="headerthree">欢迎你，<a class="info pr10 head-spa">'+username+'</a><a class="logout pl10">退出</a></div>');
         }else{
             $("#header").append('<div class="headerthree">'+
-                '<a href="../xuser/login.html" class="info pr10 head-spa">登录</a>'+
-                '<div href="javascript:void(0);" class="head-reg pl10 inblock"><span>注册</span>'+
-                '<ul class="hidden"><li><a href="../xuser/register.html">需求方注册</a></li><li><a href="../suser/register.html">服务方注册</li></ul></div></div>');
+                '<a href="javascript:void(0)" class="login-a pr10 head-spa">登录</a>'+
+                '<div class="head-reg pl10 inblock"><span>注册</span>'+
+                '<ul class="hidden"><li><a class="topRegX" href="javascript:void(0)">需求方注册</a></li><li><a class="topRegF" href="javascript:void(0)">服务方注册</a></li></ul></div></div>');
+            
         }
         var province = localStorage.getItem("province"), city, area;
         if(province == null){
             localStorage.setItem("province", "浙江");
             localStorage.setItem("city", "金华");
-            localStorage.setItem("area", "金东区");
         }
         province = localStorage.getItem("province");
         city = localStorage.getItem("city");
-        area = localStorage.getItem("area");
-        var position = city + " " + area;
-        $("#placeName").text(position);
-        $("#city1").citySelect({
-            prov: province,  
-            city: city,  
-            dist: area, 
-            url: "/static/js/lib/city.min.json"
+        $("#placeName").text(city);
+        var cList;
+        Base.getAddress()
+            .then(function(res){
+                var temp_html = "", temp_html1 = "";
+                var prov_id = 0;
+                cList = res.citylist;
+                $.each(cList,function(i,prov){
+                    if(prov.p == province){
+                        prov_id = i;
+                        temp_html+="<option value='"+prov.p+"' selected>"+prov.p+"</option>";  
+                    }else{
+                        temp_html+="<option value='"+prov.p+"'>"+prov.p+"</option>";                          
+                    }
+                });
+                $.each(cList[prov_id].c,function(i,city1){
+                    if(city == city1.n){
+                        temp_html1+="<option value='"+city1.n+"' selected>"+city1.n+"</option>";
+                    }else{
+                        temp_html1+="<option value='"+city1.n+"'>"+city1.n+"</option>";
+                    }
+                });
+                $("#topProv").append(temp_html);
+                $("#topCity").append(temp_html1);
+            });
+        $("#topProv").on("change", function(){
+            var me = $(this);
+            var prov_id = +me[0].selectedIndex,
+                temp_html = "";
+            $.each(cList[prov_id].c,function(i,city){  
+                temp_html+="<option value='"+city.n+"'>"+city.n+"</option>";  
+            });
+            $("#topCity").removeAttr("disabled").html(temp_html);
         });
         $("#header").on("click", "a", function(e){
             var me = $(this);
             if(me.hasClass("logout")){
                 Base.logout()
                     .then(function(res){
+                        location.href = "../home/index.html";
+                    }, function(){
                         location.href = "../home/index.html";
                     });
             }else if(me.hasClass("info")){
@@ -621,14 +722,21 @@ define([
                     location.href = "../xuser/login.html?return=" + Base.makeReturnUrl();
                 }
                 
+            }else if(me.hasClass("login-a")){
+                location.href = "../xuser/login.html?return=" + Base.makeReturnUrl();
+            }else if(me.hasClass("topRegX")){
+                location.href = "../xuser/register.html?return=" + Base.makeReturnUrl();
+            }else if(me.hasClass("topRegF")){
+                location.href = "../suser/register.html?return=" + Base.makeReturnUrl();
             }
             e.stopPropagation();
+            e.preventDefault();
         }).on("mouseover", ".head-reg",function(){
             $(this).find("ul").removeClass("hidden");
         }).on("mouseout", ".head-reg", function(){
             $(this).find("ul").addClass("hidden");
         });
-        $("#memberCenter").on("click", function(){
+        $("#userA").on("click", function(){
             if(Base.isLogin()){
                 if(Base.isCompUser()){
                     location.href = "../suser/center.html";
@@ -640,7 +748,6 @@ define([
             }
         });
         $("#choosePlace").on("click", function(){
-            $("#city1").find(".city").prop("disabled", "disabled");
             $("#mask, #city1").removeClass("hidden");
         });
         $("#choseCancel").on("click", function(){
@@ -649,15 +756,13 @@ define([
         $("#choseOk").on("click", function(){
             var cont = $("#city1");
             var province = cont.find(".prov").val(),
-                city = cont.find(".city").val(),
-                area = cont.find(".dist").val();
+                city = cont.find(".city").val();
             if( !province && !city && !area ){
                 Base.showMsg("必须选择一个地点");
                 return;
             }
             localStorage.setItem("province", province);
             localStorage.setItem("city", city);
-            localStorage.setItem("area", area);
             location.href="../home/index.html";
         });
     }

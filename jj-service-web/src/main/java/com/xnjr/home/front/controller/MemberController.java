@@ -47,8 +47,15 @@ public class MemberController extends BaseController {
     		@RequestParam("loginPwd") String loginPwd,
             @RequestParam("smsCaptcha") String smsCaptcha,
             @RequestParam(value = "userReferee", required = false) String userReferee) {
-    	return userAO.doPersonRegister(mobile, loginPwd,
-    			userReferee, smsCaptcha);
+    	userAO.doPersonRegister(mobile, loginPwd, userReferee, smsCaptcha);
+    	Map map = userAO.doPersonLogin(mobile, loginPwd);
+        Map map1 = userAO.doGetUser((String)map.get("userId"));
+        SessionUser sessionUser = new SessionUser();
+        sessionUser.setKind("f1");
+        sessionUser.setUserId((String)map.get("userId"));
+        // 创建session
+        setSessionUser(sessionUser);
+        return map1;
     }
     
     //服务方注册
@@ -65,9 +72,17 @@ public class MemberController extends BaseController {
             @RequestParam("province") String province,
             @RequestParam("city") String city,
             @RequestParam("area") String area){
-    	return userAO.doCompRegister(type, name, gsyyzzh,
+    	userAO.doCompRegister(type, name, gsyyzzh,
     			contacts, mobile, loginName, password,
     			province, city, area);
+    	Map map = userAO.doCompLogin(loginName, password);
+        Map map1 = userAO.doGetCompanyInfo((String)map.get("companyCode"));
+        SessionUser sessionUser = new SessionUser();
+        sessionUser.setKind("comp");
+        sessionUser.setCompanyCode((String)map.get("companyCode"));
+        // 创建session
+        setSessionUser(sessionUser);
+    	return map1;
     }
 
     //需求方登录
@@ -115,7 +130,7 @@ public class MemberController extends BaseController {
         sessionUser.setCompanyCode((String)map.get("companyCode"));
         // 创建session
         setSessionUser(sessionUser);
-    	return map1;	//companyCode
+    	return map1;
     }
     
     //需求方用户详情
@@ -257,5 +272,15 @@ public class MemberController extends BaseController {
     			area, address, description, scale,
     			contacts, mobile, email, qq, type,
     			slogan, remark);
+    }
+    
+    
+    //列表查询公司信息
+    @RequestMapping(value = "/comp/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryListCompany(
+    		@RequestParam(value = "province", required = false) String province,
+    		@RequestParam(value = "city", required = false) String city){
+    	return userAO.queryListCompany(province, city);
     }
 }

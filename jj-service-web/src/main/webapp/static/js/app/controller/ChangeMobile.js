@@ -5,6 +5,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         addListeners();
     }
 
@@ -15,6 +16,12 @@ define([
         $("#changeBtn").on("click", function(){
             if(validate()){
                 doChangeMobile();
+            }
+        });
+        $("#mobile, #smsCaptcha").on("keyup", function(e){
+            var code = e.charCode || e.keyCode;
+            if(code == "13"){
+                $("#changeBtn").click();
             }
         });
     }
@@ -28,6 +35,7 @@ define([
             return;
         }
         $("#getSmsCode").attr("disabled", "disabled");
+        sendSms(mobile);
     }
     function sendSms(mobile){
         base.sendPersonChangeMobileSms(mobile)
@@ -74,7 +82,7 @@ define([
             newMobile: $("#mobile").val(),
             smsCaptcha: $("#smsCaptcha").val()
         };
-        base.personFindPwd(config)
+        base.changeMoblie(config)
             .then(function(res){
                 if(res.success){
                     base.showMsg("修改手机成功！");
@@ -82,7 +90,7 @@ define([
                         base.goBackUrl("./center.html");
                     }, 1500);
                 }else{
-                    base.showMsg("修改手机失败！");
+                    base.showMsg(res.msg);
                     $("#changeBtn").val("修改").removeAttr("disabled");
                 }
             });

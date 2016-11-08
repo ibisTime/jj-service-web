@@ -1,8 +1,9 @@
 {{#each items}}
-    <div class="in-serve" code="{{code}}">
-        <div class="serve-one">{{name}}</div>
-        <span class="serve-two">￥{{quoteMin}}~￥{{quoteMax}}</span>
-        <div class="serve-three t-3dot">{{advert}}</div>
-        <div>{{companyName}}</div>
+    <div class="information-l cur_pointer" code="{{code}}">
+        <div class="in-one">{{name}}</div>
+        <span class="in-two">{{formatDate publishDatetime}}</span>
+        <div class="in-three">￥{{formatPrice quoteMin}}~￥{{formatPrice quoteMax}}</div>
+        <div>{{company.name}}</div>
+        <div>{{company.slogan}}</div>
     </div>
 {{/each}}

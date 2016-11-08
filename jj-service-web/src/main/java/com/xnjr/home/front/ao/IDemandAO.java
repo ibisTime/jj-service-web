@@ -4,28 +4,28 @@ public interface IDemandAO {
 	/**
 	 * 新增需求
 	 * @param name
-	 * @param type
+	 * @param qualityCode
 	 * @param expCompany
 	 * @param urgentLevel
 	 * @param description
 	 * @param publisher
 	 * @return
 	 */
-	public Object addDemand(String name, String type, String expCompany, 
+	public Object addDemand(String name, String qualityCode, String expCompany, 
 			String urgentLevel, String description, String publisher);
 	
 	/**
 	 * 修改需求
 	 * @param code
 	 * @param name
-	 * @param type
+	 * @param qualityCode
 	 * @param expCompany
 	 * @param urgentLevel
 	 * @param description
 	 * @param publisher
 	 * @return
 	 */
-	public Object editDemand(String code, String name, String type,
+	public Object editDemand(String code, String name, String qualityCode,
 			String expCompany, String urgentLevel, String description, String publisher);
 	
 	/**

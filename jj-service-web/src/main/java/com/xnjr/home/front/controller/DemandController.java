@@ -22,11 +22,11 @@ public class DemandController extends BaseController {
     @ResponseBody
     public Object addDemand(
     		@RequestParam(value = "name", required = true) String name,
-    		@RequestParam(value = "type", required = true) String type,
+    		@RequestParam(value = "qualityCode", required = true) String qualityCode,
     		@RequestParam(value = "expCompany", required = true) String expCompany,
     		@RequestParam(value = "urgentLevel", required = true) String urgentLevel,
-    		@RequestParam(value = "description", required = true) String description){
-    	return demandAO.addDemand(name, type, expCompany,
+    		@RequestParam(value = "description", required = false) String description){
+    	return demandAO.addDemand(name, qualityCode, expCompany,
     			urgentLevel, description, this.getSessionUser().getUserId());
     }
     
@@ -36,11 +36,11 @@ public class DemandController extends BaseController {
     public Object editDemand(
     		@RequestParam(value = "code", required = true) String code,
     		@RequestParam(value = "name", required = true) String name,
-    		@RequestParam(value = "type", required = true) String type,
+    		@RequestParam(value = "qualityCode", required = true) String qualityCode,
     		@RequestParam(value = "expCompany", required = true) String expCompany,
     		@RequestParam(value = "urgentLevel", required = true) String urgentLevel,
     		@RequestParam(value = "description", required = true) String description){
-    	return demandAO.editDemand(code, name, type, expCompany,
+    	return demandAO.editDemand(code, name, qualityCode, expCompany,
     			urgentLevel, description, this.getSessionUser().getUserId());
     }
     
@@ -55,7 +55,7 @@ public class DemandController extends BaseController {
     //分页查询需求
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     @ResponseBody
-    public Object queryPagePosition(
+    public Object queryPageDemand(
     		@RequestParam(value = "publisher", required = false) String publisher,
     		@RequestParam(value = "type", required = false) String type,
     		@RequestParam(value = "urgentLevel", required = false) String urgentLevel,
@@ -71,7 +71,7 @@ public class DemandController extends BaseController {
     //详情查询需求
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
-    public Object queryPositionInfo(
+    public Object queryDemandInfo(
     		@RequestParam(value = "code", required = true) String code){
     	return demandAO.queryDemandInfo(code);
     }

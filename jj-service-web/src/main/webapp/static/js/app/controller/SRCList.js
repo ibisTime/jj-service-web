@@ -16,6 +16,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isCompUser()){
             Handlebars.registerHelper('formatDate', function(num, options){
                 var dd = new Date(num);
@@ -25,7 +26,13 @@ define([
                 return interestStatus[num];
             });
             Handlebars.registerHelper('formtPKind', function(num, options){
-                return positionKind[num];
+                var str = "";
+                for(var i = 0; i < num.length; i++){
+                    str = str + positionKind[ num[i] ];
+                    if(i < num.length - 1)
+                        str = str + "、";
+                }
+                return str;
             });
             getPagePosition();
             addPositionKind();
@@ -35,13 +42,13 @@ define([
             location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
         }
     }
-
-    function getPagePosition(){
+    //分页查询已发布职位
+    function getPagePosition(flag){
         base.getPagePosition({
             companyCode: base.getCompanyCode(),
             start: start,
             limit: 10
-        }).then(function(res){
+        }, flag).then(function(res){
                 if(res.success && res.data.list.length){
                     var data = res.data;
                     $("#yfbzw-table").find("tbody").html( tmplList({items: res.data.list}) );
@@ -64,7 +71,7 @@ define([
                 }
             });
     }
-    //分页查询被感兴趣服务
+    //分页查询应聘简历
     function getPageLikeMyPosition(){
         base.getPageInterestPosition({
             start: start,
@@ -92,7 +99,7 @@ define([
             }
         });
     }
-
+    //分页查询简历
     function getPageResume(rcType, province, city){
         base.getPageResume({
             expPosition: rcType || "",
@@ -154,16 +161,21 @@ define([
         });
         /***已发布职位start***/
         //checkbox
-        $("#yfbzw-table").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#yfbzw-table").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#yfbzw-table").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#zwAdd").on("click", function(){
@@ -180,8 +192,9 @@ define([
                         .then(function(res){
                             me.removeClass("isDoing").text("删除");
                             if(res.success){
+                                addLoading($("#yfbzw-table").find("tbody"), 6);
+                                getPagePosition(true);
                                 base.showMsg("删除成功！");
-                                tr.remove();
                             }else{
                                 base.showMsg("非常抱歉，删除失败！");
                             }
@@ -213,16 +226,21 @@ define([
 
         /***应聘简历start***/
         //checkbox
-        $("#ypjl-table").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#ypjl-table").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#ypjl-table").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#ypjlSelect").on("click", function(){
@@ -262,16 +280,21 @@ define([
 
         /***搜简历start***/
         //checkbox
-        $("#sxq-table").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
-                var checkList = $("#sxq-table").find(".checkinput.actived");
+        $("#sjl-table").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
+                var checkList = $("#sjl-table").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#searchBtn").on("click", function(){
@@ -304,10 +327,10 @@ define([
             }
         });
         $("#sjlWatch").on("click", function(){
-            var tr = getCheckItem("sxq-table"), 
+            var tr = getCheckItem("sjl-table"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/resume-detail.html?code="+code + "return="+base.makeReturnUrl();
+                location.href = "../xuser/resume-detail.html?code="+code + "&return="+base.makeReturnUrl();
             }else{
                 base.showMsg("您未选择所要查看的简历！");
             }

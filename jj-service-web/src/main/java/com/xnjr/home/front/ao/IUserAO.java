@@ -196,5 +196,13 @@ public interface IUserAO {
     		String province, String city, String area, String userId,
     		String start, String limit, String orderColumn,
     		String orderDir, String isHot);
+    
+    /**
+     * 列表查询公司
+     * @param province
+     * @param city
+     * @return
+     */
+    public Object queryListCompany(String province, String city);
 
 }

@@ -5,6 +5,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         addListeners();
     }
 
@@ -38,8 +39,15 @@ define([
             }
             ajaxFileUpload();
         });
+        $("#name, #contacts, #mobile, #loginName, #password, #rePwd").on("keyup", function(e){
+            var code = e.charCode || e.keyCode;
+            if(code == "13"){
+                $("#registerBtn").click();
+            }
+        });
     }
     function ajaxFileUpload() {
+        $("#imgSbtn").addClass("bg-loading").attr("disabled", "disabled");
         $.ajaxFileUpload({
             url: APIURL + '/upload/file/img', //用于文件上传的服务器端请求地址
             secureuri: false, //是否需要安全协议，一般设置为false
@@ -48,16 +56,12 @@ define([
             success: function (data, status){  //服务器成功响应处理函数
                 $("#fileImg").attr("src", data.url);
                 $("#gsyyzzhUrl").val(data.url)
-                if (typeof (data.error) != 'undefined') {
-                    if (data.error != '') {
-                        alert(data.error);
-                    } else {
-                        alert(data.msg);
-                    }
-                }
+                $("#imgSbtn").removeClass("bg-loading").removeAttr("disabled");
+                base.showMsg("上传成功", 1000);
             },
             error: function (data, status, e){//服务器响应失败处理函数
                 base.showMsg("非常抱歉，图片上传失败!");
+                $("#imgSbtn").removeClass("bg-loading").removeAttr("disabled");
                 $("#gsyyzzh")[0].value = "";
             }
         });
@@ -136,10 +140,10 @@ define([
                 if(res.success){
                     base.showMsg("注册成功！");
                     setTimeout(function(){
-                        location.href = "../xuser/login.html?return=" + base.getReturnParam();
+                        base.goBackUrl("../home/index.html");
                     }, 1000);
                 }else{
-                    base.showMsg("注册失败！");
+                    base.showMsg(res.msg);
                 }
             });
     }

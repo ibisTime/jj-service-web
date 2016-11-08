@@ -96,7 +96,8 @@
                         <span class="xh">&nbsp;</span>
                         <span>职位描述</span>
                     </div>
-                    <div class="mt10 ml24" id="description"></div>
+                    <!--<div class="mt10 ml24" id="description"></div>-->
+                    <textarea class="sell" rows="10" cols="50" id="description" disabled></textarea>
                 </div>
             </form>
         </div>
@@ -114,7 +115,7 @@
                 <form id="bottomForm">
                     <div class="mtb">
                         <div class="inblock wb"> 
-                            <span class="xh">*</span>
+                            <span class="xh">&nbsp;</span>
                             <span>企业名称</span>
                         </div>
                         <input class="in-width" type="text" id="companyName" disabled />
@@ -122,7 +123,7 @@
                     
                     <div class="mtb">
                         <div class="inblock wb"> 
-                            <span class="xh">*</span>
+                            <span class="xh">&nbsp;</span>
                             <span>企业营业执照</span>
                         </div>
                         <div class="file-box inblock va-tt"> 
@@ -132,7 +133,7 @@
                     
                     <div class="mtb">
                         <div class="inblock wb"> 
-                            <span class="xh">*</span>
+                            <span class="xh">&nbsp;</span>
                             <span>企业图标</span>
                         </div>
                         <div class="file-box inblock va-tt"> 
@@ -142,7 +143,7 @@
                     
                     <div class="mtb">
                         <div class="inblock wb"> 
-                            <span class="xh">*</span>
+                            <span class="xh">&nbsp;</span>
                             <span>联系人</span>
                         </div>
                         <input class="in-width" type="text" id="contacts" disabled />
@@ -150,7 +151,7 @@
                     
                     <div class="mtb">
                         <div class="inblock wb"> 
-                            <span class="xh">*</span>
+                            <span class="xh">&nbsp;</span>
                             <span>联系人手机</span>
                         </div>
                         <input class="in-width" type="text" id="mobile" disabled />
@@ -187,19 +188,34 @@
                         </div>
                         <div class="map inblock va-tt break-word" type="text" id="compAddress"></div>
                     </div>
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>广告语</span>
+                        </div>
+                        <input class="in-width" type="text" id="slogan" disabled/>
+                    </div>
                     
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>报价区间(元)</span>
+                        </div>
+                        <input class="in-width" type="text" id="remark" disabled/>
+                    </div>
                     <div class="mtb">
                         <div class="inblock wb"> 
                             <span class="xh">&nbsp;</span>
                             <span>简介</span>
                         </div>
-                        <div class="mt10 ml24" id="compDescription"></div>
+                        <!--<div class="mt10 ml24" id="compDescription"></div>-->
+                        <textarea class="sell" rows="10" cols="50" id="compDescription" disabled></textarea>
                     </div>
                 </form>
             </div>
             <div class="hold-box">
                 <input type="button" class="hold hidden" id="sbtn" value="申请">
-                <a href="javascript:void(0)" id="cancel1" class="cancel">取消</a>
+                <a href="javascript:void(0)" id="cancel1" class="cancel hidden">取消</a>
             </div>
         </div>
     </div>

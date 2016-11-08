@@ -1509,6 +1509,9 @@ textarea {
 .hp25p {
     height: 25px;
 }
+.hp160p{
+    height: 160px;
+}
 
 /*定位*/
 .re {
@@ -1946,6 +1949,9 @@ input[type=number]::-webkit-outer-spin-button {
 .sjssbj .inp3{
     margin: 0 1em 0 0;
 }
+.sjssbj .inp4{
+    margin: 0 1em 1em 1em;
+}
 input[type="button"],input[type="submit"],input[type="checkbox"]{
     cursor: pointer;
 }
@@ -1963,16 +1969,18 @@ input[type="button"],input[type="submit"],input[type="checkbox"]{
     display: inline-block;
     margin: 0 5px;
 }
-#pagination_div ul li span{
+#pagination_div ul li span, #pagination_div ul li a{
     background: #fff;
     color: #6d6d6d;
     padding: 4px 10px;
     border: 1px solid #e7e7e6;
-    cursor: pointer;
 }
-#pagination_div ul li span.current{
+#pagination_div ul li span.current, #pagination_div ul li .prev, #pagination_div ul li .next {
     background: #CB2A2F;
     color: #fff;
+}
+#pagination_div ul li .prev, #pagination_div ul li .next, #pagination_div ul li a{
+    cursor: pointer;
 }
 .leftNav li{
     cursor: pointer;
@@ -1983,4 +1991,16 @@ input[type="text"][disabled], textarea[disabled] {
 }
 .rcContent table, .fwContent table{
     width: 100%;
+}
+.mh100{
+    max-height: 100%;
+}
+table tbody tr{
+    cursor: pointer;
+}
+.scenter-table tr{
+    cursor: default;
+}
+.tl_fixed{
+    table-layout: fixed;
 }

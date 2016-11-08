@@ -20,6 +20,7 @@ import com.xnjr.home.front.req.XN806000Req;
 import com.xnjr.home.front.req.XN806004Req;
 import com.xnjr.home.front.req.XN806008Req;
 import com.xnjr.home.front.req.XN806009Req;
+import com.xnjr.home.front.req.XN806013Req;
 import com.xnjr.home.front.req.XN806014Req;
 import com.xnjr.home.front.req.XN806016Req;
 import com.xnjr.home.front.util.PwdUtil;
@@ -247,6 +248,15 @@ public class UserAOImpl implements IUserAO {
         req.setIsHot(isHot);
         return BizConnecter.getBizData("806014", JsonUtils.object2Json(req),
             Object.class);
+	}
+
+	@Override
+	public Object queryListCompany(String province, String city) {
+		XN806013Req req = new XN806013Req();
+		req.setProvince(province);
+		req.setCity(city);
+		return BizConnecter.getBizData("806013", JsonUtils.object2Json(req),
+	            Object.class);
 	}
 
 

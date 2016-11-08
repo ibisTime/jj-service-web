@@ -8,6 +8,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isLogin()){
             if(base.isCompUser()){
                 if(code){
@@ -34,7 +35,7 @@ define([
                     var data = res.data, html = "";
                     $("#name").val(data.certificate.name);
                     $("#status").val(certificateStatus[data.status]);
-                    $("#description").val(data.certificate.description);
+                    $("#description").html(data.certificate.description);
                     $("#certSelect").val(serverType[data.certificateType] || "人才招聘");
                 }else{
                     base.showMsg("非常抱歉，资质获取失败");

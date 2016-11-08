@@ -20,7 +20,7 @@ public class NewsController extends BaseController {
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     @ResponseBody
     public Object queryPageNews(
-    		@RequestParam(value = "type", required = true) String type,
+    		@RequestParam(value = "type", required = false) String type,
     		@RequestParam(value = "title", required = false) String title,
     		@RequestParam(value = "toCompany", required = false) String toCompany,
     		@RequestParam(value = "toLevel", required = false) String toLevel,

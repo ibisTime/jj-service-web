@@ -6,17 +6,16 @@
 </head>
 <body>
 <link rel="import" href="../body-top.html?__inline">
-<div class="bigbox">
+<div class="bigbox clearfix">
     <ul class="name leftNav" id="leftNav">
-        <!--<li><a href="">培训<span>></span></a></li>
-        <li><a href="">拍摄/摄影<span>></span></a></li>
-        <li><a href="">美工外包<span>></span></a></li>
-        <li><a href="">店铺代运营<span>></span></a></li>
-        <li><a href="">客服外包<span>></span></a></li>
-        <li><a href="">仓配服务<span>></span></a></li>
-        <li><a href="">客服主管<span>></span></a></li>
-        <li><a href="">软件开发<span>></span></a></li>
-        <li><a href="">产业园<span>></span></a></li>-->
+        <li code="3"><a href="./list.html?code=3">培训<span>></span></a></li>
+        <li code="2"><a href="./list.html?code=2">拍摄/摄影<span>></span></a></li>
+        <li code="5"><a href="./list.html?code=5">美工外包<span>></span></a></li>
+        <li code="4"><a href="./list.html?code=4">店铺代运营<span>></span></a></li>
+        <li code="6"><a href="./list.html?code=6">客服外包<span>></span></a></li>
+        <li code="7"><a href="./list.html?code=7">仓配服务<span>></span></a></li>
+        <li code="1"><a href="./list.html?code=1">软件开发<span>></span></a></li>
+        <li code="8"><a href="./list.html?code=8">产业园<span>></span></a></li>
     </ul>
     <!--右边-->
     <div class="area">
@@ -46,7 +45,7 @@
           <div class="mtb">
             <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-              <span>价格区间</span>
+              <span>价格区间(元)</span>
             </div>
             <input class="in-width1" type="text" id="quoteMin"/><span class="plr3">-</span><input class="in-width1" type="text" id="quoteMax"/>
           </div>
@@ -58,58 +57,6 @@
             </div>
             <input class="in-width" type="text" id="fwType" disabled/>
             <input class="hidden" type="text" id="realType" />
-          </div>
-          <!--拍摄/摄影-->
-          <div id="pspx" class="hidden choseCont choseCont2">
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                  <span class="xh">*</span>
-                <span>拥有棚影数量</span>
-              </div>
-              <input class="in-width" type="text" id="pyNum"/>
-            </div>
-              
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                  <span class="xh">*</span>
-                <span>拥有摄影师数量</span>
-              </div>
-              <input class="in-width" type="text" id="sysNum"/>
-            </div>
-              
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                <span class="xh">*</span>
-                <span>是否接受定制需求</span>
-              </div>
-              <select id="isDz" style="width:80px;">
-                <option value="0">否</option>
-                <option value="1">是</option>
-              </select>
-            </div>
-              
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                  <span class="xh">*</span>
-                <span>擅长拍摄类型</span>
-              </div>
-              <input class="in-width" type="text" id="scpslm"/>
-            </div>
-              
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                  <span class="xh">*</span>
-                  <span>代表作品</span>
-              </div>
-              <div class="file-box inblock va-tt">
-                  <a href="javascript:void(0);" class="file1">选择文件
-                      <input type="file" name="file" id="worksFile"/>
-                  </a>
-                  <input type="button" value="上传" id="worksBtn" class="sc ml20"/>
-                  <img src="" id="works"/>
-                  <input type="text" id="worksUrl" class="hidden"/>
-              </div>
-            </div>
           </div>
           <!--培训-->
           <div id="px" class="hidden choseCont choseCont3">
@@ -195,7 +142,131 @@
               </div>
             </div>
           </div>
-
+          <!--拍摄/摄影-->
+          <div id="pspx" class="hidden choseCont choseCont2">
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                <span>拥有棚影数量</span>
+              </div>
+              <input class="in-width" type="text" id="pyNum"/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                <span>拥有摄影师数量</span>
+              </div>
+              <input class="in-width" type="text" id="sysNum"/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>是否接受定制需求</span>
+              </div>
+              <select id="isDz" style="width:80px;">
+                <option value="0">否</option>
+                <option value="1">是</option>
+              </select>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                <span>擅长拍摄类型</span>
+              </div>
+              <input class="in-width" type="text" id="scpslm"/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                  <span class="xh">*</span>
+                  <span>代表作品</span>
+              </div>
+              <div class="file-box inblock va-tt">
+                  <a href="javascript:void(0);" class="file1">选择图片
+                      <input type="file" name="file" id="worksFile" accept="image/png, image/jpeg"/>
+                  </a>
+                  <input type="button" value="上传" id="worksBtn" class="sc ml20"/>
+                  <img src="" id="works"/>
+                  <input type="text" id="worksUrl" class="hidden"/>
+              </div>
+            </div>
+          </div>
+          <!--美工外包-->
+          <div id="mgwb" class="hidden choseCont choseCont5">
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>设计师总人数</span>
+              </div>
+              <input class="in-width" type="text" id="designNum"/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>擅长类目</span>
+              </div>
+              <input class="in-width" type="text" id="sclm"/>
+            </div>
+              
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>设计实效/报价</span>
+              </div>
+              <div style="width: 400px;" class="inblock in-width va-tt sjssbj">
+                <div>
+                  首页(天)：<div class="re">
+                    <input type="text" class="inp1" id="homeDays"/>
+                  </div>
+                  报价(元)：<div class="re">
+                    <input type="text" id="homePrice"/>
+                  </div>
+                </div>
+                <div>
+                  详情图(天)：<div class="re">
+                    <input type="text" class="inp2" id="detailDays"/>
+                  </div>
+                  报价(元)：<div class="re">
+                    <input type="text" id="detailPrice"/>
+                  </div>
+                </div>
+                <div>
+                  海报图(天)：<div class="re">
+                    <input type="text" class="inp4" id="bannerDays"/>
+                  </div>
+                  报价(元)：<div class="re">
+                    <input type="text" id="bannerPrice">
+                  </div>
+                </div>
+                <div>
+                  全店设计(天)：<div class="re">
+                    <input type="text" class="inp3" id="allDays"/>
+                  </div>
+                  报价(元)：<div class="re">
+                    <input type="text" id="allPrice"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>设计作品案例</span>
+              </div>
+              <div class="file-box inblock va-tt">
+                  <a href="javascript:void(0);" class="file1">选择图片
+                      <input type="file" name="file" id="sj-worksFile" accept="image/png, image/jpeg"/>
+                  </a>
+                  <input type="button" value="上传" id="sj-worksBtn" class="sc ml20"/>
+                  <img src="" id="sj-works"/>
+                  <input type="text" id="sj-worksUrl" class="hidden"/>
+              </div>
+            </div>
+          </div>
           <!--店铺代运营-->
           <div id="dpdyy" class="hidden choseCont choseCont4">
             <div class="mtb">
@@ -262,89 +333,6 @@
               </div>
             </div>
           </div>
-
-          <!--美工外包-->
-          <div id="mgwb" class="hidden choseCont choseCont5">
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                <span class="xh">*</span>
-                <span>设计师总人数</span>
-              </div>
-              <input class="in-width" type="text" id="designNum"/>
-            </div>
-              
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                <span class="xh">*</span>
-                <span>擅长类目</span>
-              </div>
-              <input class="in-width" type="text" id="sclm"/>
-            </div>
-              
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                <span class="xh">*</span>
-                <span>设计实效/报价</span>
-              </div>
-              <div class="inblock in-width va-tt sjssbj">
-                <div>
-                  首页：<div class="re">
-                    <input type="text" class="inp1" id="homeDays"/>
-                    <lable>天</lable>
-                  </div>
-                  报价：<div class="re">
-                    <input type="text" id="homePrice"/>
-                    <lable>元</lable>
-                  </div>
-                </div>
-                <div>
-                  详情图：<div class="re">
-                    <input type="text" class="inp2" id="detailDays"/>
-                    <lable>天</lable>
-                  </div>
-                  报价：<div class="re">
-                    <input type="text" id="detailPrice"/>
-                    <lable>元</lable>
-                  </div>
-                </div>
-                <div>
-                  海报图：<div class="re">
-                    <input type="text" class="inp2" id="bannerDays"/>
-                    <lable>天</lable>
-                  </div>
-                  报价：<div class="re">
-                    <input type="text" id="bannerPrice">
-                    <lable>元</lable>
-                  </div>
-                </div>
-                <div>
-                  全店设计：<div class="re">
-                    <input type="text" class="inp3" id="allDays"/>
-                    <lable>天</lable>
-                  </div>
-                  报价：<div class="re">
-                    <input type="text" id="allPrice"/>
-                    <lable>元</lable>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                <span class="xh">*</span>
-                <span>设计作品案例(支持jpg和png格式的图片)</span>
-              </div>
-              <div class="file-box inblock va-tt">
-                  <a href="javascript:void(0);" class="file1">选择文件
-                      <input type="file" name="file" id="sj-worksFile"/>
-                  </a>
-                  <input type="button" value="上传" id="sj-worksBtn" class="sc ml20"/>
-                  <img src="" id="sj-works"/>
-                  <input type="text" id="sj-worksUrl" class="hidden"/>
-              </div>
-            </div>
-          </div>
-
           <!--客服外包-->
           <div id="kfwb" class="hidden choseCont choseCont6">
             <div class="mtb">
@@ -358,10 +346,9 @@
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>线上月均交易额</span>
+                <span>线上月均交易额(元)</span>
               </div>
               <input class="in-width" type="text" id="mtradeAmount"/>
-              <lable>天</lable>
             </div>
               
             <div class="mtb">
@@ -403,7 +390,6 @@
               </div>
             </div>
           </div>
-
           <!--仓配服务-->
           <div id="cpfw" class="hidden choseCont choseCont7">
             <div class="mtb">
@@ -417,7 +403,7 @@
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>仓库总面积</span>
+                <span>仓库总面积(平方米)</span>
               </div>
               <input class="in-width" type="text" id="ckArea"/>
             </div>
@@ -442,16 +428,14 @@
               <input class="in-width" type="text" id="dsendNum"/>
             </div>
           </div>
-
           <!--软件外包-->
           <div id="rjwb" class="hidden choseCont choseCont1"></div>
-
           <!--产业园-->
           <div id="cyy" class="hidden choseCont choseCont8">
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>办公总面积</span>
+                <span>办公总面积(平方米)</span>
               </div>
               <input class="in-width" type="text" id="bgArea"/>
             </div>
@@ -459,7 +443,7 @@
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>剩余可用面积</span>
+                <span>剩余可用面积(平方米)</span>
               </div>
               <input class="in-width" type="text" id="availBgArea"/>
             </div>
@@ -467,7 +451,7 @@
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>仓储总面积</span>
+                <span>仓储总面积(平方米)</span>
               </div>
               <input class="in-width" type="text" id="ccArea"/>
             </div>
@@ -475,7 +459,7 @@
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>剩余可用面积</span>
+                <span>剩余可用面积(平方米)</span>
               </div>
               <input class="in-width" type="text" id="availCcArea"/>
             </div>
@@ -511,15 +495,29 @@
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>产业园照片</span>
+                <span>产业园照片1</span>
               </div>
               <div class="file-box inblock va-tt">
-                  <a href="javascript:void(0);" class="file1">选择文件
-                      <input type="file" name="file" id="pic1File"/>
+                  <a href="javascript:void(0);" class="file1">选择图片
+                      <input type="file" name="file" id="pic1File" accept="image/png, image/jpeg"/>
                   </a>
                   <input type="button" value="上传" id="pic1Btn" class="sc ml20"/>
                   <img src="" id="pic1"/>
                   <input type="text" id="pic1Url" class="hidden"/>
+              </div>
+            </div>
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">*</span>
+                <span>产业园照片2</span>
+              </div>
+              <div class="file-box inblock va-tt">
+                  <a href="javascript:void(0);" class="file1">选择图片
+                      <input type="file" name="file" id="pic2File" accept="image/png, image/jpeg"/>
+                  </a>
+                  <input type="button" value="上传" id="pic2Btn" class="sc ml20"/>
+                  <img src="" id="pic2"/>
+                  <input type="text" id="pic2Url" class="hidden"/>
               </div>
             </div>
           </div>

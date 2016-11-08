@@ -13,13 +13,20 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isLogin() && base.isPerson()){
             Handlebars.registerHelper('formatDate', function(num, options){
                 var dd = new Date(num);
                 return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
             });
             Handlebars.registerHelper('formtPKind', function(num, options){
-                return positionKind[num];
+                var str = "";
+                for(var i = 0; i < num.length; i++){
+                    str = str + positionKind[ num[i] ];
+                    if(i < num.length - 1)
+                        str = str + "、";
+                }
+                return str;
             });
             getPageResume();
             addListener();
@@ -144,16 +151,21 @@ define([
         });
         /***我的简历start***/
         //checkbox
-        $("#wdjlTable").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#wdjlTable").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#wdjlTable").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#addJl").on("click", function(){
@@ -203,16 +215,21 @@ define([
 
         /***已应聘职位start***/
         //checkbox
-        $("#yypzwTable").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#yypzwTable").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#yypzwTable").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#selectZw").on("click", function(){
@@ -251,16 +268,21 @@ define([
 
         /***被感兴趣start***/
         //checkbox
-        $("#bgxqTable").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#bgxqTable").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#bgxqTable").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#selectXq").on("click", function(){

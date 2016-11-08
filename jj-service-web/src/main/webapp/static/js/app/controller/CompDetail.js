@@ -5,7 +5,7 @@ define([
     'lib/Pagination'
 ], function (base, Dict, Handlebars, Pagination) {
     var template = __inline("../ui/error-fragment.handlebars"),
-        leftNavTmpl = __inline("../ui/position-index-lnav.handlebars"),
+        tmplList = __inline("../ui/suser-fwlist-rList.handlebars"),
         start = 1,
         serverType = Dict.get("serverType"),
         companyCode = base.getUrlParam("code"),
@@ -14,11 +14,19 @@ define([
     init();
 
     function init(){
-        var fwTypes = sessionStorage.getItem("fwTypes");
-        if(fwTypes){
-            addLeftNav($.parseJSON(fwTypes));
-        }else{
-            getDictList();
+        $("#fwA").addClass("current");
+        Handlebars.registerHelper('formatPrice', function(num, options){
+            return num && (+num / 1000);
+        });
+        Handlebars.registerHelper('formatDate', function(num, options){
+            var dd = new Date(num);
+            return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
+        });
+        Handlebars.registerHelper('formtSType', function(num, options){
+            return serverType[num];
+        });
+        if(type){
+            $("#leftNav").find("li[code='"+type+"']").addClass("current");
         }
         if(base.isLogin()){
             getCompanyInfo();
@@ -65,27 +73,28 @@ define([
         $("#qq", topForm).val(data.qq);
         $("#scale", topForm).val(data.scale);
         $("#address", topForm).html( (data.province || "") + "" + (data.city || "") + (data.area || "") + (data.address || ""));
+        $("#slogan", topForm).val(data.slogan);
         $("#compDescription", topForm).val(data.description);
 
         $("#compDiv").removeClass("hidden").append(topForm);
     }
 
     function addListeners(){
-        $("#leftNav").on("click", "li", function(){
-            var me = $(this), code = me.attr("code");
-            location.href = "./list.html?code=" + code + "&n=" + me.text();
-        });
-        
-        $("#bTable").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#bTable").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#bTable").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
 
@@ -97,6 +106,10 @@ define([
                 base.showMsg("您未选择所要查看的服务！");
             }
         });
+
+        $("#gtLogin").on("click", function(){
+            location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
+        });
     }
     function getCheckItem(){
         var ele1 = $("#bTable").find(".checkinput.actived");
@@ -106,19 +119,6 @@ define([
             return "";
         }
     }
-    function getDictList(){
-        base.getServerDictList()
-            .then(function(res){
-                if(res.success){
-                    addLeftNav(res.data);
-                    sessionStorage.setItem("fwTypes", res.data);
-                }
-            });
-    }
-    //添加左侧导航栏
-    function addLeftNav(data){
-        $("#leftNav").html( leftNavTmpl({items: data}) );
-    }
     //获取服务列表
     function getPageServers(){
         base.getPageServers({
@@ -127,9 +127,9 @@ define([
             type: type,
             companyCode: companyCode
         }).then(function(res){
-            if(res.success){
+            if(res.success && res.data.list.length){
                 var data = res.data;
-                addTable(data.list);
+                $("#bTable").find("tbody").html(tmplList({items: data.list}));
                 $("#pagination_div").pagination({
                     items: data.totalCount,
                     itemsOnPage: 10,
@@ -145,27 +145,14 @@ define([
                     }
                 });
             }else{
-                doError($("#bTable"));
+                doError();
             }
         });
     }
-    function addTable(data){
-        var html = "";
-        $.each(data, function(i, dd){
-            html += '<tr code="'+dd.code+'">'+
-                        '<td><input type="checkbox" class="checkinput"></td>'+
-                        '<td>'+dd.name+'</td>'+
-                        '<td>'+serverType[dd.type]+'</td>'+
-                        '<td>'+dd.company.name+'</td>'+
-                        '<td>￥'+dd.quoteMin+'-￥'+dd.quoteMin+'</td>'+
-                    '</tr>';
-        });
-        $("#bTable").find("tbody").html( html );
-    }
     function addLoading(){
-        $("#r-table").find("tbody").html("<tr><td colspan='5'><i class='loading-icon'></i></td></tr>");
+        $("#r-table").find("tbody").html("<tr><td colspan='6'><i class='loading-icon'></i></td></tr>");
     }
     function doError() {
-        $("#bTable").find("body").html("<tr><td colspan='5'>暂时无法获取服务信息</td></tr>");
+        $("#bTable").find("tbody").html("<tr><td colspan='6'>暂无服务信息</td></tr>");
     }
 });

@@ -8,7 +8,7 @@ define([
         tmplList1 = __inline("../ui/suser-fwlist-rList1.handlebars"),
         tmplList2 = __inline("../ui/suser-fwlist-rList2.handlebars"),
         certificateStatus = Dict.get("certificateStatus"),
-        serverType = Dict.get("serverType"),
+        serverType = Dict.get("serverType1"),
         interestStatus = Dict.get("interestStatus"),
         urgentLevel = Dict.get("urgentLevel"),
         start = 1;
@@ -16,6 +16,7 @@ define([
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isCompUser()){
             Handlebars.registerHelper('formatDate', function(num, options){
                 var dd = new Date(num);
@@ -30,6 +31,9 @@ define([
             Handlebars.registerHelper('formtIStatus', function(num, options){
                 return interestStatus[num];
             });
+            Handlebars.registerHelper('formatPrice', function(num, options){
+                return num && (+num / 1000);
+            });
             getPageServers();
             addServerType();
             addListener();
@@ -38,12 +42,12 @@ define([
         }
     }
 
-    function getPageServers(){
+    function getPageServers(flag){
         base.getPageServers({
             companyCode: base.getCompanyCode(),
             start: start,
             limit: 10
-        }).then(function(res){
+        }, flag).then(function(res){
                 if(res.success && res.data.list.length){
                     $("#yfbfw-table").find("tbody").html( tmplList({items: res.data.list}) );
                     var data = res.data;
@@ -86,12 +90,12 @@ define([
                     currentPage: start,
                     onPageClick: function(pageNumber){
                         start = pageNumber;
-                        addLoading($("#bgxqfw-table").find("tbody"), 6);
+                        addLoading($("#bgxqfw-table").find("tbody"), 5);
                         getPageLikeMyServer();
                     }
                 });
             }else{
-                doError($("#bgxqfw-table").find("tbody"), 6);
+                doError($("#bgxqfw-table").find("tbody"), 5);
             }
         })
     }
@@ -142,6 +146,7 @@ define([
                 addLoading(ele, col);
                 getPageServers();
             }else if(idx == 1){
+                col = 5;
                 ele = $("#bgxqfw-table").find("tbody");
                 addLoading(ele, col);
                 getPageLikeMyServer();
@@ -154,16 +159,21 @@ define([
         });
         /***已发布服务start***/
         //checkbox
-        $("#yfbfw-table").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#yfbfw-table").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#yfbfw-table").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#fwAdd").on("click", function(){
@@ -180,8 +190,9 @@ define([
                         .then(function(res){
                             me.removeClass("isDoing").text("删除");
                             if(res.success){
+                                addLoading($("#yfbfw-table").find("tbody"), 6);
+                                getPageServers(true);
                                 base.showMsg("删除成功！");
-                                tr.remove();
                             }else{
                                 base.showMsg("非常抱歉，删除失败！");
                             }
@@ -213,16 +224,21 @@ define([
 
         /***被感兴趣服务start***/
         //checkbox
-        $("#bgxqfw-table").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#bgxqfw-table").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#bgxqfw-table").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#bgxqSelect").on("click", function(){
@@ -262,16 +278,21 @@ define([
 
         /***搜需求start***/
         //checkbox
-        $("#sxq-table").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#sxq-table").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#sxq-table").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         $("#searchBtn").on("click", function(){
@@ -288,7 +309,7 @@ define([
             var tr = getCheckItem("sxq-table"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/detail.html?code="+code;
+                location.href = "../xuser/demand-detail.html?code="+code+"&return="+base.makeReturnUrl();
             }else{
                 base.showMsg("您未选择所要查看的需求！");
             }

@@ -1,12 +1,44 @@
 define([
     'app/controller/base',
-], function (base) {
+	'lib/swiper-3.3.1.jquery.min'
+], function (base, Swiper) {
 
     init();
 
     function init(){
+        $("#userA").addClass("current");
+        getBannerList();
         addListeners();
         $("#tabs").children("li:eq(0)").click();
+    }
+
+    function getBannerList(){
+        base.getBannerList({location: "4"})
+            .then(function(res){
+                if(res.success){
+                    if(res.data.length){
+                        var data = res.data, html = "";
+                        for(var i = 0; i < data.length; i++){
+                            html += '<div class="swiper-slide"><img class="wp100 hp100" src="'+data[i].pic+'"></div>';
+                        }
+                        if(data.length == 1){
+                            $("#swiper-pagination").remove();
+                        }
+                        $("#swr").html(html);
+                        swiperImg();
+                    }
+                }else{
+					base.showMsg("非常抱歉，暂时无法获取banner!");
+				}
+            });
+    }
+    function swiperImg(){
+        var mySwiper = new Swiper ('.swiper-container', {
+            direction: 'horizontal',
+            autoplay: 2000,
+            autoplayDisableOnInteraction: false,
+            pagination: '.swiper-pagination'
+        });
     }
 
     function addListeners(){
@@ -40,7 +72,8 @@ define([
                         base.goBackUrl("../xuser/center.html");
                     }else{
                         me.val("登录").removeAttr("disabled");
-                        base.showMsg("登录失败");
+                        $("#xqCaptchaImg").click();
+                        base.showMsg(res.msg);
                     }
                 });
             }
@@ -58,9 +91,22 @@ define([
                         base.goBackUrl("../suser/center.html");
                     }else{
                         me.val("登录").removeAttr("disabled");
-                        base.showMsg("登录失败");
+                        $("#fwCaptchaImg").click();
+                        base.showMsg(res.msg);
                     }
                 });
+            }
+        });
+        $("#mobile, #password, #xqCaptcha").on("keyup", function(e){
+            var code = e.charCode || e.keyCode;
+            if(code == "13"){
+                $("#xqLogin").click();
+            }
+        });
+        $("#loginName, #loginPwd, #fwCaptcha").on("keyup", function(e){
+            var code = e.charCode || e.keyCode;
+            if(code == "13"){
+                $("#fwLogin").click();
             }
         });
     }

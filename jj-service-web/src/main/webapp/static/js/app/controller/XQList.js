@@ -16,6 +16,7 @@ define([
         if(title){
             document.title = title;
         }
+        $("#rcA").addClass("current");
         Handlebars.registerHelper('formatDate', function(num, options){
             var dd = new Date(num);
             return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
@@ -44,23 +45,28 @@ define([
             location.href = "./xqlist.html?code=" + cc + "&n=" + text.substr(0, text.length - 1);
         });
         
-        $("#r-table").on("click", "tbody tr .checkinput", function(e){
-            var me = $(this);
-            if(me[0].checked){
+        $("#r-table").on("click", "tbody tr", function(e){
+            var me = $(this), checkInput = me.find(".checkinput");
+            if(e.target.type == "checkbox"){
+                e.target.checked = !e.target.checked
+            }
+            if(!checkInput[0].checked){
                 var checkList = $("#r-table").find(".checkinput.actived");
                 for(var i = 0; i < checkList.length; i++){
                     checkList[i].checked = false;
                 }
-                me.addClass("actived");
+                checkInput[0].checked = true;
+                checkInput.addClass("actived");
             }else{
-                me.removeClass("actived");
+                checkInput[0].checked = false;
+                checkInput.removeClass("actived");
             }
         });
         //申请职位
         $("#applyBtn").on("click", function(){
             var code = getCheckItem();
             if(code){
-                location.href = "./list-detail.html?code=" + code;
+                location.href = "./list-detail.html?code=" + code+"&return="+base.makeReturnUrl();
             }else{
                 base.showMsg("您未选择所要申请的职位！");
             }
@@ -86,13 +92,20 @@ define([
     }
     //添加左侧导航栏
     function addLeftNav(data){
-        $("#leftNav").html( leftNavTmpl({items: data}) );
+        var $leftNav = $("#leftNav");
+        $leftNav.html( leftNavTmpl({items: data}) );
+        if(navCode){
+            $leftNav.find("li[code='"+navCode+"']").addClass("current");
+        }
     }
     //获取热门职位信息
     function getPagePosition(){
         base.getPagePosition({
             start: start,
-            limit: "10"
+            limit: "10",
+            kind: navCode,
+            gsProvince: localStorage.getItem("province"),
+            gsCity: localStorage.getItem("city")
         }).then(function(res){
             if(res.success && res.data.list.length){
                 var data = res.data;

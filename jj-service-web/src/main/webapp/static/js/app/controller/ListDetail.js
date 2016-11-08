@@ -14,6 +14,7 @@ define([
     init();
 
     function init(){
+        $("#rcA").addClass("current");
         if(pCode){
             loginFlag = base.isLogin();
             var rcTypes = sessionStorage.getItem("rcTypes");    //人才数据字典
@@ -22,8 +23,11 @@ define([
             }else{
                 getDictList();
             }
-            if(loginFlag && base.isPerson()){
-                $("#sbtn").removeClass("hidden");
+            if(loginFlag){
+                $("#cancel1").removeClass("hidden");
+                if(base.isPerson()){
+                    $("#sbtn").removeClass("hidden");
+                }
             }
             getPositionInfo();
             addListener();
@@ -38,7 +42,7 @@ define([
             .then(function(res){
                 if(res.success){
                     if(loginFlag){
-                        getCompanyInfo(res.data.companyCode);
+                        addCompanyInfo(res.data.company);
                     }else{
                         $("#noLogin").removeClass("hidden");
                     }
@@ -70,7 +74,7 @@ define([
         $("#zwType"+data.type, topForm)[0].checked = true;
         $("#jobNum", topForm).val(data.jobNum);
         $("#msalary", topForm).val(data.msalary);
-        $("#description", topForm).html(data.description);
+        $("#description", topForm).val(data.description);
         $("#topDiv").removeClass("hidden").append(topForm);
     }
 
@@ -85,7 +89,9 @@ define([
         $("#qq", bottomForm).val(data.qq || "");
         $("#scale", bottomForm).val(data.scale || "");
         $("#compAddress", bottomForm).html(data.province + data.city + (data.area || "") + (data.address || ""));
-        $("#compDescription", bottomForm).html(data.description);
+        $("#slogan", bottomForm).val(data.slogan);
+        $("#remark", bottomForm).val(data.remark);
+        $("#compDescription", bottomForm).val(data.description);
         $("#logined").removeClass("hidden").append(bottomForm);
 
     }
@@ -150,7 +156,7 @@ define([
                 "positionCode": pCode
             }).then(function(res){
                     if(res.success){
-                        Location.href = "";
+                        base.goBackUrl("../xuser/rclist.html");
                     }else{
                         $("#isOk").removeAttr("disabled").val("确定");
                         base.showMsg("非常抱歉，申请提交失败！");
@@ -160,7 +166,7 @@ define([
         });
         //前往添加简历
         $("#myJianli").on("click", ".addResumeSpan", function(e){
-            location.href = "?return=" + base.makeReturnUrl();
+            location.href = "../xuser/add-resume.html?return=" + base.makeReturnUrl();
             e.stopPropagation();
         });
     }

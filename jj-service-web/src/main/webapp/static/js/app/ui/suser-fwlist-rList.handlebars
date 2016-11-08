@@ -4,7 +4,7 @@
         <td>{{name}}</td>
         <td>{{formtSType type}}</td>
         <td>{{company.name}}</td>
-        <td>￥{{quoteMin}} - ￥{{quoteMax}}</td>
+        <td>￥{{formatPrice quoteMin}} - ￥{{formatPrice quoteMax}}</td>
         <td>{{formatDate publishDatetime}}</td>
     </tr>
 {{/each}}

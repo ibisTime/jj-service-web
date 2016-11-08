@@ -4,11 +4,13 @@ define([
     'Handlebars'
 ], function (base, Dict, Handlebars) {
     var citylist, config = {},
-        code = base.getUrlParam("code");
+        code = base.getUrlParam("code"),
+        positionKind = Dict.get("positionKind");
 
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isLogin() && base.isPerson()){
             if(code){
                 getResumeInfo();
@@ -36,6 +38,15 @@ define([
             });
     }
 
+    
+    function addPositionKind(topForm){
+        var html = "";
+        for(var n in positionKind){
+            html += '<div class="inblock mr10"><input type="checkbox" value="'+n+'"/>' + positionKind[n] + '</div>';
+        }
+        $("#expPosition", topForm).html(html);
+    }
+
     function addResumeInfo(data){
         var topForm = $("#topForm").detach();
         addAddress(topForm, data.expProvince, data.expCity);
@@ -54,10 +65,11 @@ define([
         $("#school", topForm).val(data.school);
         $("#profession", topForm).val(data.profession);
         $("#type", topForm).find("input[name='wType'][value='"+data.type+"']")[0].checked = true;
-
-
-        var checkbox = $("#expPosition", topForm).find("input[type='checkbox']");
-
+        addPositionKind(topForm);
+        var expDiv = $("#expPosition", topForm);
+        for(var i = 0; i < data.expPosition.length; i++){
+            expDiv.find("input[type='checkbox'][value='"+data.expPosition[i]+"']")[0].checked = true;
+        }
 
         $("#expMsalary", topForm).val(data.expMsalary);
         $("#workStatus", topForm).find("option[value='"+data.workStatus+"']")[0].selected = true;
@@ -173,12 +185,12 @@ define([
             return false;
         }
         config.education = eduRadio.val();
-        var isTz = $("#isTz").val();
-        if(isTz == null || isTz.trim() === ""){
+        var isTz = $("#isTz").find("input[type='radio']:checked");
+        if(!isTz.length){
             base.showMsg("是否统招不能为空");
             return false;
         }
-        config.isTz = isTz;
+        config.isTz = isTz[0].value;
         var studyTime = $("#studyTime").val();
         if(!studyTime || studyTime.trim() === ""){
             base.showMsg("就读时间不能为空");

@@ -3,12 +3,15 @@ define([
     'app/util/dict',
     'Handlebars'
 ], function (base, Dict, Handlebars) {
-    var citylist, config = {};
+    var citylist, config = {},
+        positionKind = Dict.get("positionKind");
     init();
 
     function init(){
+        $("#userA").addClass("current");
         if(base.isLogin() && base.isPerson()){
             addAddress();
+            addPositionKind();
             addListeners();
         }else{
             base.showMsg("您没有权限查看当前页面");
@@ -16,6 +19,14 @@ define([
                 location.href = "./login.html?return=" + base.makeReturnUrl();
             }, 1000);
         }
+    }
+
+    function addPositionKind(){
+        var html = "";
+        for(var n in positionKind){
+            html += '<div class="inblock mr10"><input type="checkbox" value="'+n+'"/>' + positionKind[n] + '</div>';
+        }
+        $("#expPosition").html(html);
     }
 
     function addAddress(){
@@ -128,12 +139,12 @@ define([
             return false;
         }
         config.education = eduRadio.val();
-        var isTz = $("#isTz").val();
-        if(isTz == null || isTz.trim() === ""){
+        var isTz = $("#isTz").find("input[type='radio']:checked");
+        if(!isTz.length){
             base.showMsg("是否统招不能为空");
             return false;
         }
-        config.isTz = isTz;
+        config.isTz = isTz[0].value;
         var studyTime = $("#studyTime").val();
         if(!studyTime || studyTime.trim() === ""){
             base.showMsg("就读时间不能为空");

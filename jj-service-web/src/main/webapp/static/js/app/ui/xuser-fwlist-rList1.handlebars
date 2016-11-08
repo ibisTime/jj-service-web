@@ -1,0 +1,10 @@
+{{#each items}}
+    <tr code={{code}} sCode="{{toCode}}">
+        <td><input type="checkbox" class="checkinput"/></td>
+        <td>{{serveName}}</td>
+        <td>{{formtSType type}}</td>
+        <td>{{companyName}}</td>
+        <td>￥{{formatPrice quoteMin}} - ￥{{formatPrice quoteMax}}</td>
+        <td>{{formatDate fromDatetime}}</td>
+    </tr>
+{{/each}}
