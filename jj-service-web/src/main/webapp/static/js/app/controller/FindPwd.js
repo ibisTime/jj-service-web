@@ -152,7 +152,7 @@ define([
                         location.href = "./login.html?return=" + base.getReturnParam();
                     }, 1500);
                 }else{
-                    base.showMsg("找回密码失败！");
+                    base.showMsg(res.msg);
                     $("#findBtn").val("找回").removeAttr("disabled");
                 }
             });

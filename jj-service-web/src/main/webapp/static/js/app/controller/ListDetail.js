@@ -38,30 +38,22 @@ define([
     }
 
     function getPositionInfo(){
-        base.getPositionInfo({code: pCode})
-            .then(function(res){
-                if(res.success){
-                    if(loginFlag){
-                        addCompanyInfo(res.data.company);
-                    }else{
-                        $("#noLogin").removeClass("hidden");
-                    }
-                    addPositionInfo(res.data);
+        $.when(
+            base.getPositionInfo({code: pCode}),
+            base.getDictList({parentKey: "comp_scale"})
+        ).then(function(res, res1){
+            res = res[0];   res1 = res1[0];
+            if(res.success && res1.success){
+                if(loginFlag){
+                    addCompanyInfo(res.data.company, res1.data);
                 }else{
-                    base.showMsg("非常抱歉，暂时无法获取职位信息!");
+                    $("#noLogin").removeClass("hidden");
                 }
-            });
-    }
-
-    function getCompanyInfo(code){
-        base.getCompanyInfo({code: code})
-            .then(function(res){
-                if(res.success){
-                    addCompanyInfo(res.data);
-                }else{
-                    base.showMsg("非常抱歉，暂时无法获取公司信息!");
-                }
-            });
+                addPositionInfo(res.data);
+            }else{
+                base.showMsg("非常抱歉，暂时无法获取职位信息!");
+            }
+        });
     }
 
     function addPositionInfo(data){
@@ -78,7 +70,7 @@ define([
         $("#topDiv").removeClass("hidden").append(topForm);
     }
 
-    function addCompanyInfo(data){
+    function addCompanyInfo(data, data1){
         var bottomForm = $("#bottomForm").detach();
         $("#companyName", bottomForm).val(data.name);
         $("#gsyyzzh", bottomForm).attr("src", data.gsyyzzh);
@@ -87,13 +79,22 @@ define([
         $("#mobile", bottomForm).val(data.mobile || "");
         $("#email", bottomForm).val(data.email || "");
         $("#qq", bottomForm).val(data.qq || "");
-        $("#scale", bottomForm).val(data.scale || "");
+        $("#scale", bottomForm).val( getScale(data1, data.scale) );
         $("#compAddress", bottomForm).html(data.province + data.city + (data.area || "") + (data.address || ""));
         $("#slogan", bottomForm).val(data.slogan);
         $("#remark", bottomForm).val(data.remark);
         $("#compDescription", bottomForm).val(data.description);
         $("#logined").removeClass("hidden").append(bottomForm);
 
+    }
+
+    function getScale(data, d){
+        for(var i = 0; i < data.length; i++){
+            if(data[i].dkey == d){
+                return data[i].dvalue;
+            }
+        }
+        return "";
     }
 
     function getDictList(){
@@ -118,10 +119,15 @@ define([
                 location.href = "./fwlist.html?code=" + cc + "&n=" + text.substr(0, text.length - 1);
             }
         });
+        $("#gtLogin").on('click', function(){
+            location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
+        });
         //申请
         $("#sbtn").on("click", function(){
             showSelect();
-            base.getListResume({})
+            base.getListResume({
+                status: "1"
+            })
                 .then(function(res){
                     if(res.success){
                         var list = res.data;
@@ -132,8 +138,7 @@ define([
                             $("#jlSelect").html(html).removeClass("hidden");
                             $("#loadSpan").addClass('hidden');
                         }else{
-                            $("#isOk").prop("disabled", "disabled");
-                            $("#loadSpan").html('您还没有简历，<span class="cur_pointer addResumeSpan">点此前去添加</span>');
+                            $("#loadSpan").html('您还没有简历，<span class="cur_pointer addResumeSpan t_bluelight2 ml4">点此前去添加</span>');
                         }
                     }else{
                         base.showMsg("非常抱歉，暂时无法获取简历信息！");
@@ -150,19 +155,23 @@ define([
         });
         //确认选择的简历
         $("#isOk").on("click", function(){
-            $("#isOk").attr("disabled", "disabled").val("提交中...");
-            base.applyPosition({
-                "resumeCode": $("#jlSelect").val(),
-                "positionCode": pCode
-            }).then(function(res){
-                    if(res.success){
-                        base.goBackUrl("../xuser/rclist.html");
-                    }else{
-                        $("#isOk").removeAttr("disabled").val("确定");
-                        base.showMsg("非常抱歉，申请提交失败！");
-                        hideSelect();
-                    }
-                });
+            if($("#jlSelect").hasClass("hidden")){
+                hideSelect();
+            }else{
+                $("#isOk").attr("disabled", "disabled").val("提交中...");
+                base.applyPosition({
+                    "resumeCode": $("#jlSelect").val(),
+                    "positionCode": pCode
+                }).then(function(res){
+                        if(res.success){
+                            base.goBackUrl("../xuser/rclist.html");
+                        }else{
+                            $("#isOk").removeAttr("disabled").val("确定");
+                            base.showMsg("非常抱歉，申请提交失败！");
+                            hideSelect();
+                        }
+                    });
+            }
         });
         //前往添加简历
         $("#myJianli").on("click", ".addResumeSpan", function(e){

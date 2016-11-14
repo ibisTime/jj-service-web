@@ -24,7 +24,7 @@ public interface ICredentialsAO {
 	 */
 	Object queryPageCredentials(String certificateCode, String certificateType,
 			String companyCode, String status, String approveUser,
-			String start, String limit);
+			String start, String limit, String province, String city, String area);
 	
 	/**
 	 * 列表查询公司资质

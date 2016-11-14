@@ -92,7 +92,7 @@ define([
                     base.showMsg("非常抱歉，您没有当前服务的资质！");
                     setTimeout(function(){
                         location.href = "../suser/apply-certificate1.html";
-                    }, 1000);
+                    }, 1500);
                 }else{
                     base.showMsg("非常抱歉，暂时无法查询您是否具备当前服务的资质！");
                     $("#applyBtn").removeClass("bg-loading").removeAttr("disabled");
@@ -131,8 +131,10 @@ define([
             start: start,
             limit: "10",
             kind: navCode,
+            status: "1",
             gsProvince: localStorage.getItem("province"),
-            gsCity: localStorage.getItem("city")
+            gsCity: localStorage.getItem("city"),
+            gsArea: localStorage.getItem("area")
         }).then(function(res){
             if(res.success && res.data.list.length){
                 var data = res.data;

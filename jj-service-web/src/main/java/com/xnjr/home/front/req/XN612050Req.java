@@ -25,6 +25,27 @@ public class XN612050Req {
 
 	//limit（必填）	页面个数
 	private String limit;
+	
+	//
+	private String status;
+	
+	private String companyCode;
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getPublisher() {
 		return publisher;

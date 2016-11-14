@@ -12,7 +12,7 @@
 <!--右边-->
     <div class="area">
         <p class="bread-wrap">您所在的位置： 
-            <a href="./index.html">服务</a> &gt; <span>职位详情</span>
+            <a class="cur_default" href="javascript:void(0)">服务</a> &gt; <span>职位详情</span>
         </p>
         
         <div class="topname bt">职位信息</div>
@@ -20,7 +20,7 @@
             <form id="topForm">
                 <div class="mtb">
                     <div class="inblock wb"> 
-                        <span class="xh">*</span>
+                        <span class="xh">&nbsp;</span>
                         <span>职位名称</span>
                     </div>
                     <input class="in-width" type="text" id="zwName" disabled />
@@ -28,15 +28,28 @@
                 
                 <div class="mtb">
                     <div class="inblock wb"> 
-                        <span class="xh">*</span>
+                        <span class="xh">&nbsp;</span>
                         <span>职位类别</span>
                     </div>
                     <input class="in-width" type="text" id="zwKind" disabled />
                 </div>
-                
                 <div class="mtb">
                     <div class="inblock wb"> 
-                        <span class="xh">*</span>
+                        <span class="xh">&nbsp;</span>
+                        <span>状态</span>
+                    </div>
+                    <input class="in-width" type="text" id="status" disabled />
+                </div>
+                <div class="mtb hidden" id="wgDiv">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>违规原因</span>
+                    </div>
+                    <input class="in-width" type="text" id="dealNote" disabled />
+                </div>
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
                         <span>工作地点</span>
                     </div>
                     <input class="in-width" type="text" id="address" disabled />

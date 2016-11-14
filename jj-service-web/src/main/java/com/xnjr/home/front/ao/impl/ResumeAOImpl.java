@@ -8,6 +8,7 @@ import com.xnjr.home.front.http.JsonUtils;
 import com.xnjr.home.front.req.XN612060Req;
 import com.xnjr.home.front.req.XN612061Req;
 import com.xnjr.home.front.req.XN612070Req;
+import com.xnjr.home.front.req.XN612072Req;
 
 @Service
 public class ResumeAOImpl implements IResumeAO {
@@ -84,22 +85,27 @@ public class ResumeAOImpl implements IResumeAO {
 	@Override
 	public Object queryPageResume(String mobile, String expPosition,
 			String expProvince, String expCity, String publisher, String start,
-			String limit) {
+			String limit, String status, String isOpen) {
 		XN612070Req req = new XN612070Req();
 		req.setExpCity(expCity);
+		req.setStatus(status);
 		req.setExpPosition(expPosition);
 		req.setExpProvince(expProvince);
 		req.setLimit(limit);
 		req.setMobile(mobile);
 		req.setPublisher(publisher);
 		req.setStart(start);
+		req.setIsOpen(isOpen);
 		return BizConnecter.getBizData("612070", JsonUtils.object2Json(req),
 	            Object.class);
 	}
 	
 	@Override
-	public Object queryListResume(String publisher){
-		return BizConnecter.getBizData("612072", JsonUtils.string2Json("publisher", publisher),
+	public Object queryListResume(String publisher, String status){
+		XN612072Req req = new XN612072Req();
+		req.setPublisher(publisher);
+		req.setStatus(status);
+		return BizConnecter.getBizData("612072", JsonUtils.object2Json(req),
 	            Object.class);
 	}
 

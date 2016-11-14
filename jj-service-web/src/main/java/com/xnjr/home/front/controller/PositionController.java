@@ -80,10 +80,14 @@ public class PositionController extends BaseController {
     		@RequestParam(value = "gsArea", required = false) String gsArea,
     		@RequestParam(value = "kind", required = false) String kind,
     		@RequestParam(value = "isHot", required = false) String isHot,
+    		@RequestParam(value = "orderColumn", required = false) String orderColumn,
+    		@RequestParam(value = "orderDir", required = false) String orderDir,
+    		@RequestParam(value = "status", required = false) String status,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
     	return positionAO.queryPagePosition(name, companyCode, isHot,
-			companyName, kind, start, limit, gsProvince, gsCity, gsArea);
+			companyName, kind, start, limit, gsProvince, gsCity,
+			gsArea, orderColumn, orderDir, status);
     }
     
     //详情查询职位

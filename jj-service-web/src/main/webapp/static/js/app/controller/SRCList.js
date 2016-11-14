@@ -11,6 +11,8 @@ define([
         positionKind = Dict.get("positionKind"),
         interestStatus = Dict.get("interestStatus"),
         urgentLevel = Dict.get("urgentLevel"),
+        serverStatus = Dict.get("serverStatus"),
+        idx = base.getUrlParam("l") || 0,
         start = 1, citylist;
 
     init();
@@ -34,9 +36,19 @@ define([
                 }
                 return str;
             });
-            getPagePosition();
-            addPositionKind();
+            Handlebars.registerHelper('formatWorkTime', function(num, options){
+                if(!num){
+                    return "无";
+                }
+                return num;
+            });
+            Handlebars.registerHelper('formatSStatus', function(num, options){
+                return serverStatus[num];
+            });
+            //getPagePosition();
             addListener();
+            $("#rcUl").find("li:eq("+idx+")").click();
+            addPositionKind();
             addAddress();
         }else{
             location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
@@ -62,12 +74,12 @@ define([
                         currentPage: start,
                         onPageClick: function(pageNumber){
                             start = pageNumber;
-                            addLoading($("#yfbzw-table").find("tbody"), 6);
+                            addLoading($("#yfbzw-table").find("tbody"), 7);
                             getPagePosition();
                         }
                     });
                 }else{
-                    doError($("#yfbfw-table").find("tbody"), 6);
+                    doError($("#yfbzw-table").find("tbody"), 7);
                 }
             });
     }
@@ -106,7 +118,9 @@ define([
             expProvince: province || "",
             expCity: city || "",
             start: start,
-            limit: 10
+            limit: 10,
+            status: "1",
+            isOpen: "1"
         }).then(function(res){
             if(res.success && res.data.list.length){
                 var data = res.data;
@@ -142,18 +156,16 @@ define([
             contDiv.find("div.rcContent"+idx).removeClass("hidden");
             start = 1;
             $("#pagination_div").empty();
-            var col = 6, ele;
+            var col = 7, ele;
             if(idx == 0){
                 ele = $("#yfbzw-table").find("tbody");
                 addLoading(ele, col);
                 getPagePosition();
             }else if(idx == 1){
-                col = 7;
                 ele = $("#ypjl-table").find("tbody");
                 addLoading(ele, col);
                 getPageLikeMyPosition();
             }else{
-                col = 7;
                 ele = $("#sjl-table").find("tbody");
                 addLoading(ele, col);
                 getPageResume();
@@ -179,7 +191,9 @@ define([
             }
         });
         $("#zwAdd").on("click", function(){
-            location.href = "../position/publish.html?return=" + base.makeReturnUrl();
+            var me = $(this);
+            me.addClass("bg-loading").attr("disabled", "disabled");
+            getListCredentials();
         });
         $("#zwDelete").on("click", function(){
             var tr = getCheckItem("yfbzw-table"),
@@ -192,7 +206,7 @@ define([
                         .then(function(res){
                             me.removeClass("isDoing").text("删除");
                             if(res.success){
-                                addLoading($("#yfbzw-table").find("tbody"), 6);
+                                addLoading($("#yfbzw-table").find("tbody"), 7);
                                 getPagePosition(true);
                                 base.showMsg("删除成功！");
                             }else{
@@ -208,7 +222,7 @@ define([
             var tr = getCheckItem("yfbzw-table"),
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../position/edit.html?code="+code+"&return=" + base.makeReturnUrl();
+                location.href = "../position/edit.html?code="+code+"&return=" + encodeURIComponent(location.pathname + "?l=0");
             }else{
                 base.showMsg("您未选择所要修改的职位！");
             }
@@ -217,7 +231,7 @@ define([
             var tr = getCheckItem("yfbzw-table"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../position/detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../position/detail.html?code="+code+"&return="+encodeURIComponent(location.pathname + "?l=0");
             }else{
                 base.showMsg("您未选择所要查看的职位！");
             }
@@ -245,9 +259,9 @@ define([
         });
         $("#ypjlSelect").on("click", function(){
             var tr = getCheckItem("ypjl-table"), 
-                code = tr && tr.attr("code") || "";
+                code = tr && tr.attr("jCode") || "";
             if(code){
-                location.href = "../xuser/resume-detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../xuser/resume-detail.html?code="+code+"&return="+encodeURIComponent(location.pathname + "?l=1");
             }else{
                 base.showMsg("您未选择所要查看的简历！");
             }
@@ -268,7 +282,7 @@ define([
                                 base.showMsg("处理成功！");
                                 tr.find(".yxStatus").text("已完成");
                             }else{
-                                base.showMsg("非常抱歉，处理失败！")
+                                base.showMsg(res.msg);
                             }
                         });
                 }else{
@@ -324,13 +338,15 @@ define([
                 });
                 temp_html = '<option value="-1">请选择城市</option>' + temp_html;
                 $("#city").removeAttr("disabled").html(temp_html);
+            }else{
+                $("#city").html('<option value="-1">请选择城市</option>').attr("disabled", "disabled");
             }
         });
         $("#sjlWatch").on("click", function(){
             var tr = getCheckItem("sjl-table"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/resume-detail.html?code="+code + "&return="+base.makeReturnUrl();
+                location.href = "../xuser/resume-detail.html?code="+code + "&return="+encodeURIComponent(location.pathname + "?l=2");
             }else{
                 base.showMsg("您未选择所要查看的简历！");
             }
@@ -350,7 +366,7 @@ define([
                             if(res.success){
                                 base.showMsg("操作成功！");
                             }else{
-                                base.showMsg("非常抱歉，操作失败！")
+                                base.showMsg(res.msg);
                             }
                         });
                 }else{
@@ -359,6 +375,32 @@ define([
             }
         });
         /***搜简历end***/
+        $("#clearBtn").on("click", function(){
+            $("#rcType")[0].selectedIndex = 0;
+            $("#province")[0].selectedIndex = 0;
+            $("#city").html('<option value="-1">请选择城市</option>').attr("disabled", "disabled");
+        });
+    }
+    function getListCredentials(){
+        base.getListCredentials({status: "1"})
+            .then(function(res){
+                if(res.success){
+                    var data = res.data;
+                    for(var i = 0; i < data.length; i++){
+                        if(data[i].certificateType == "9"){
+                            location.href = "../position/publish.html?return=" + encodeURIComponent(location.pathname + "?l=0");
+                            return;
+                        }
+                    }
+                    base.showMsg("非常抱歉，您没有当前服务的资质！");
+                    setTimeout(function(){
+                        location.href = "../suser/apply-certificate1.html";
+                    }, 2000);
+                }else{
+                    base.showMsg("非常抱歉，暂时无法查询您是否具备当前服务的资质！");
+                    $("#applyBtn").removeClass("bg-loading").removeAttr("disabled");
+                }
+            });
     }
 
     function getCheckItem(id){

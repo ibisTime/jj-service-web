@@ -71,8 +71,10 @@ define([
         var smsCaptcha = $("#smsCaptcha").val();
         if(!smsCaptcha){
             base.showMsg("验证码不能为空");
+            return false;
         }else if(!/^[\d\w]{4}$/.test(smsCaptcha)){
             base.showMsg("验证码格式错误");
+            return false;
         }
         return true;
     }
@@ -86,6 +88,9 @@ define([
             .then(function(res){
                 if(res.success){
                     base.showMsg("修改手机成功！");
+                    var user = base.getSessionUser();
+                    user.mobile = config.newMobile;
+                    base.setSessionUser(user);
                     setTimeout(function(){
                         base.goBackUrl("./center.html");
                     }, 1500);

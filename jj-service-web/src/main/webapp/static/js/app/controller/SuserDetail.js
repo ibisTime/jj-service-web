@@ -20,18 +20,20 @@ define([
     }
 
     function getCompanyInfo(){
-        base.getCompanyInfo({code: code})
-            .then(function(res){
-                if(res.success){
-                    var data = res.data;
-                    addCompInfo(data);
-                }else{
-                    base.showMsg("非常抱歉，暂时无法获取公司信息！");
-                }
-            });
+        $.when(
+            base.getCompanyInfo({code: code}),
+            base.getDictList({parentKey: "comp_scale"})
+        ).then(function(res, res1){
+            res = res[0];   res1 = res1[0];
+            if(res.success && res1.success){
+                addCompInfo(res.data, res1.data);
+            }else{
+                base.showMsg("非常抱歉，暂时无法获取公司信息！");
+            }
+        });
     }
     
-    function addCompInfo(data){
+    function addCompInfo(data, data1){
         //公司
         if(data.type == "1"){
             $("#qyDiv").removeClass("hidden");
@@ -60,11 +62,20 @@ define([
         $("#mobile").val(data.mobile);
         $("#email").val(data.email);
         $("#qq").val(data.qq);
-        $("#scale").val(data.scale);
+        $("#scale").val( getScale(data1, data.scale) );
         $("#address").val(data.province + data.city + (data.area || "") );
         $("#slogan").val(data.slogan);
         $("#remark").val(data.remark);        
         $("#description").val(data.description);
+    }
+
+    function getScale(data, d){
+        for(var i = 0; i < data.length; i++){
+            if(data[i].dkey == d){
+                return data[i].dvalue;
+            }
+        }
+        return "";
     }
 
     function addListeners(){

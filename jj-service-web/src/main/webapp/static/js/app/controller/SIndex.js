@@ -29,10 +29,10 @@ define([
         base.getBannerList({location: "3"})
             .then(function(res){
                 if(res.success){
-                    if(res.data.list){
+                    if(res.data.length){
                         var data = res.data, html = "";
                         for(var i = 0; i < data.length; i++){
-                            html += '<div class="swiper-slide"><img src="'+data[i].pic+'"></div>';
+                            html += '<div class="swiper-slide"><img class="wp100 cur_pointer" src="'+data[i].pic+'"></div>';
                         }
                         if(data.length == 1){
                             $("#swiper-pagination").remove();
@@ -77,8 +77,12 @@ define([
             start: "1",
             limit: "10",
             isHot: "1",
+            orderColumn: "order_no",
+            orderDir: "ase",
+            status: "1",
             province: localStorage.getItem("province"),
-            city: localStorage.getItem("city")
+            city: localStorage.getItem("city"),
+            area: localStorage.getItem("area")
         }).then(function(res){
             if(res.success && res.data.list.length){
                 $("#r-list").html( rightListmpl({items: res.data.list}) );

@@ -6,6 +6,7 @@ define([
     var code = base.getUrlParam("code"),
         isDZ = Dict.get("isDZ"),
         workStatus = Dict.get("workStatus"),
+        serverStatus = Dict.get("serverStatus"),
         positionKind = Dict.get("positionKind");
     init();
 
@@ -71,8 +72,29 @@ define([
             base.goBackUrl("./center.html");
         });
         $("#print").on("click", function(){
-            //$("#pc").printArea();
             preview(1);
+        });
+        $("#navLeft").on("click", "li", function(){
+            var idx = $(this).index();
+            if(idx == 0){
+                if(base.isCompUser()){
+                    location.href = "../suser/center.html";
+                }else{
+                    location.href = "./center.html";
+                }
+            }else if(idx == 1){
+                if(base.isCompUser()){
+                    location.href = "../suser/rclist.html";
+                }else{
+                    location.href = "./rclist.html";
+                }
+            }else if(idx == 2){
+                if(base.isCompUser()){
+                    location.href = "../suser/fwlist.html";
+                }else{
+                    location.href = "./fwlist.html";
+                }
+            }
         });
     }
     function preview(oper){
@@ -115,7 +137,13 @@ define([
 
     function addResumeInfo(data){
         var topForm = $("#topForm").detach();
+        $("#mobile", topForm).val(data.mobile);
         $("#name", topForm).val(data.name);
+        $("#status", topForm).val(serverStatus[data.status]);
+        if(data.status == "0"){
+            $("#wgDiv", topForm).removeClass("hidden");
+            $("#dealNote", topForm).val(data.dealNote);
+        }
         $("#isWork", topForm).val(isDZ[data.isWork]);
         if(data.isWork == "1"){
             $("#hasWork", topForm).removeClass("hidden");

@@ -5,7 +5,7 @@ define([
     'lib/Pagination'
 ], function (base, Dict, Handlebars, Pagination) {
     var template = __inline("../ui/error-fragment.handlebars"),
-        tmplList = __inline("../ui/suser-fwlist-rList.handlebars"),
+        tmplList = __inline("../ui/server-compdetail.fwlist.handlebars"),
         start = 1,
         serverType = Dict.get("serverType"),
         companyCode = base.getUrlParam("code"),
@@ -38,18 +38,22 @@ define([
     }
 
     function getCompanyInfo(){
-        base.getCompanyInfo({code: companyCode})
-            .then(function(res){
-                if(res.success){
-                    var data = res.data;
-                    addCompInfo(data);
-                }else{
-                    base.showMsg("非常抱歉，暂时无法获取公司信息！");
-                }
-            });
+        $.when(
+            base.getCompanyInfo({code: companyCode}),
+            base.getDictList({parentKey: "comp_scale"})
+        ).then(function(res, res1){
+            res = res[0];   res1 = res1[0];
+            if(res.success && res1.success){
+                var data = res.data;
+                var data1 = res1.data;
+                addCompInfo(data, data1);
+            }else{
+                base.showMsg("非常抱歉，暂时无法获取公司信息！");
+            }
+        });
     }
     
-    function addCompInfo(data){
+    function addCompInfo(data, data1){
         var topForm = $("#topForm").detach();
         //公司
         if(data.type == "1"){
@@ -71,12 +75,21 @@ define([
         $("#mobile", topForm).val(data.mobile);
         $("#email", topForm).val(data.email);
         $("#qq", topForm).val(data.qq);
-        $("#scale", topForm).val(data.scale);
+        $("#scale", topForm).val( getScale(data1, data.scale) );
         $("#address", topForm).html( (data.province || "") + "" + (data.city || "") + (data.area || "") + (data.address || ""));
         $("#slogan", topForm).val(data.slogan);
         $("#compDescription", topForm).val(data.description);
 
         $("#compDiv").removeClass("hidden").append(topForm);
+    }
+
+    function getScale(data, d){
+        for(var i = 0; i < data.length; i++){
+            if(data[i].dkey == d){
+                return data[i].dvalue;
+            }
+        }
+        return "";
     }
 
     function addListeners(){
@@ -125,6 +138,7 @@ define([
             start: start,
             limit: "10",
             type: type,
+            status: "1",
             companyCode: companyCode
         }).then(function(res){
             if(res.success && res.data.list.length){

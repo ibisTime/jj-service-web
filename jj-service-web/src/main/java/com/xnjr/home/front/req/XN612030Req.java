@@ -25,6 +25,7 @@ public class XN612030Req extends APageReq {
 	private String area;
 	//处理人
 	private String dealer;
+	
 	public String getType() {
 		return type;
 	}

@@ -80,8 +80,12 @@ define([
             }
         });
         $("#sbtn").on("click", function(){
+            var me = $(this);
+            me.attr("disabled", "disabled").addClass("bg-loading");
             if(validate()){
-                publishResume();
+                publishResume(me);
+            }else{
+                me.removeClass("bg-loading").removeAttr("disabled");
             }
         });
     }
@@ -214,7 +218,7 @@ define([
         return true;
     }
 
-    function publishResume(){
+    function publishResume(me){
         base.publishResume(config)
             .then(function(res){
                 if(res.success){
@@ -223,7 +227,8 @@ define([
                         base.goBackUrl("./center.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，新增简历失败！");
+                    me.removeClass("bg-loading").removeAttr("disabled");
+                    base.showMsg(res.msg);
                 }
             });
     }

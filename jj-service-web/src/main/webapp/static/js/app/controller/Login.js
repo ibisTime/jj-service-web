@@ -7,6 +7,7 @@ define([
 
     function init(){
         $("#userA").addClass("current");
+        $(".end").addClass("pbtm");
         getBannerList();
         addListeners();
         $("#tabs").children("li:eq(0)").click();
@@ -19,7 +20,7 @@ define([
                     if(res.data.length){
                         var data = res.data, html = "";
                         for(var i = 0; i < data.length; i++){
-                            html += '<div class="swiper-slide"><img class="wp100 hp100" src="'+data[i].pic+'"></div>';
+                            html += '<div class="swiper-slide"><img class="wp100" src="'+data[i].pic+'"></div>';
                         }
                         if(data.length == 1){
                             $("#swiper-pagination").remove();
@@ -39,20 +40,41 @@ define([
             autoplayDisableOnInteraction: false,
             pagination: '.swiper-pagination'
         });
+        var swr = $("#swr").find("img");
+        $("#swiper-container").removeClass("mh600p");
+        var time = setInterval(function(){
+            if(swr.length && $(swr[0]).height()){
+                clearInterval(time);
+                if( (295 + $("#swiper-container").height()) < $(window).height() ){
+                    $(".end").css({
+                        "position": "absolute",
+                        "bottom": "0px",
+                        "width": "100%",
+                        "margin-top": "0px"
+                    });
+                }else {
+                    $(".end").removeClass("pbtm");
+                }
+            }
+        }, 10);
     }
 
     function addListeners(){
+        $("#loginBox").on("mousedown", function(e){e.stopPropagation()});
         $("#tabs").on("click", "li", function(){
             var me = $(this), idx = $(this).index();
             $("#tabs").find("li.active").removeClass("active");
             me.addClass("active");
             if(idx == 0){
+                $("#loginBox")
                 $("#loginBox").find(".container1").addClass("hidden")
-                    .parent().find(".container0").removeClass("hidden");
+                    .parent().find(".container0").removeClass("hidden")
+                    .parent().find(".member").text("个人登录");
                 $("#xqCaptchaImg").click();
             }else{
                 $("#loginBox").find(".container0").addClass("hidden")
-                    .parent().find(".container1").removeClass("hidden");
+                    .parent().find(".container1").removeClass("hidden")
+                    .parent().find(".member").text("企业登录");
                 $("#fwCaptchaImg").click();
             }
         });
@@ -69,7 +91,12 @@ define([
                     captcha: $("#xqCaptcha").val()
                 }).then(function(res){
                     if(res.success){
-                        base.goBackUrl("../xuser/center.html");
+                        var rUrl = base.getUrlParam("return");
+                        if(!rUrl || rUrl.indexOf("login.html") != -1){
+                            location.href = "./center.html";
+                        }else{
+                            location.href = rUrl;
+                        }
                     }else{
                         me.val("登录").removeAttr("disabled");
                         $("#xqCaptchaImg").click();
@@ -88,7 +115,12 @@ define([
                     captcha: $("#fwCaptcha").val()
                 }).then(function(res){
                     if(res.success){
-                        base.goBackUrl("../suser/center.html");
+                        var rUrl = base.getUrlParam("return");
+                        if( !rUrl || rUrl.indexOf("login.html") != -1){
+                            location.href = "../suser/center.html";
+                        }else{
+                            location.href = rUrl;
+                        }
                     }else{
                         me.val("登录").removeAttr("disabled");
                         $("#fwCaptchaImg").click();

@@ -8,6 +8,8 @@ define([
         tmplList1 = __inline("../ui/xuser-rclist-rList1.handlebars"),
         tmplList2 = __inline("../ui/xuser-rclist-rList2.handlebars"),
         positionKind = Dict.get("positionKind"),
+        serverStatus = Dict.get("serverStatus"),
+        idx = base.getUrlParam("l") || 0,
         start = 1;
 
     init();
@@ -28,8 +30,14 @@ define([
                 }
                 return str;
             });
-            getPageResume();
+            Handlebars.registerHelper('formatSStatus', function(num, options){
+                return serverStatus[num];
+            });
+            //getPageResume();
             addListener();
+            $("#rcUl").find("li:eq("+idx+")").click();
+        }else if(base.isLogin()){
+            location.href = "../suser/rclist.html";
         }else{
             location.href = "./login.html?return=" + base.makeReturnUrl();
         }
@@ -54,12 +62,12 @@ define([
                         currentPage: start,
                         onPageClick: function(pageNumber){
                             start = pageNumber;
-                            addLoading($("#wdjlTable").find("tbody"), 5);
+                            addLoading($("#wdjlTable").find("tbody"), 6);
                             getPageResume();
                         }
                     });
                 }else{
-                    doError($("#wdjlTable").find("tbody"), 5);
+                    doError($("#wdjlTable").find("tbody"), 6);
                 }
             });
     }
@@ -134,7 +142,7 @@ define([
             var col, ele;
             if(idx == 0){
                 ele = $("#wdjlTable").find("tbody");
-                col = 5;
+                col = 6;
                 addLoading(ele, col);
                 getPageResume();
             }else if(idx == 1){
@@ -169,7 +177,7 @@ define([
             }
         });
         $("#addJl").on("click", function(){
-            location.href = "../xuser/add-resume.html?return=" + base.makeReturnUrl();
+            location.href = "../xuser/add-resume.html?return=" + encodeURIComponent(location.pathname + "?l=0");
         });
         $("#deleteJl").on("click", function(){
             var tr = getCheckItem("wdjlTable"),
@@ -197,7 +205,7 @@ define([
             var tr = getCheckItem("wdjlTable"),
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/edit-resume.html?code="+code+"&return=" + base.makeReturnUrl();
+                location.href = "../xuser/edit-resume.html?code="+code+"&return=" + encodeURIComponent(location.pathname + "?l=0");
             }else{
                 base.showMsg("您未选择所要修改的简历！");
             }
@@ -206,7 +214,7 @@ define([
             var tr = getCheckItem("wdjlTable"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/resume-detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../xuser/resume-detail.html?code="+code+"&return="+encodeURIComponent(location.pathname + "?l=0");
             }else{
                 base.showMsg("您未选择所要查看的简历！");
             }
@@ -236,7 +244,7 @@ define([
             var tr = getCheckItem("yypzwTable"), 
                 code = tr && tr.attr("pCode") || "";
             if(code){
-                location.href = "../position/detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../position/list-detail.html?code="+code+"&return="+encodeURIComponent(location.pathname + "?l=1");
             }else{
                 base.showMsg("您未选择所要查看的信息！");
             }
@@ -289,9 +297,9 @@ define([
             var tr = getCheckItem("bgxqTable"), 
                 code = tr && tr.attr("cCode") || "";
             if(code){
-                location.href = "../xuser/comp-detail.html?code="+code + "return="+base.makeReturnUrl();
+                location.href = "../server/comp-detail.html?code="+code + "&return="+encodeURIComponent(location.pathname + "?l=2");
             }else{
-                base.showMsg("您未选择所要查看的简历！");
+                base.showMsg("您未选择所要查看的信息！");
             }
         });
         /***被感兴趣end***/

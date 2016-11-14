@@ -2,25 +2,25 @@
 <html>
 <head>
   <link rel="import" href="../head.html?__inline">
-  <title>新增服务</title>
+  <title>修改服务</title>
 </head>
 <body>
 <link rel="import" href="../body-top.html?__inline">
 <div class="bigbox clearfix">
     <ul class="name leftNav" id="leftNav">
-        <li code="3"><a href="./list.html?code=3">培训<span>></span></a></li>
+        <li code="1"><a href="./list.html?code=1">培训<span>></span></a></li>
         <li code="2"><a href="./list.html?code=2">拍摄/摄影<span>></span></a></li>
-        <li code="5"><a href="./list.html?code=5">美工外包<span>></span></a></li>
+        <li code="3"><a href="./list.html?code=3">美工外包<span>></span></a></li>
         <li code="4"><a href="./list.html?code=4">店铺代运营<span>></span></a></li>
-        <li code="6"><a href="./list.html?code=6">客服外包<span>></span></a></li>
-        <li code="7"><a href="./list.html?code=7">仓配服务<span>></span></a></li>
-        <li code="1"><a href="./list.html?code=1">软件开发<span>></span></a></li>
+        <li code="5"><a href="./list.html?code=5">客服外包<span>></span></a></li>
+        <li code="6"><a href="./list.html?code=6">仓配服务<span>></span></a></li>
+        <li code="7"><a href="./list.html?code=7">软件开发<span>></span></a></li>
         <li code="8"><a href="./list.html?code=8">产业园<span>></span></a></li>
     </ul>
     <!--右边-->
     <div class="area">
         <p class="bread-wrap">您所在的位置： 
-          <a href="./index.html">服务</a> &gt; <span>修改服务</span>
+          <a class="cur_default" href="javascript:void(0)">服务</a> &gt; <span>修改服务</span>
         </p>
         
       <div class="topname bt cm"></div>
@@ -59,7 +59,7 @@
             <input class="hidden" type="text" id="realType" />
           </div>
           <!--培训-->
-          <div id="px" class="hidden choseCont choseCont3">
+          <div id="px" class="hidden choseCont choseCont1">
             <div class="mtb">
               <div class="inblock kuandu"> 
                   <span class="xh">*</span>
@@ -87,43 +87,40 @@
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>3位核心讲师简历1</span>
+                <span>核心讲师简历1</span>
               </div>
               <div class="file-box inblock va-tt">
                   <a href="javascript:void(0);" class="file1">选择文件
                       <input type="file" name="file" id="resume1File"/>
                   </a>
                   <input type="button" value="上传" id="resume1Btn" class="sc ml20"/>
-                  <input type="text" id="resume1Url" class="hidden"/>
-                  <div class="mt10" id="resume1Url1"></div>
+                  <a href="" target="_blank" id="resume1Url" class="showUrl"></a>
               </div>
             </div>
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>3位核心讲师简历2</span>
+                <span>核心讲师简历2</span>
               </div>
               <div class="file-box inblock va-tt">
                   <a href="javascript:void(0);" class="file1">选择文件
                       <input type="file" name="file" id="resume2File"/>
                   </a>
                   <input type="button" value="上传" id="resume2Btn" class="sc ml20"/>
-                  <input type="text" id="resume2Url" class="hidden"/>
-                  <div class="mt10" id="resume2Url1"></div>
+                  <a href="" target="_blank" id="resume2Url" class="showUrl"></a>                  
               </div>
             </div>
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
-                <span>3位核心讲师简历3</span>
+                <span>核心讲师简历3</span>
               </div>
               <div class="file-box inblock va-tt">
                   <a href="javascript:void(0);" class="file1">选择文件
                       <input type="file" name="file" id="resume3File"/>
                   </a>
                   <input type="button" value="上传" id="resume3Btn" class="sc ml20"/>
-                  <input type="text" id="resume3Url" class="hidden"/>
-                  <div class="mt10" id="resume3Url1"></div>
+                  <a href="" target="_blank" id="resume3Url" class="showUrl"></a>
               </div>
             </div>
               
@@ -137,8 +134,7 @@
                       <input type="file" name="file" id="courseFile"/>
                   </a>
                   <input type="button" value="上传" id="courseBtn" class="sc ml20"/>
-                  <input type="text" id="courseUrl" class="hidden"/>
-                  <div class="mt10" id="courseUrl1"></div>
+                  <a href="" target="_blank" id="courseUrl" class="showUrl"></a>
               </div>
             </div>
           </div>
@@ -184,18 +180,25 @@
                   <span class="xh">*</span>
                   <span>代表作品</span>
               </div>
-              <div class="file-box inblock va-tt">
+              <!--<div class="file-box inblock va-tt">
                   <a href="javascript:void(0);" class="file1">选择图片
                       <input type="file" name="file" id="worksFile" accept="image/png, image/jpeg"/>
                   </a>
                   <input type="button" value="上传" id="worksBtn" class="sc ml20"/>
                   <img src="" id="works"/>
                   <input type="text" id="worksUrl" class="hidden"/>
+              </div>-->
+              <div class="file-box inblock va-tt">
+                  <a href="javascript:void(0);" class="file1">选择文件
+                      <input type="file" name="file" id="worksFile"/>
+                  </a>
+                  <input type="button" value="上传" id="worksBtn" class="sc ml20"/>
+                  <a href="" target="_blank" id="worksUrl" class="showUrl"></a>
               </div>
             </div>
           </div>
           <!--美工外包-->
-          <div id="mgwb" class="hidden choseCont choseCont5">
+          <div id="mgwb" class="hidden choseCont choseCont3">
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
@@ -258,12 +261,11 @@
                 <span>设计作品案例</span>
               </div>
               <div class="file-box inblock va-tt">
-                  <a href="javascript:void(0);" class="file1">选择图片
-                      <input type="file" name="file" id="sj-worksFile" accept="image/png, image/jpeg"/>
+                  <a href="javascript:void(0);" class="file1">选择文件
+                      <input type="file" name="file" id="sj-worksFile"/>
                   </a>
                   <input type="button" value="上传" id="sj-worksBtn" class="sc ml20"/>
-                  <img src="" id="sj-works"/>
-                  <input type="text" id="sj-worksUrl" class="hidden"/>
+                  <a href="" target="_blank" id="sj-worksUrl" class="showUrl"></a>
               </div>
             </div>
           </div>
@@ -328,13 +330,12 @@
                       <input type="file" name="file" id="sucCaseFile"/>
                   </a>
                   <input type="button" value="上传" id="sucCaseBtn" class="sc ml20"/>
-                  <input type="text" id="sucCaseUrl" class="hidden"/>
-                  <div class="mt10" id="sucCaseUrl1"></div>
+                  <a href="" target="_blank" id="sucCaseUrl" class="showUrl"></a>
               </div>
             </div>
           </div>
           <!--客服外包-->
-          <div id="kfwb" class="hidden choseCont choseCont6">
+          <div id="kfwb" class="hidden choseCont choseCont5">
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
@@ -374,24 +375,9 @@
               </select>
               
             </div>
-              
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                <span class="xh">*</span>
-                <span>成功案例展示</span>
-              </div>
-              <div class="file-box inblock va-tt">
-                  <a href="javascript:void(0);" class="file1">选择文件
-                      <input type="file" name="file" id="kf-sucCaseFile"/>
-                  </a>
-                  <input type="button" value="上传" id="kf-sucCaseBtn" class="sc ml20"/>
-                  <input type="text" id="kf-sucCaseUrl" class="hidden"/>
-                  <div class="mt10" id="kf-sucCaseUrl1"></div>
-              </div>
-            </div>
           </div>
           <!--仓配服务-->
-          <div id="cpfw" class="hidden choseCont choseCont7">
+          <div id="cpfw" class="hidden choseCont choseCont6">
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">*</span>
@@ -429,7 +415,7 @@
             </div>
           </div>
           <!--软件外包-->
-          <div id="rjwb" class="hidden choseCont choseCont1"></div>
+          <div id="rjwb" class="hidden choseCont choseCont7"></div>
           <!--产业园-->
           <div id="cyy" class="hidden choseCont choseCont8">
             <div class="mtb">
@@ -466,7 +452,7 @@
               
             <div class="mtb">
               <div class="inblock kuandu"> 
-                <span class="xh">*</span>
+                <span class="xh">&nbsp;</span>
                 <span>增值服务</span>
               </div>
               <div class="inblock in-width va-tt" id="zzfw">
@@ -498,12 +484,11 @@
                 <span>产业园照片1</span>
               </div>
               <div class="file-box inblock va-tt">
-                  <a href="javascript:void(0);" class="file1">选择图片
-                      <input type="file" name="file" id="pic1File" accept="image/png, image/jpeg"/>
+                  <a href="javascript:void(0);" class="file1">选择文件
+                      <input type="file" name="file" id="pic1File"/>
                   </a>
                   <input type="button" value="上传" id="pic1Btn" class="sc ml20"/>
-                  <img src="" id="pic1"/>
-                  <input type="text" id="pic1Url" class="hidden"/>
+                  <a href="" target="_blank" id="pic1Url" class="showUrl"></a>
               </div>
             </div>
             <div class="mtb">
@@ -512,12 +497,11 @@
                 <span>产业园照片2</span>
               </div>
               <div class="file-box inblock va-tt">
-                  <a href="javascript:void(0);" class="file1">选择图片
-                      <input type="file" name="file" id="pic2File" accept="image/png, image/jpeg"/>
+                  <a href="javascript:void(0);" class="file1">选择文件
+                      <input type="file" name="file" id="pic2File"/>
                   </a>
                   <input type="button" value="上传" id="pic2Btn" class="sc ml20"/>
-                  <img src="" id="pic2"/>
-                  <input type="text" id="pic2Url" class="hidden"/>
+                  <a href="" target="_blank" id="pic2Url" class="showUrl"></a>
               </div>
             </div>
           </div>

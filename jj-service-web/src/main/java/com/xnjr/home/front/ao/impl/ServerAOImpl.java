@@ -411,9 +411,11 @@ public class ServerAOImpl implements IServerAO {
 	public Object queryPageServers(String type, String name, String companyCode,
     		String companyName, String qualityCode, String isHot,
     		String pubisher, String province, String city, String area,
-    		String dateStart, String dateEnd, String dealer,
-    		String start, String limit) {
+    		String status, String dateStart, String dateEnd, String dealer,
+    		String start, String limit, String orderColumn, String orderDir) {
 		XN612030Req req = new XN612030Req();
+		req.setOrderColumn(orderColumn);
+		req.setOrderDir(orderDir);
 		req.setCompanyCode(companyCode);
 		req.setCompanyName(companyName);
 		req.setDateEnd(dateEnd);
@@ -425,7 +427,7 @@ public class ServerAOImpl implements IServerAO {
 		req.setPubisher(pubisher);
 		req.setQualityCode(qualityCode);
 		req.setStart(start);
-		req.setStatus("1");
+		req.setStatus(status);
 		req.setType(type);
 		req.setProvince(province);
 		req.setCity(city);

@@ -22,6 +22,30 @@ public class XN612090Req {
 	
 	private String gsArea;
 	
+	private String orderColumn;
+	
+	private String orderDir;
+	
+	private String status;
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getOrderColumn() {
+		return orderColumn;
+	}
+	public void setOrderColumn(String orderColumn) {
+		this.orderColumn = orderColumn;
+	}
+	public String getOrderDir() {
+		return orderDir;
+	}
+	public void setOrderDir(String orderDir) {
+		this.orderDir = orderDir;
+	}
 	public String getGsProvince() {
 		return gsProvince;
 	}

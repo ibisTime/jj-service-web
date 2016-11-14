@@ -11,9 +11,12 @@ define([
         $("#userA").addClass("current");
         if(base.isLogin()){
             if(base.isCompUser()){
-                if(applyCertificates){
+                if(applyType == "1"){
                     document.title = "修改资质";
-                    $("#sbtn").val("保存");
+                    $("#sbtn").val("修改");
+                }else if(applyType == "2"){
+                    document.title = "重新申请资质";
+                    $("#sbtn").val("重新提交");
                 }
                 getListCredentials1();
                 addListeners();
@@ -64,7 +67,8 @@ define([
         $("#sbtn").on("click", function(){
             var code = $("#certSelect").val();
             if(code){
-                if(applyType == "1"){
+                $(this).addClass("bg-loading").attr("disabled", "disabled");
+                if(applyType == "1" || applyType == "2"){
                     editCertificates(code);
                 }else{
                     applyCertificates(code);
@@ -79,7 +83,7 @@ define([
             $("#description").html( dictData[opt.val()] );
         });
         $("#goPrev").on("click", function(){
-            base.goBackUrl("./apply-certificate2.html");
+            location.href = "./apply-certificate1.html?return=" + base.getReturnParam();
         });
     }
     function editCertificates(code){
@@ -88,12 +92,10 @@ define([
             certificateCode: code
         }).then(function(res){
             if(res.success){
-                base.showMsg("修改成功！");
-                setTimeout(function(){
-                    base.goBackUrl("./center.html");
-                }, 1000);
+                location.href = "./apply-certificate3.html?return=" + base.getReturnParam();
             }else{
-                base.showMsg("非常抱歉，公司资质修改失败!");
+                $("#sbtn").removeClass("bg-loading").removeAttr("disabled");                
+                base.showMsg(res.msg);
             }
         });
     }
@@ -104,7 +106,8 @@ define([
             if(res.success){
                 location.href = "./apply-certificate3.html?return=" + base.getReturnParam();
             }else{
-                base.showMsg("非常抱歉，申请资质失败!");
+                $("#sbtn").removeClass("bg-loading").removeAttr("disabled");
+                base.showMsg(res.msg);
             }
         });
     }

@@ -8,18 +8,27 @@
 <body>
 <link rel="import" href="../body-top.html?__inline">
 <div class="bigbox clearfix">
-    <ul class="name">
-        <li><a href="./center.html">企业中心<span>></span></a></li>
-        <li class="current"><a href="./rclist.html">我是人才<span>></span></a></li>
-        <li><a href="./fwlist.html">展示服务<span>></span></a></li>
+    <ul class="name" id="navLeft">
+        <li><a href="javascript:void(0)">我的中心<span>></span></a></li>
+        <li class="current"><a href="javascript:void(0)">我是人才<span>></span></a></li>
+        <li><a href="javascript:void(0)">展示服务<span>></span></a></li>
     </ul>
     <div class="area" id="topDiv">
         <p class="bread-wrap">您所在的位置： 
-            <a href="./center.html">会员中心</a> &gt; <span>简历详情</span>
+            <a class="cur_default" href="javascript:void(0)">会员中心</a> &gt; <span>简历详情</span>
         </p>
         <div id="topForm" class="hidden">
             <!--startprint1-->
             <div id="printCont">
+                <div class="topname bt">个人信息</div>
+                <div class="mtb">
+                    <div class="inblock kuandu"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>手机号</span>
+                    </div>
+                    <input class="in-width" type="text" id="mobile" disabled/>
+                </div>
+                <div class="topname bt">简历信息</div>
                 <div class="mtb">
                     <div class="inblock kuandu"> 
                         <span class="xh">&nbsp;</span>
@@ -27,6 +36,21 @@
                     </div>
                     <input class="in-width" type="text" id="name" disabled/>
                 </div>
+                <div class="mtb">
+                    <div class="inblock kuandu"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>状态</span>
+                    </div>
+                    <input class="in-width" type="text" id="status" disabled/>
+                </div>
+                <div class="mtb hidden" id="wgDiv">
+                    <div class="inblock kuandu"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>违规原因</span>
+                    </div>
+                    <input class="in-width" type="text" id="dealNote" disabled/>
+                </div>
+
                 <div class="topname bt">最近工作/实习经验</div>
                 <form>
                     

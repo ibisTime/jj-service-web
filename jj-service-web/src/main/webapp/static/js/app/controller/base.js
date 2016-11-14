@@ -146,6 +146,7 @@ define([
             }
             return t.split("").reverse().join("") + (n == 0 ? "" : ("." + r)) + unit;
         },
+        specialCode: /^[\s0-9a-zA-Z\u4e00-\u9fa5\u00d7\u300a\u2014\u2018\u2019\u201c\u201d\u2026\u3001\u3002\u300b\u300e\u300f\u3010\u3011\uff01\uff08\uff09\uff0c\uff1a\uff1b\uff1f\uff0d\uff03\uffe5\x21-\x7e]*$/,
         showMsg: function (msg, time){
             var d = dialog({
                 content: msg,
@@ -183,13 +184,26 @@ define([
         },
         //获取地址json
         getAddress: function(){
-            return Ajax.get("/static/js/lib/city.min.json")
-                .then(function(res){
-                    if(res.citylist){
-                        return res;
-                    }
-                    return $.parseJSON(res);
-                });
+            var addr = localStorage.getItem("addr");
+            if(addr){
+                var defer = jQuery.Deferred();
+                addr = $.parseJSON(addr);
+                if(!addr.citylist){
+                    addr = $.parseJSON(addr);
+                }
+                defer.resolve(addr);
+                return defer.promise();
+            }else{
+                return Ajax.get("/static/js/lib/city.min.json")
+                    .then(function(res){
+                        if(res.citylist){
+                            localStorage.setItem("addr", JSON.stringify(res));
+                            return res;
+                        }
+                        localStorage.setItem("addr", JSON.stringify(res));
+                        return $.parseJSON(res);
+                    });
+            }
         },
         //是否登录
         isLogin: function(){
@@ -262,6 +276,10 @@ define([
             }else{
                 return "";
             }
+        },
+        //设置sessionStorage的user
+        setSessionUser: function(user){
+            sessionStorage.setItem("user", JSON.stringify(user));
         },
         //获取sessionStorage中的user
         getSessionUser: function(){
@@ -632,18 +650,41 @@ define([
         //获取banner
         getBannerList: function(config){
             return Ajax.get(APIURL + "/navigate/banner/list", config);
+        },
+        //获取系统参数
+        getSysConfig: function(config){
+            return Ajax.get(APIURL + "/sconfig/page", config);
         }
     };
-    function init(){
-        
-        if(location.pathname.indexOf("/login.html")){
-            $(".end").css({
-                "position": "absolute",
-                "bottom": "0px",
-                "width": "100%",
-                "margin-top": "0px"
-            })
+    function getMobileAndTime(){
+        var serviceTime = sessionStorage.getItem("serviceTime"),
+            sysMobile = sessionStorage.getItem("sysMobile");
+        if(serviceTime && sysMobile){
+            $("#serviceTime").text(serviceTime);
+            $("#sysMobile").text(sysMobile);
         }else{
+            Base.getSysConfig({
+                start: 1,
+                limit: 10
+            }).then(function(res){
+                if(res.success){
+                    var list = res.data.list;
+                    for(var i = 0; i < list.length; i++){
+                        if(list[i].ckey == "serviceTime"){
+                            $("#serviceTime").text(list[i].cvalue);
+                            sessionStorage.setItem("serviceTime", list[i].cvalue);
+                        }else if(list[i].ckey == "sysMobile"){
+                            $("#sysMobile").text(list[i].cvalue);
+                            sessionStorage.setItem("sysMobile", list[i].cvalue);
+                        }
+                    }
+                }   
+            });
+        }
+    }
+    function init(){
+        getMobileAndTime();
+        if(location.pathname.indexOf("/login.html") == -1 && location.pathname.indexOf("/home/index.html") == -1){
             $(".bigbox").css( "min-height", ($(window).height() - 295) + "px" );
         }
         if(Base.isLogin()){
@@ -658,22 +699,28 @@ define([
             $("#header").append('<div class="headerthree">'+
                 '<a href="javascript:void(0)" class="login-a pr10 head-spa">登录</a>'+
                 '<div class="head-reg pl10 inblock"><span>注册</span>'+
-                '<ul class="hidden"><li><a class="topRegX" href="javascript:void(0)">需求方注册</a></li><li><a class="topRegF" href="javascript:void(0)">服务方注册</a></li></ul></div></div>');
+                '<ul class="hidden"><li><a class="topRegX" href="javascript:void(0)">个人注册</a></li><li><a class="topRegF" href="javascript:void(0)">企业注册</a></li></ul></div></div>');
             
         }
         var province = localStorage.getItem("province"), city, area;
         if(province == null){
             localStorage.setItem("province", "浙江");
             localStorage.setItem("city", "金华");
+            localStorage.setItem("area", "金东区");
         }
         province = localStorage.getItem("province");
         city = localStorage.getItem("city");
-        $("#placeName").text(city);
+        area = localStorage.getItem("area");
+        if(area && area != "null"){
+            $("#placeName").text(city + area);
+        }else{
+            $("#placeName").text(province + city);
+        }
         var cList;
         Base.getAddress()
             .then(function(res){
-                var temp_html = "", temp_html1 = "";
-                var prov_id = 0;
+                var temp_html = "", temp_html1 = "", temp_html2 = "";
+                var prov_id = 0, city_id = 0;
                 cList = res.citylist;
                 $.each(cList,function(i,prov){
                     if(prov.p == province){
@@ -685,22 +732,50 @@ define([
                 });
                 $.each(cList[prov_id].c,function(i,city1){
                     if(city == city1.n){
+                        city_id = i;
                         temp_html1+="<option value='"+city1.n+"' selected>"+city1.n+"</option>";
                     }else{
                         temp_html1+="<option value='"+city1.n+"'>"+city1.n+"</option>";
                     }
                 });
+                if(cList[prov_id].c[city_id].a){
+                    $.each(cList[prov_id].c[city_id].a,function(i,dist){
+                        if(area == dist.s){
+                            temp_html2+="<option value='"+dist.s+"' selected>"+dist.s+"</option>"; 
+                        }else{
+                            temp_html2+="<option value='"+dist.s+"'>"+dist.s+"</option>"; 
+                        }
+                    });
+                    temp_html2 = "<option value=''>所有地区</option>" + temp_html2;
+                    $("#topArea").removeClass("hidden").html(temp_html2);
+                }else{
+                    $("#topArea").empty().addClass("hidden");
+                }
                 $("#topProv").append(temp_html);
                 $("#topCity").append(temp_html1);
             });
         $("#topProv").on("change", function(){
-            var me = $(this);
-            var prov_id = +me[0].selectedIndex,
-                temp_html = "";
+            var me = $(this), temp_html = "",
+                prov_id = +me[0].selectedIndex;
             $.each(cList[prov_id].c,function(i,city){  
                 temp_html+="<option value='"+city.n+"'>"+city.n+"</option>";  
             });
             $("#topCity").removeAttr("disabled").html(temp_html);
+            $("#topCity").trigger("change");
+        });
+        $("#topCity").on("change", function(){
+            var me = $(this), temp_html = "",
+                prov_id = +$("#topProv")[0].selectedIndex,
+                city_id = +me[0].selectedIndex;
+            if(cList[prov_id].c[city_id].a){
+                $.each(cList[prov_id].c[city_id].a,function(i,dist){  
+                    temp_html+="<option value='"+dist.s+"'>"+dist.s+"</option>";  
+                });
+                temp_html = "<option value=''>所有地区</option>" + temp_html;
+                $("#topArea").removeClass("hidden").html(temp_html);
+            }else{
+                $("#topArea").addClass("hidden").empty();
+            }
         });
         $("#header").on("click", "a", function(e){
             var me = $(this);
@@ -723,11 +798,11 @@ define([
                 }
                 
             }else if(me.hasClass("login-a")){
-                location.href = "../xuser/login.html?return=" + Base.makeReturnUrl();
+                location.href = "../xuser/login.html";
             }else if(me.hasClass("topRegX")){
-                location.href = "../xuser/register.html?return=" + Base.makeReturnUrl();
+                location.href = "../xuser/register.html";
             }else if(me.hasClass("topRegF")){
-                location.href = "../suser/register.html?return=" + Base.makeReturnUrl();
+                location.href = "../suser/register.html";
             }
             e.stopPropagation();
             e.preventDefault();
@@ -756,14 +831,16 @@ define([
         $("#choseOk").on("click", function(){
             var cont = $("#city1");
             var province = cont.find(".prov").val(),
-                city = cont.find(".city").val();
+                city = cont.find(".city").val(),
+                area = $("#topArea").val();
             if( !province && !city && !area ){
                 Base.showMsg("必须选择一个地点");
                 return;
             }
             localStorage.setItem("province", province);
             localStorage.setItem("city", city);
-            location.href="../home/index.html";
+            localStorage.setItem("area", area || "");
+            location.reload(true);
         });
     }
     init();

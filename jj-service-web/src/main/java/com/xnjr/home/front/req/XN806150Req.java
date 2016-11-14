@@ -21,6 +21,34 @@ public class XN806150Req {
 
 	//limit（必填）	页面个数
 	private String limit;
+	
+	private String province;
+	private String city;
+	private String area;
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	public String getCertificateType() {
 		return certificateType;

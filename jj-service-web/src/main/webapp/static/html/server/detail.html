@@ -9,22 +9,21 @@
 <link rel="import" href="../body-top.html?__inline">
 <div class="bigbox clearfix">
     <ul class="name leftNav" id="leftNav">
-        <li code="3"><a href="./list.html?code=3">培训<span>></span></a></li>
+        <li code="1"><a href="./list.html?code=1">培训<span>></span></a></li>
         <li code="2"><a href="./list.html?code=2">拍摄/摄影<span>></span></a></li>
-        <li code="5"><a href="./list.html?code=5">美工外包<span>></span></a></li>
+        <li code="3"><a href="./list.html?code=3">美工外包<span>></span></a></li>
         <li code="4"><a href="./list.html?code=4">店铺代运营<span>></span></a></li>
-        <li code="6"><a href="./list.html?code=6">客服外包<span>></span></a></li>
-        <li code="7"><a href="./list.html?code=7">仓配服务<span>></span></a></li>
-        <li code="1"><a href="./list.html?code=1">软件开发<span>></span></a></li>
+        <li code="5"><a href="./list.html?code=5">客服外包<span>></span></a></li>
+        <li code="6"><a href="./list.html?code=6">仓配服务<span>></span></a></li>
+        <li code="7"><a href="./list.html?code=7">软件开发<span>></span></a></li>
         <li code="8"><a href="./list.html?code=8">产业园<span>></span></a></li>
     </ul>
     <!--右边-->
     <div class="area">
         <p class="bread-wrap">您所在的位置： 
-          <a href="./index.html">服务</a> &gt; <span>服务详情</span>
+          <a class="cur_default" href="javascript:void(0)">服务</a> &gt; <span>服务详情</span>
         </p>
-        
-      <div class="topname bt cm"></div>
+      <div class="topname bt cm">服务信息</div>
       <div id="topDiv">
         <form id="topForm">
           <div class="mtb">
@@ -57,6 +56,20 @@
               <span>所属服务</span>
             </div>
             <input class="in-width" type="text" id="fwType" disabled/>
+          </div>
+          <div class="mtb">
+            <div class="inblock kuandu"> 
+              <span class="xh">&nbsp;</span>
+              <span>状态</span>
+            </div>
+            <input class="in-width" type="text" id="status" disabled/>
+          </div>
+          <div class="mtb hidden" id="wgDiv">
+            <div class="inblock kuandu"> 
+              <span class="xh">&nbsp;</span>
+              <span>违规原因</span>
+            </div>
+            <input class="in-width" type="text" id="dealNote" disabled/>
           </div>
           <!--拍摄/摄影-->
           <div id="pspx" class="hidden choseCont">
@@ -97,8 +110,8 @@
                   <span class="xh">&nbsp;</span>
                 <span >代表作品</span>
               </div>
-              <div class="file-box inblock">
-                <img id="works" src=""/>
+              <div class="file-box inblock va-tt">
+                  <a href="" target="_blank" id="works" class="t_bluelight2"></a>
               </div>
             </div>
           </div>
@@ -131,12 +144,30 @@
             <div class="mtb">
               <div class="inblock kuandu"> 
                 <span class="xh">&nbsp;</span>
-                <span>3位核心讲师简历</span>
+                <span>核心讲师简历1</span>
               </div>
               <div class="in-width inblock">
-                <a target="_blank" class="t_bluelight2" id="resume1">简历1</a>
-                <a class="mlr10" class="t_bluelight2" target="_blank" id="resume2">简历2</a>
-                <a target="_blank" class="t_bluelight2" id="resume3">简历3</a>
+                <a target="_blank" class="t_bluelight2" id="resume1"></a>
+              </div>
+            </div>
+
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">&nbsp;</span>
+                <span>核心讲师简历2</span>
+              </div>
+              <div class="in-width inblock">
+                <a class="t_bluelight2" target="_blank" id="resume2"></a>
+              </div>
+            </div>
+
+            <div class="mtb">
+              <div class="inblock kuandu"> 
+                <span class="xh">&nbsp;</span>
+                <span>核心讲师简历3</span>
+              </div>
+              <div class="in-width inblock">
+                <a target="_blank" class="t_bluelight2" id="resume3"></a>
               </div>
             </div>
               
@@ -146,7 +177,7 @@
                 <span>培训课程</span>
               </div>
               <div class="file-box inblock">
-                <a target="_blank" id="course" class="t_bluelight2">培训课程</a>
+                <a target="_blank" id="course" class="t_bluelight2"></a>
               </div>
             </div>
           </div>
@@ -199,7 +230,7 @@
                 <span>成功案例展示</span>
               </div>
               <div class="file-box inblock">
-                <a target="_blank" class="t_bluelight2" id="sucCase">成功案例</a>
+                <a target="_blank" class="t_bluelight2" id="sucCase"></a>
               </div>
             </div>
           </div>
@@ -268,7 +299,7 @@
                 <span>设计作品案例</span>
               </div>
               <div class="file-box inblock va-tt">
-                <img id="sj-works" src=""/>
+                  <a href="" target="_blank" id="sj-works" class="t_bluelight2"></a>
               </div>
             </div>
           </div>
@@ -308,16 +339,6 @@
                 <span>收费模式</span>
               </div>
               <input class="in-width" type="text" id="feeMode1" disabled/>
-            </div>
-              
-            <div class="mtb">
-              <div class="inblock kuandu"> 
-                <span class="xh">&nbsp;</span>
-                <span>成功案例展示</span>
-              </div>
-              <div class="file-box inblock">
-                <a target="_blank" id="kf-sucCase" class="t_bluelight2">成功案例</a>
-              </div>
             </div>
           </div>
 
@@ -431,7 +452,7 @@
                 <span>产业园照片1</span>
               </div>
               <div class="file-box inblock va-tt">
-                <img id="pic1" src=""/>
+                  <a href="" target="_blank" id="pic1" class="t_bluelight2"></a>
               </div>
             </div>
             <div class="mtb">
@@ -440,7 +461,7 @@
                 <span>产业园照片2</span>
               </div>
               <div class="file-box inblock va-tt">
-                <img id="pic2" src=""/>
+                  <a href="" target="_blank" id="pic2" class="t_bluelight2"></a>
               </div>
             </div>
           </div>
@@ -455,7 +476,133 @@
           </div>
         </form>
       </div>
-    
+      <div id="compDiv" class="hidden">
+        <div class="topname bt cm" id="">企业信息</div>
+        <form id="compForm">
+                <div id="isComp" class="hidden">
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>企业名称</span>
+                        </div>
+                        <input class="in-width" type="text" id="compName" disabled/>
+                    </div>
+                        
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>企业营业执照</span>
+                        </div>
+                        <div class="file-box inblock va-tt">
+                            <img id="gsyyzzh" src=""/>
+                        </div>
+                    </div>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>企业图标</span>
+                        </div>
+                        <div class="file-box inblock va-tt">
+                            <img id="logo" src=""/>
+                        </div>
+                    </div>
+                </div>
+                <div id="isGt" class="hidden">
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>真实姓名</span>
+                        </div>
+                        <input class="in-width" id="" type="text" id="realName" disabled/>
+                    </div>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>身份证照片</span>
+                        </div>
+                        <div class="file-box inblock va-tt"> 
+                            <img id="sfz" src=""/>
+                        </div>
+                    </div>
+                    
+                    <div class="mtb">
+                        <div class="inblock wb"> 
+                            <span class="xh">&nbsp;</span>
+                            <span>个体户图标</span>
+                        </div>
+                        <div class="file-box inblock va-tt"> 
+                            <img id="gthtb" src=""/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>联系人</span>
+                    </div>
+                    <input class="in-width" type="text" id="contacts" disabled/>
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>联系人手机</span>
+                    </div>
+                    <input class="in-width" type="text" id="mobile" disabled/>
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>联系人邮箱</span>
+                    </div>
+                    <input class="in-width" type="text" id="email" disabled/>
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>联系人QQ号码</span>
+                    </div>
+                    <input class="in-width" type="text" id="qq" disabled/>
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>规模</span>
+                    </div>
+                    <input class="in-width" type="text" id="scale" disabled/>
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span >地址</span>
+                    </div>
+                    <div class="map inblock va-tt break-word" type="text" id="address"></div>
+                </div>
+
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>广告语</span>
+                    </div>
+                    <input class="in-width" type="text" id="slogan" disabled/>
+                </div>
+                
+                <div class="mtb">
+                    <div class="inblock wb"> 
+                        <span class="xh">&nbsp;</span>
+                        <span>简介</span>
+                    </div>
+                    <textarea class="sell" rows="10" cols="50" id="compDescription" disabled></textarea>
+                </div>
+            </form>
+      </div>
       <div class="hold-box">
         <input type="button" id="sbtn" class="hold hidden" value="感兴趣">
         <a href="javascript:void(0)" id="goBack" class="cancel">返回</a>

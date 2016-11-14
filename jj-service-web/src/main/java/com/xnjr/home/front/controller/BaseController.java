@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import com.xnjr.home.front.base.ControllerContext;
 import com.xnjr.home.front.session.ISessionProvider;
+import com.xnjr.home.front.session.SessionTimeoutException;
 import com.xnjr.home.front.session.SessionUser;
 
 @Controller
@@ -32,7 +33,7 @@ public class BaseController {
     protected SessionUser getSessionUser() {
         SessionUser user = (SessionUser) sessionProvider.getUserDetail();
         if(user == null){
-        	user = new SessionUser();
+        	throw new SessionTimeoutException("登录链接已超时，请重新登录.");
         }
         return user;
     }

@@ -8,6 +8,7 @@ define([
         experience = Dict.get("experience"),
         education = Dict.get("education"),
         positionKind = Dict.get("positionKind"),
+        serverStatus = Dict.get("serverStatus"),
         pCode = base.getUrlParam("code");
 
     init();
@@ -45,6 +46,11 @@ define([
         $("#zwName", topForm).val(data.name);
         addPositionDict(topForm);
         $("#zwKind", topForm).val(positionKind[data.kind]);
+        $("#status", topForm).val(serverStatus[data.status]);
+        if(data.status == "0"){
+            $("#wgDiv", topForm).removeClass("hidden");
+            $("#dealNote", topForm).val(data.dealNote);
+        }
         $("#address", topForm).val(data.province + data.city);
         $("#experience", topForm).val(experience[data.experience]);
         $("#education", topForm).val(education[data.education]);

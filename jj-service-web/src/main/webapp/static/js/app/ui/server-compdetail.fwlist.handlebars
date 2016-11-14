@@ -2,10 +2,9 @@
     <tr code="{{code}}">
         <td><input type="checkbox" class="checkinput"/></td>
         <td>{{name}}</td>
-        <td>{{formtPKind expPosition}}</td>
-        <td>{{formatWorkTime preWorkTime}}</td>
-        <td>￥{{expMsalary}}</td>           
-        <td>{{expProvince}}{{expCity}}</td>
+        <td>{{formtSType type}}</td>
+        <td>{{company.name}}</td>
+        <td>￥{{formatPrice quoteMin}} - ￥{{formatPrice quoteMax}}</td>
         <td>{{formatDate publishDatetime}}</td>
     </tr>
 {{/each}}

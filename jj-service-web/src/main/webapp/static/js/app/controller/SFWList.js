@@ -11,6 +11,8 @@ define([
         serverType = Dict.get("serverType1"),
         interestStatus = Dict.get("interestStatus"),
         urgentLevel = Dict.get("urgentLevel"),
+        serverStatus = Dict.get("serverStatus"),
+        idx = base.getUrlParam("l") || 0,
         start = 1;
 
     init();
@@ -34,9 +36,13 @@ define([
             Handlebars.registerHelper('formatPrice', function(num, options){
                 return num && (+num / 1000);
             });
-            getPageServers();
-            addServerType();
+            Handlebars.registerHelper('formatSStatus', function(num, options){
+                return serverStatus[num];
+            });
             addListener();
+            $("#fwUl").find("li:eq("+idx+")").click();
+            //getPageServers();
+            addServerType();
         }else{
             location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
         }
@@ -61,12 +67,12 @@ define([
                         currentPage: start,
                         onPageClick: function(pageNumber){
                             start = pageNumber;
-                            addLoading($("#yfbfw-table").find("tbody"), 6);
+                            addLoading($("#yfbfw-table").find("tbody"), 7);
                             getPageServers();
                         }
                     });
                 }else{
-                    doError($("#yfbfw-table").find("tbody"), 6);
+                    doError($("#yfbfw-table").find("tbody"), 7);
                 }
             });
     }
@@ -104,7 +110,9 @@ define([
         base.getPageDemand({
             type: value || "",
             start: start,
-            limit: 10
+            limit: 10,
+            status: "1",
+            companyCode: base.getCompanyCode()
         }).then(function(res){
             if(res.success && res.data.list.length){
                 var data = res.data;
@@ -119,12 +127,12 @@ define([
                     currentPage: start,
                     onPageClick: function(pageNumber){
                         start = pageNumber;
-                        addLoading($("#sxq-table").find("tbody"), 7);
+                        addLoading($("#sxq-table").find("tbody"), 6);
                         getPageDemand(value);
                     }
                 });
             }else{
-                doError($("#sxq-table").find("tbody"), 7);
+                doError($("#sxq-table").find("tbody"), 6);
             }
         });
     }
@@ -140,7 +148,7 @@ define([
             contDiv.find("div.fwContent"+idx).removeClass("hidden");
             start = 1;
             $("#pagination_div").empty();
-            var col = 6, ele;
+            var col = 7, ele;
             if(idx == 0){
                 ele = $("#yfbfw-table").find("tbody");
                 addLoading(ele, col);
@@ -151,7 +159,8 @@ define([
                 addLoading(ele, col);
                 getPageLikeMyServer();
             }else{
-                col = 7;
+                $("#fwType")[0].selectedIndex = 0;
+                col = 6;
                 ele = $("#sxq-table").find("tbody");
                 addLoading(ele, col);
                 getPageDemand();
@@ -177,7 +186,7 @@ define([
             }
         });
         $("#fwAdd").on("click", function(){
-            location.href = "../server/addServer.html?return=" + base.makeReturnUrl();
+            location.href = "../server/addServer.html?return=" + encodeURIComponent(location.pathname + "?l=0");
         });
         $("#fwDelete").on("click", function(){
             var tr = getCheckItem("yfbfw-table"),
@@ -190,7 +199,7 @@ define([
                         .then(function(res){
                             me.removeClass("isDoing").text("删除");
                             if(res.success){
-                                addLoading($("#yfbfw-table").find("tbody"), 6);
+                                addLoading($("#yfbfw-table").find("tbody"), 7);
                                 getPageServers(true);
                                 base.showMsg("删除成功！");
                             }else{
@@ -206,7 +215,7 @@ define([
             var tr = getCheckItem("yfbfw-table"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../server/editServer.html?code="+code+"&return=" + base.makeReturnUrl();
+                location.href = "../server/editServer.html?code="+code+"&return=" + encodeURIComponent(location.pathname + "?l=0");
             }else{
                 base.showMsg("您未选择所要修改的服务！");
             }
@@ -215,7 +224,7 @@ define([
             var tr = getCheckItem("yfbfw-table"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../server/detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../server/detail.html?code="+code+"&return="+ encodeURIComponent(location.pathname + "?l=0");
             }else{
                 base.showMsg("您未选择所要查看的服务！");
             }
@@ -245,7 +254,7 @@ define([
             var tr = getCheckItem("bgxqfw-table"), 
                 code = tr && tr.attr("sCode") || "";
             if(code){
-                location.href = "../server/detail.html?code="+code+"&return=" + base.makeReturnUrl();
+                location.href = "../server/detail.html?code="+code+"&return=" + encodeURIComponent(location.pathname + "?l=1");
             }else{
                 base.showMsg("您未选择所要查看的服务！");
             }
@@ -309,7 +318,7 @@ define([
             var tr = getCheckItem("sxq-table"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/demand-detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../xuser/demand-detail.html?code="+code+"&return="+encodeURIComponent(location.pathname + "?l=2");
             }else{
                 base.showMsg("您未选择所要查看的需求！");
             }

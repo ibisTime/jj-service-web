@@ -9,6 +9,8 @@ define([
         tmplList2 = __inline("../ui/xuser-fwlist-rList2.handlebars"),
         serverType = Dict.get("serverType1"),
         urgentLevel = Dict.get("urgentLevel"),
+        serverStatus = Dict.get("serverStatus"),
+        idx = base.getUrlParam("l") || 0,
         start = 1;
 
     init();
@@ -17,6 +19,13 @@ define([
         $("#userA").addClass("current");
         if(base.isLogin() && base.isPerson()){
             Handlebars.registerHelper('formatDate', function(num, options){
+                var dd = new Date(num);
+                return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
+            });
+            Handlebars.registerHelper('formatDate1', function(num, options){
+                if(num == null){
+                    num = options.data.root.items[options.data.index].dealDatetime;
+                }
                 var dd = new Date(num);
                 return dd.getFullYear() + "-" + (dd.getMonth() + 1) + "-" + dd.getDate();
             });
@@ -29,8 +38,20 @@ define([
             Handlebars.registerHelper('formatPrice', function(num, options){
                 return num && (+num / 1000);
             });
-            getPageDemand();
+            Handlebars.registerHelper('formatSStatus', function(num, options){
+                return serverStatus[num];
+            });
+            Handlebars.registerHelper('formatExpCompName', function(num, options){
+                if(num == null){
+                    return "所有企业";
+                }
+                return num;
+            });
+            //getPageDemand();
             addListener();
+            $("#fwUl").find("li:eq("+idx+")").click();
+        }else if(base.isLogin()){
+            location.href = "../suser/fwlist.html";
         }else{
             location.href = "./login.html?return=" + base.makeReturnUrl();
         }
@@ -55,12 +76,12 @@ define([
                         currentPage: start,
                         onPageClick: function(pageNumber){
                             start = pageNumber;
-                            addLoading($("#wdxqTable").find("tbody"), 6);
-                            getPageResume();
+                            addLoading($("#wdxqTable").find("tbody"), 7);
+                            getPageDemand();
                         }
                     });
                 }else{
-                    doError($("#wdxqTable").find("tbody"), 6);
+                    doError($("#wdxqTable").find("tbody"), 7);
                 }
             });
     }
@@ -135,7 +156,7 @@ define([
             var col, ele;
             if(idx == 0){
                 ele = $("#wdxqTable").find("tbody");
-                col = 6;
+                col = 7;
                 addLoading(ele, col);
                 getPageDemand();
             }else if(idx == 1){
@@ -170,7 +191,7 @@ define([
             }
         });
         $("#wdxqAdd").on("click", function(){
-            location.href = "../xuser/add-demand.html?return=" + base.makeReturnUrl();
+            location.href = "../xuser/add-demand.html?return=" + encodeURIComponent(location.pathname + "?l=0");
         });
         $("#wdxqDelete").on("click", function(){
             var tr = getCheckItem("wdxqTable"),
@@ -198,7 +219,7 @@ define([
             var tr = getCheckItem("wdxqTable"),
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/edit-demand.html?code="+code+"&return=" + base.makeReturnUrl();
+                location.href = "../xuser/edit-demand.html?code="+code+"&return=" + encodeURIComponent(location.pathname + "?l=0");
             }else{
                 base.showMsg("您未选择所要修改的需求！");
             }
@@ -207,7 +228,7 @@ define([
             var tr = getCheckItem("wdxqTable"), 
                 code = tr && tr.attr("code") || "";
             if(code){
-                location.href = "../xuser/demand-detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../xuser/demand-detail.html?code="+code+"&return="+encodeURIComponent(location.pathname + "?l=0");
             }else{
                 base.showMsg("您未选择所要查看的需求！");
             }
@@ -240,7 +261,7 @@ define([
             var tr = getCheckItem("gxqfwTable"), 
                 code = tr && tr.attr("sCode") || "";
             if(code){
-                location.href = "../server/detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../server/detail.html?code="+code+"&return="+encodeURIComponent(location.pathname + "?l=1");
             }else{
                 base.showMsg("您未选择所要查看的服务！");
             }
@@ -293,7 +314,7 @@ define([
             var tr = getCheckItem("bgxqTable"), 
             code = tr && tr.attr("cCode") || "";
             if(code){
-                location.href = "../suser/detail.html?code="+code+"&return="+base.makeReturnUrl();
+                location.href = "../suser/detail.html?code="+code+"&return="+encodeURIComponent(location.pathname + "?l=2");
             }else{
                 base.showMsg("您未选择所要查看的信息！");
             }

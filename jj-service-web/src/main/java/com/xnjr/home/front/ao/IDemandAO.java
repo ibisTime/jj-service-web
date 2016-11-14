@@ -48,7 +48,8 @@ public interface IDemandAO {
 	 * @return
 	 */
 	public Object queryPageDemand(String publisher, String type, String urgentLevel,
-			String dateStart, String dateEnd, String dealer, String start, String limit);
+			String dateStart, String dateEnd, String dealer, String start,
+			String limit, String status, String companyCode);
 	
 	/**
 	 * 详情查询需求

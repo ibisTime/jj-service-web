@@ -1,8 +1,8 @@
 {{#each items}}
-    <tr class="cur_pointer">
-        <td class="tl">{{name}}</td>
-        <td class="tc">{{remark}}</td>
-        <td class="tl t-3dot">{{slogan}}</td>
-        <td class="tr">{{formatDate updateDatetime}}</td>
+    <tr class="cur_pointer" code="{{code}}">
+        <td class="tl t-3dot">{{name}}</td>
+        <td class="tc t-3dot">{{remark}}</td>
+        <td class="tl t-3dot wp200p">{{slogan}}</td>
+        <td class="tr wp100p">{{formatDate updateDatetime}}</td>
     </tr>
 {{/each}}

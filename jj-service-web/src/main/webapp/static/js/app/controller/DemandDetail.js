@@ -6,6 +6,7 @@ define([
     var citylist, config = {},
         serverType = Dict.get("serverType1"),
         urgentLevel = Dict.get("urgentLevel"),
+        serverStatus = Dict.get("serverStatus"),
         code = base.getUrlParam("code");
     init();
 
@@ -43,8 +44,17 @@ define([
             })
     }
     function addDemandInfo(data, compData){
+        compData.push({
+            code: "0",
+            name: "所有企业"
+        });
         var name = $("#name").val(data.name);
         $("#qualityCode").val(serverType[data.qualityCode]);
+        $("#status").val(serverStatus[data.status]);
+        if(data.status == "0"){
+            $("#wgDiv").removeClass("hidden");
+            $("#dealNote").val(data.dealNote);
+        }
         for(var i = 0; i < compData.length; i++){
             if( data.expCompany == compData[i].code ){
                 $("#expCompany").val(compData[i].name);
@@ -78,5 +88,27 @@ define([
                         });
                 });
         }
+        $("#navLeft").on("click", "li", function(){
+            var idx = $(this).index();
+            if(idx == 0){
+                if(base.isCompUser()){
+                    location.href = "../suser/center.html";
+                }else{
+                    location.href = "./center.html";
+                }
+            }else if(idx == 1){
+                if(base.isCompUser()){
+                    location.href = "../suser/rclist.html";
+                }else{
+                    location.href = "./rclist.html";
+                }
+            }else if(idx == 2){
+                if(base.isCompUser()){
+                    location.href = "../suser/fwlist.html";
+                }else{
+                    location.href = "./fwlist.html";
+                }
+            }
+        });
     }
 });

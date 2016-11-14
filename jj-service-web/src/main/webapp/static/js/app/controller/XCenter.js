@@ -12,8 +12,20 @@ define([
         $("#userA").addClass("current");
         if(base.isLogin() && base.isPerson()){
             getUserInfo();
+        }else if(base.isLogin()){
+            location.href = "../suser/center.html";
         }else{
-            location.href = "./login.html?return=" + base.makeReturnUrl();
+            if(base.isLogin()){
+                base.showMsg("您不是个人用户，请先进行注册");
+                setTimeout(function(){
+                    location.href = "./register.html?return=" + base.makeReturnUrl();
+                }, 1000);   
+            }else{
+                base.showMsg("您还未登录，无法查看当前页面");
+                setTimeout(function(){
+                    location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
+                }, 1000);
+            }
         }
     }
 

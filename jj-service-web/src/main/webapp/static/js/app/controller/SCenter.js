@@ -18,7 +18,18 @@ define([
             getPageCredentials();
             addListeners();
         }else{
-            location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
+            if(base.isLogin()){
+                base.showMsg("您不是企业用户，请先进行注册");
+                setTimeout(function(){
+                    location.href = "./register.html?return=" + base.makeReturnUrl();
+                }, 1000);   
+
+            }else{
+                base.showMsg("您还未登录，无法查看当前页面");
+                setTimeout(function(){
+                    location.href = "../xuser/login.html?return=" + base.makeReturnUrl();
+                }, 1000);
+            }
         }
     }
 
@@ -64,7 +75,8 @@ define([
     function getPageCredentials(){
         base.getPageCredentials({
             "start": start,
-            "limit": "10"
+            "limit": "10",
+            "companyCode": base.getCompanyCode()
         }).then(function(res){
             if(res.success){
                 var data = res.data, list = data.list, html = "";
@@ -91,7 +103,7 @@ define([
                             html += '<tr>'+
                                         '<td>'+serverType[list[i].certificateType]+'</td>'+
                                         '<td>不通过</td>'+
-                                        '<td><a title="'+list[i].approveNote+'" href="./apply-certificate2.html?code='+list[i].certificateCode+'&return='+base.makeReturnUrl()+'">重新提交</a></td>'+
+                                        '<td><a title="'+list[i].approveNote+'" href="./apply-certificate2.html?code='+list[i].certificateCode+'&t=2&cc='+list[i].code+'&return='+base.makeReturnUrl()+'">重新提交</a></td>'+
                                     '</tr>';
                         }
                     }

@@ -1,7 +1,7 @@
 define([
     'app/controller/base'
 ], function (base) {
-    var config = {};
+    var config = {}, cList = {};
     init();
 
     function init(){
@@ -22,19 +22,29 @@ define([
     }
 
     function getCompanyInfo(){
-        base.getCompanyInfo()
-            .then(function(res){
-                if(res.success){
-                    var data = res.data;
-                    config = data;
-                    addCompInfo(data);
-                }else{
-                    base.showMsg("非常抱歉，暂时无法获取公司信息！");
-                }
-            });
+        $.when(
+            base.getCompanyInfo(),
+            base.getDictList({parentKey: "comp_scale"})
+        ).then(function(res, res1){
+            res = res[0];   res1 = res1[0];
+            if(res.success && res1.success){
+                var data = res.data;
+                config = data;
+                addCompInfo(data, res1.data);
+            }else{
+                base.showMsg("非常抱歉，暂时无法获取公司信息！");                
+            }
+        });
     }
-    
-    function addCompInfo(data){
+    function addScale(data){
+        for(var i = 0, html = ""; i < data.length; i++){
+            html += '<option value="'+data[i].dkey+'">'+data[i].dvalue+'</option>';
+        }
+        $("#scale").html(html);
+    }
+    function addCompInfo(data, data1){
+        getAddressInfo(data.province, data.city, data.area);
+        addScale(data1);
         //公司
         if(data.type == "1"){
             $("#qyDiv").removeClass("hidden");
@@ -67,14 +77,18 @@ define([
         $("#mobile").val(data.mobile);
         $("#email").val(data.email);
         $("#qq").val(data.qq);
-        $("#scale").val(data.scale);
-        $("#address")
-            .citySelect({
-                prov: data.province,
-                city: data.city,
-                dist: data.area,
-                url: "/static/js/lib/city.min.json"
-            });
+        if(data.scale != null){
+            $("#scale").find('option[value="'+data.scale+'"]')[0].selected = true;
+        }else{
+            $("#scale")[0].selectedIndex = -1;
+        }
+        // $("#address")
+        //     .citySelect({
+        //         prov: data.province,
+        //         city: data.city,
+        //         dist: data.area,
+        //         url: "/static/js/lib/city.min.json"
+        //     });
         $("#slogan").val(data.slogan);
         $("#remark").val(data.remark);        
         $("#description").val(data.description);
@@ -113,6 +127,69 @@ define([
                 ajaxFileUpload("qytbFile", "qytbImg", "qytbUrl","qytbBtn");
             }
         });
+        $("#province").on("change", function(){
+            var me = $(this), temp_html = "",
+                prov_id = +me[0].selectedIndex;
+            $.each(cList[prov_id].c,function(i,city){  
+                temp_html+="<option value='"+city.n+"'>"+city.n+"</option>";  
+            });
+            $("#city").removeAttr("disabled").html(temp_html);
+            $("#city").trigger("change");
+        });
+        $("#city").on("change", function(){
+            var me = $(this), temp_html = "",
+                prov_id = +$("#province")[0].selectedIndex,
+                city_id = +me[0].selectedIndex;
+            if(cList[prov_id].c[city_id].a){
+                $.each(cList[prov_id].c[city_id].a,function(i,dist){  
+                    temp_html+="<option value='"+dist.s+"'>"+dist.s+"</option>";  
+                });
+                temp_html = "<option value=''>所有地区</option>" + temp_html;
+                $("#area").removeClass("hidden").html(temp_html);
+            }else{
+                $("#area").addClass("hidden").empty();
+            }
+        });
+    }
+
+    function getAddressInfo(province, city, area){
+        base.getAddress()
+            .then(function(res){
+                var temp_html = "", temp_html1 = "", temp_html2 = "";
+                var prov_id = 0, city_id = 0;
+                cList = res.citylist;
+                $.each(cList,function(i,prov){
+                    if(prov.p == province){
+                        prov_id = i;
+                        temp_html+="<option value='"+prov.p+"' selected>"+prov.p+"</option>";  
+                    }else{
+                        temp_html+="<option value='"+prov.p+"'>"+prov.p+"</option>";                          
+                    }
+                });
+                $.each(cList[prov_id].c,function(i,city1){
+                    if(city == city1.n){
+                        city_id = i;
+                        temp_html1+="<option value='"+city1.n+"' selected>"+city1.n+"</option>";
+                    }else{
+                        temp_html1+="<option value='"+city1.n+"'>"+city1.n+"</option>";
+                    }
+                });
+                if(cList[prov_id].c[city_id].a){
+                    $.each(cList[prov_id].c[city_id].a,function(i,dist){
+                        if(area == dist.s){
+                            temp_html2+="<option value='"+dist.s+"' selected>"+dist.s+"</option>"; 
+                        }else{
+                            temp_html2+="<option value='"+dist.s+"'>"+dist.s+"</option>"; 
+                        }
+                    });
+                    temp_html2 = "<option value=''>所有地区</option>" + temp_html2;
+                    $("#area").removeClass("hidden").html(temp_html2);
+                }else{
+                    $("#area").empty().addClass("hidden");
+                }
+                $("#province").append(temp_html);
+                $("#city").append(temp_html1);
+            });
     }
 
     function judgeImgType(id){
@@ -157,7 +234,7 @@ define([
                 if(res.success){
                     location.href = "./apply-certificate2.html?return="+base.getReturnParam();
                 }else{
-                    base.showMsg("非常抱歉，修改公司信息失败！");
+                    base.showMsg(res.msg);
                 }
             });
     }

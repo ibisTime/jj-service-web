@@ -49,8 +49,8 @@ define([
         });
         //拍摄/摄影 代表作品
         $("#worksBtn").on("click", function(){
-            if(judgeImgType("worksFile")){
-                ajaxImgUpload("worksFile", "works", "worksUrl", "worksBtn");
+            if(judgeFile("worksFile")){
+                ajaxFileUpload("worksFile", "worksUrl", "worksBtn");
             }
         });
         //培训简历1
@@ -85,26 +85,20 @@ define([
         });
         //美工外包 设计作品案例 
         $("#sj-worksBtn").on("click", function(){
-            if(judgeImgType("sj-worksFile")){
-                ajaxImgUpload("sj-worksFile", "sj-works", "sj-worksUrl", "sj-worksBtn");
-            }
-        });
-        //客服外包 成功案例展示
-        $("#kf-sucCaseBtn").on("click", function(){
-            if(judgeFile("kf-sucCaseFile")){
-                ajaxFileUpload("kf-sucCaseFile", "kf-sucCaseUrl", "kf-sucCaseBtn");
+            if(judgeFile("sj-worksFile")){
+                ajaxFileUpload("sj-worksFile", "sj-worksUrl", "sj-worksBtn");
             }
         });
         //产业园 产业园照片1 
         $("#pic1Btn").on("click", function(){
-            if(judgeImgType("pic1File")){
-                ajaxImgUpload("pic1File", "pic1", "pic1Url", "pic1Btn");
+            if(judgeFile("pic1File")){
+                ajaxFileUpload("pic1File", "pic1Url", "pic1Btn");
             }
         });
         //产业园 产业园照片2 
         $("#pic2Btn").on("click", function(){
-            if(judgeImgType("pic2File")){
-                ajaxImgUpload("pic2File", "pic2", "pic2Url", "pic2Btn");
+            if(judgeFile("pic2File")){
+                ajaxFileUpload("pic2File", "pic2Url", "pic2Btn");
             }
         });
     }
@@ -119,29 +113,29 @@ define([
         $("#realType", topForm).val(data.type);
         $("#fwType", topForm).val(serverType[data.type]);
         /**
-         * 1 软件开发 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6 客服外包 7 仓配服务 8 产业园
+         * 1 培训 2摄影/拍摄 3 美工外包  4 店铺代运营 5 客服外包 6 仓配服务 7 软件开发  8 产业园 9 人才招聘
          */
         switch(data.type){
             case "1":
-                addRjwbInfo(data, topForm);
+                addPxInfo(data.serveTrain, topForm);
                 break;
             case "2":
                 addSypsInfo(data.servePhoto, topForm);
                 break;
             case "3":
-                addPxInfo(data.serveTrain, topForm);
+                addMgwbInfo(data.serveArt, topForm);
                 break;
             case "4":
                 addDpdyyInfo(data.serveShop, topForm);
                 break;
             case "5":
-                addMgwbInfo(data.serveArt, topForm);
-                break;
-            case "6":
                 addKfwbInfo(data.serveKfwb, topForm);
                 break;
-            case "7":
+            case "6":
                 addCpfwInfo(data.serveCp, topForm);
+                break;
+            case "7":
+                addRjwbInfo(data, topForm);
                 break;
             case "8":
                 addCyyInfo(data.serveCyy, topForm);
@@ -159,8 +153,7 @@ define([
         $("#sysNum", topForm).val(data.sysNum);
         $("#isDz", topForm).find("option[value='"+data.isDz+"']")[0].selected = true;
         $("#scpslm", topForm).val(data.scpslm);
-        $("#works", topForm).attr("src", data.works);
-        $("#worksUrl", topForm).val(data.works);
+        $("#worksUrl", topForm).attr("href", data.works).text(data.works.substring(data.works.lastIndexOf("/") + 1));
     }
 
     function addPxInfo(data, topForm){
@@ -168,14 +161,10 @@ define([
         $("#lectorNum", topForm).val(data.lectorNum);
         $("#mtrainTimes", topForm).val(data.mtrainTimes);
         $("#mtrainNum", topForm).val(data.mtrainNum);
-        $("#resume1Url", topForm).val(data.resume1);
-        $("#resume1Url1", topForm).text(data.resume1);
-        $("#resume2Url", topForm).val(data.resume2);
-        $("#resume2Url1", topForm).text(data.resume2);
-        $("#resume3Url", topForm).val(data.resume3);
-        $("#resume3Url1", topForm).text(data.resume3);
-        $("#courseUrl", topForm).val(data.course);
-        $("#courseUrl1", topForm).text(data.course);
+        $("#resume1Url", topForm).attr("href", data.resume1).text( data.resume1.substring(data.resume1.lastIndexOf("/")+1) );
+        $("#resume2Url", topForm).attr("href", data.resume2).text(data.resume2.substring(data.resume2.lastIndexOf("/")+1));
+        $("#resume3Url", topForm).attr("href", data.resume3).text(data.resume3.substring(data.resume3.lastIndexOf("/")+1));
+        $("#courseUrl", topForm).attr("href", data.course).text(data.course.substring(data.course.lastIndexOf("/")+1));
     }
 
     function addDpdyyInfo(data, topForm){
@@ -187,8 +176,7 @@ define([
         $("#feeMode", topForm).find("option[value='"+data.feeMode+"']")[0].selected = true;
         $("#payCycle", topForm).find("option[value='"+data.payCycle+"']")[0].selected = true;
         $("#scyylm", topForm).val(data.scyylm);
-        $("#sucCaseUrl", topForm).val(data.sucCase);
-        $("#sucCaseUrl1", topForm).text(data.sucCase);
+        $("#sucCaseUrl", topForm).attr("href", data.sucCase).text(data.sucCase.substring(data.sucCase.lastIndexOf("/")+1));
     }
 
     function addMgwbInfo(data, topForm){
@@ -203,18 +191,18 @@ define([
         $("#bannerPrice", topForm).val(+data.bannerPrice / 1000);
         $("#allDays", topForm).val(data.allDays);
         $("#allPrice", topForm).val(+data.allPrice / 1000);
-        $("#sj-works", topForm).attr("src", data.works);
-        $("#sj-worksUrl", topForm).val(data.works);
+        $("#sj-worksUrl", topForm).attr("href", data.works).text(data.works.substring(data.works.lastIndexOf("/")+1));
     }
 
     function addKfwbInfo(data, topForm){
         $("#kfwb", topForm).removeClass("hidden");
         $("#kfNum", topForm).val(data.kfNum);
         $("#mtradeAmount", topForm).val(+data.mtradeAmount / 1000);
-        $("#business", topForm).find("option[value='"+data.business+"']")[0].selected = true;
+        var cDiv = $("#business", topForm);
+        for(var i = 0; i < data.business.length; i++){
+            cDiv.find("input[value='"+data.business[i]+"']")[0].checked = true;
+        }
         $("#feeMode1", topForm).find("option[value='"+data.feeMode+"']")[0].selected = true;
-        $("#kf-sucCaseUrl", topForm).val(data.sucCase);
-        $("#kf-sucCaseUrl1", topForm).text(data.sucCase);
     }
 
     function addCpfwInfo(data, topForm){
@@ -235,15 +223,15 @@ define([
         $("#ccArea", topForm).val(data.ccArea);
         $("#availCcArea", topForm).val(data.availCcArea);
         var list = data.zzfw;
-        for(var i = 0; i < list.length; i++){
-            $("#zzfw"+list[i], topForm)[0].checked = true;
+        if(list){
+            for(var i = 0; list && i < list.length; i++){
+                $("#zzfw"+list[i], topForm)[0].checked = true;
+            }
         }
         $("#introduce", topForm).val(data.introduce);
         $("#yhPolicy", topForm).html(data.yhPolicy);
-        $("#pic1", topForm).attr("src", data.pic1);
-        $("#pic1Url", topForm).val(data.pic1);
-        $("#pic2", topForm).attr("src", data.pic2);
-        $("#pic2Url", topForm).val(data.pic2);
+        $("#pic1Url", topForm).attr("href", data.pic1).text(data.pic1.substring(data.pic1.lastIndexOf("/") + 1));
+        $("#pic2Url", topForm).attr("href", data.pic2).text(data.pic2.substring(data.pic2.lastIndexOf("/") + 1));
     }
 
     function ajaxImgUpload(fileId, imgId, urlId, btnId) {
@@ -254,10 +242,16 @@ define([
             fileElementId: fileId, //文件上传域的ID
             dataType: 'json', //返回值类型 一般设置为json
             success: function (data, status){  //服务器成功响应处理函数
-                $("#" + imgId).attr("src", data.url);
-                $("#" + urlId).val(data.url);
-                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
-                base.showMsg("上传成功", 1000);
+                if(data.status == "1"){
+                    $("#" + imgId).attr("src", data.url);
+                    $("#" + urlId).val(data.url);
+                    $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                    base.showMsg("上传成功", 1000);
+                }else{
+                    base.showMsg("非常抱歉，图片上传失败!");
+                    $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                    $("#" + fileId)[0].value = "";
+                }
             },
             error: function (data, status, e){//服务器响应失败处理函数
                 base.showMsg("非常抱歉，图片上传失败!");
@@ -274,10 +268,15 @@ define([
             fileElementId: fileId, //文件上传域的ID
             dataType: 'json', //返回值类型 一般设置为json
             success: function (data, status){  //服务器成功响应处理函数
-                $("#" + urlId).val(data.url);
-                $("#" + urlId + "1").text(data.url);
-                $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
-                base.showMsg("上传成功", 1000);
+                if(data.status == "1"){
+                    $("#" + urlId).attr("href", data.url).text(data.url.substring(data.url.lastIndexOf("/")+1));
+                    $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                    base.showMsg("上传成功", 1000);
+                }else{
+                    base.showMsg("非常抱歉，文件上传失败!");
+                    $("#" + btnId).removeClass("bg-loading").removeAttr("disabled");
+                    $("#" + fileId)[0].value = "";
+                }
             },
             error: function (data, status, e){//服务器响应失败处理函数
                 base.showMsg("非常抱歉，文件上传失败!");
@@ -351,29 +350,29 @@ define([
         config.description = description;
         config.code = sCode;
         /**
-         * 1 软件开发 2摄影/拍摄 3 培训 4 店铺代运营 5 美工外包 6 客服外包 7 仓配服务 8 产业园
+         * 1 培训 2摄影/拍摄 3 美工外包  4 店铺代运营 5 客服外包 6 仓配服务 7 软件开发  8 产业园 9 人才招聘
          */
         switch(type){
             case "1":
-                editRjwbInfo();
+                editPxInfo();
                 break;
             case "2":
                 editSypsInfo();
                 break;
             case "3":
-                editPxInfo();
+                editMgwbInfo();
                 break;
             case "4":
                 editDpdyyInfo();
                 break;
             case "5":
-                editMgwbInfo();
-                break;
-            case "6":
                 editKfwbInfo();
                 break;
-            case "7":
+            case "6":
                 editCpfwInfo();
+                break;
+            case "7":
+                editRjwbInfo();
                 break;
             case "8":
                 editCyyInfo();
@@ -383,6 +382,7 @@ define([
         }
     }
     function editRjwbInfo(){
+        $("#sbtn").attr('disabled', "disabled").addClass("bg-loading");
         base.editRjwbInfo(config)
             .then(function(res){
                 if(res.success){
@@ -391,7 +391,8 @@ define([
                         base.goBackUrl("./index.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改服务失败！");
+                    $("#sbtn").removeClass("bg-loading").removeAttr('disabled');
+                    base.showMsg(res.msg);
                 }
             });
     }
@@ -421,12 +422,13 @@ define([
             return;
         }
         config.scpslm = scpslm;
-        var worksUrl = $("#worksUrl").val();
+        var worksUrl = $("#worksUrl").attr("href");
         if(!worksUrl || worksUrl.trim() === ""){
             base.showMsg("擅长拍摄类目不能为空");
             return;
         }
         config.works = worksUrl;
+        $("#sbtn").attr('disabled', "disabled").addClass("bg-loading");
         base.editSypsInfo(config)
             .then(function(res){
                 if(res.success){
@@ -435,7 +437,8 @@ define([
                         base.goBackUrl("./index.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改服务失败！");
+                    $("#sbtn").removeClass("bg-loading").removeAttr('disabled');
+                    base.showMsg(res.msg);
                 }
             });
     }
@@ -468,30 +471,31 @@ define([
             return;
         }
         config.mtrainNum = mtrainNum;
-        var resume1 = $("#resume1Url").val();
+        var resume1 = $("#resume1Url").attr("href");
         if(!resume1 || resume1.trim() === ""){
             base.showMsg("核心讲师简历1不能为空");
             return;
         }
         config.resume1 = resume1;
-        var resume2 = $("#resume2Url").val();
+        var resume2 = $("#resume2Url").attr("href");
         if(!resume2 || resume2.trim() === ""){
             base.showMsg("核心讲师简历2不能为空");
             return;
         }
         config.resume2 = resume2;
-        var resume3 = $("#resume3Url").val();
+        var resume3 = $("#resume3Url").attr("href");
         if(!resume3 || resume3.trim() === ""){
             base.showMsg("核心讲师简历3不能为空");
             return;
         }
         config.resume3 = resume3;
-        var course = $("#courseUrl").val();
+        var course = $("#courseUrl").attr("href");
         if(!course || course.trim() === ""){
-            base.showMsg("核心讲师简历3不能为空");
+            base.showMsg("培训课程不能为空");
             return;
         }
         config.course = course;
+        $("#sbtn").attr('disabled', "disabled").addClass("bg-loading");
         base.editPxInfo(config)
             .then(function(res){
                 if(res.success){
@@ -500,7 +504,8 @@ define([
                         base.goBackUrl("./index.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改服务失败！");
+                    $("#sbtn").removeClass("bg-loading").removeAttr('disabled');
+                    base.showMsg(res.msg);
                 }
             });
     }
@@ -530,16 +535,17 @@ define([
         config.payCycle = payCycle;
         var scyylm = $("#scyylm").val();
         if(!scyylm || scyylm.trim() === ""){
-            base.showMsg("付款周期不能为空");
+            base.showMsg("擅长运营类目不能为空");
             return;
         }
         config.scyylm = scyylm;
-        var sucCaseUrl = $("#sucCaseUrl").val();
+        var sucCaseUrl = $("#sucCaseUrl").attr("href");
         if(!sucCaseUrl || sucCaseUrl.trim() === ""){
-            base.showMsg("付款周期不能为空");
+            base.showMsg("成功案例展示不能为空");
             return;
         }
         config.sucCase = sucCaseUrl;
+        $("#sbtn").attr('disabled', "disabled").addClass("bg-loading");
         base.editDpdyyInfo(config)
             .then(function(res){
                 if(res.success){
@@ -548,7 +554,8 @@ define([
                         base.goBackUrl("./index.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改服务失败！");
+                    $("#sbtn").removeClass("bg-loading").removeAttr('disabled');
+                    base.showMsg(res.msg);
                 }
             });
     }
@@ -641,12 +648,13 @@ define([
             return;
         }
         config.allPrice = +allPrice * 1000;
-        var works = $("#sj-worksUrl").val();
+        var works = $("#sj-worksUrl").attr("href");
         if(!works || works.trim() === ""){
             base.showMsg("设计作品案例不能为空");
             return;
         }
         config.works = works;
+        $("#sbtn").attr('disabled', "disabled").addClass("bg-loading");
         base.editMgwbInfo(config)
             .then(function(res){
                 if(res.success){
@@ -655,7 +663,8 @@ define([
                         base.goBackUrl("./index.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改服务失败！");
+                    $("#sbtn").removeClass("bg-loading").removeAttr('disabled');
+                    base.showMsg(res.msg);
                 }
             });
     }
@@ -695,12 +704,7 @@ define([
             return;
         }
         config.feeMode = feeMode1;
-        var sucCase = $("#kf-sucCaseUrl").val();
-        if(!sucCase || sucCase.trim() === ""){
-            base.showMsg("成功案例展示不能为空");
-            return;
-        }
-        config.sucCase = sucCase;
+        $("#sbtn").attr('disabled', "disabled").addClass("bg-loading");
         base.editKfwbInfo(config)
             .then(function(res){
                 if(res.success){
@@ -709,7 +713,8 @@ define([
                         base.goBackUrl("./index.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改服务失败！");
+                    $("#sbtn").removeClass("bg-loading").removeAttr('disabled');
+                    base.showMsg(res.msg);
                 }
             });
     }
@@ -752,6 +757,7 @@ define([
             return;
         }
         config.dsendNum = dsendNum;
+        $("#sbtn").attr('disabled', "disabled").addClass("bg-loading");
         base.editCpfwInfo(config)
             .then(function(res){
                 if(res.success){
@@ -760,7 +766,8 @@ define([
                         base.goBackUrl("./index.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改服务失败！");
+                    $("#sbtn").removeClass("bg-loading").removeAttr('disabled');
+                    base.showMsg(res.msg);
                 }
             });
     }
@@ -803,15 +810,13 @@ define([
         }
         config.availCcArea = availCcArea;
         var checkbox = $("#zzfw").find("input[type='checkbox']:checked");
-        if(!checkbox.length){
-            base.showMsg("增值服务不能为空");
-            return;
+        if(checkbox.length){
+            var zzfw = "";
+            for(var i = 0; i < checkbox.length; i++){
+                zzfw = zzfw + checkbox[i].value;
+            }
+            config.zzfw = zzfw;
         }
-        var zzfw = "";
-        for(var i = 0; i < checkbox.length; i++){
-            zzfw = zzfw + checkbox[i].value;
-        }
-        config.zzfw = zzfw;
         var introduce = $("#introduce").val();
         if(!introduce || introduce.trim() === ""){
             base.showMsg("产业园详细介绍不能为空");
@@ -824,18 +829,19 @@ define([
             return;
         }
         config.yhPolicy = yhPolicy;
-        var pic1Url = $("#pic1Url").val();
+        var pic1Url = $("#pic1Url").attr("href");
         if(!pic1Url || pic1Url.trim() === ""){
             base.showMsg("产业园照片1不能为空");
             return;
         }
         config.pic1 = pic1Url;
-        var pic2Url = $("#pic2Url").val();
+        var pic2Url = $("#pic2Url").attr("href");
         if(!pic2Url || pic2Url.trim() === ""){
             base.showMsg("产业园照片2不能为空");
             return;
         }
         config.pic2 = pic2Url;
+        $("#sbtn").attr('disabled', "disabled").addClass("bg-loading");
         base.editCyyInfo(config)
             .then(function(res){
                 if(res.success){
@@ -844,7 +850,8 @@ define([
                         base.goBackUrl("./index.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改服务失败！");
+                    $("#sbtn").removeClass("bg-loading").removeAttr('disabled');
+                    base.showMsg(res.msg);
                 }
             });
     }

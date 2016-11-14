@@ -28,7 +28,7 @@ public class CredentialsAOImpl implements ICredentialsAO {
 	public Object queryPageCredentials(
 			String certificateCode, String certificateType,
 			String companyCode, String status, String approveUser,
-			String start, String limit) {
+			String start, String limit, String province, String city, String area) {
 		XN806150Req req = new XN806150Req();
 		req.setCertificateType(certificateType);
 		req.setApproveUser(approveUser);
@@ -37,6 +37,9 @@ public class CredentialsAOImpl implements ICredentialsAO {
 		req.setLimit(limit);
 		req.setStart(start);
 		req.setStatus(status);
+		req.setProvince(province);
+		req.setCity(city);
+		req.setArea(area);
 		return BizConnecter.getBizData("806150", JsonUtils.object2Json(req),
 				Object.class);
 	}

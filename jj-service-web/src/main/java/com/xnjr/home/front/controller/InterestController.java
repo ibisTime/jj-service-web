@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xnjr.home.front.ao.IInterestAO;
+import com.xnjr.home.front.session.SessionTimeoutException;
 import com.xnjr.home.front.session.SessionUser;
 
 @Controller
@@ -81,6 +82,8 @@ public class InterestController extends BaseController {
 	    	}else if(user.getKind().equals("comp")){
 	    		companyCode = user.getCompanyCode();
 	    	}
+    	}else{
+    		throw new SessionTimeoutException("登录链接已超时，请重新登录.");
     	}
     	return interestAO.queryPageInterestServer(fromUser,
     			toCode, companyCode, start, limit);
@@ -94,6 +97,18 @@ public class InterestController extends BaseController {
     		@RequestParam(value = "companyCode", required = false) String companyCode,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
+    	SessionUser user = this.getSessionUser();
+    	if(user != null){
+	    	//需求方
+	    	if(user.getKind().equals("f1")){
+	    		publisher = user.getUserId();
+	    	//服务方(查询被感兴趣服务)
+	    	}else if(user.getKind().equals("comp")){
+	    		companyCode = user.getCompanyCode();
+	    	}
+    	}else{
+    		throw new SessionTimeoutException("登录链接已超时，请重新登录.");
+    	}
     	return interestAO.queryPageInterestDemand(this.getSessionUser().getCompanyCode(),
     			publisher, start, limit);
     }
@@ -115,6 +130,8 @@ public class InterestController extends BaseController {
 	    	}else if(user.getKind().equals("comp")){
 	    		companyCode = user.getCompanyCode();
 	    	}
+    	}else{
+    		throw new SessionTimeoutException("登录链接已超时，请重新登录.");
     	}
     	return interestAO.queryPageInterestResume(companyCode, publisher, start, limit);
     }
@@ -136,6 +153,8 @@ public class InterestController extends BaseController {
         	}else if(user.getKind().equals("comp")){
         		companyCode = user.getCompanyCode();
         	}
+    	}else{
+    		throw new SessionTimeoutException("登录链接已超时，请重新登录.");
     	}
     	return interestAO.queryPageInterestPosition(companyCode,
     			fromUser, start, limit);

@@ -7,6 +7,7 @@ define([
     var tmplList = __inline("../ui/suser-fwlist-rList.handlebars"),
         certificateStatus = Dict.get("certificateStatus"),
         serverType = Dict.get("serverType"),
+        serverStatus = Dict.get("serverStatus"),
         start = 1, sType = base.getUrlParam("type"),
         urgentLevel = Dict.get("urgentLevel");
 
@@ -24,6 +25,9 @@ define([
             });
             Handlebars.registerHelper('formatPrice', function(num, options){
                 return num && (+num / 1000);
+            });
+            Handlebars.registerHelper('formatSStatus', function(num, options){
+                return serverStatus[num];
             });
             if(sType){
                 $("#leftNav").find("li[code='"+sType+"']").addClass("current");
@@ -55,7 +59,7 @@ define([
                         currentPage: start,
                         onPageClick: function(pageNumber){
                             start = pageNumber;
-                            addLoading($("#yfbfw-table").find("tbody"), 6);
+                            addLoading($("#yfbfw-table").find("tbody"), 7);
                             getPageServers();
                         }
                     });
@@ -99,7 +103,7 @@ define([
                             me.removeClass("isDoing").text("删除");
                             if(res.success){
                                 base.showMsg("删除成功！");
-                                addLoading($("#yfbfw-table").find("tbody"), 6);
+                                addLoading($("#yfbfw-table").find("tbody"), 7);
                                 getPageServers(true);
                                 tr.remove();
                             }else{
@@ -144,6 +148,6 @@ define([
         ele.html("<tr><td colspan='"+col+"'><i class='loading-icon'></i></td></tr>");
     }
     function doError(){
-        $("#yfbfw-table").find("tbody").html('<tr><td colspan="6">暂时数据</td></tr>');
+        $("#yfbfw-table").find("tbody").html('<tr><td colspan="7">暂时数据</td></tr>');
     }
 });

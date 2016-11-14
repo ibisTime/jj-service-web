@@ -129,7 +129,6 @@ public class ServerController extends BaseController {
     public Object editOperatorsServer(
     		@RequestParam(value = "code", required = true) String code,
     		@RequestParam(value = "name", required = true) String name,
-    		@RequestParam(value = "companyCode", required = true) String companyCode,
     		@RequestParam(value = "quoteMin", required = true) String quoteMin,
     		@RequestParam(value = "quoteMax", required = true) String quoteMax,
     		@RequestParam(value = "qualityCode", required = false) String qualityCode,
@@ -319,7 +318,7 @@ public class ServerController extends BaseController {
     		@RequestParam(value = "availBgArea", required = true) String availBgArea,
     		@RequestParam(value = "ccArea", required = true) String ccArea,
     		@RequestParam(value = "availCcArea", required = true) String availCcArea,
-    		@RequestParam(value = "zzfw", required = true) String zzfw,
+    		@RequestParam(value = "zzfw", required = false) String zzfw,
     		@RequestParam(value = "introduce", required = true) String introduce,
     		@RequestParam(value = "yhPolicy", required = true) String yhPolicy,
     		@RequestParam(value = "pic1", required = true) String pic1,
@@ -345,7 +344,7 @@ public class ServerController extends BaseController {
     		@RequestParam(value = "availBgArea", required = true) String availBgArea,
     		@RequestParam(value = "ccArea", required = true) String ccArea,
     		@RequestParam(value = "availCcArea", required = true) String availCcArea,
-    		@RequestParam(value = "zzfw", required = true) String zzfw,
+    		@RequestParam(value = "zzfw", required = false) String zzfw,
     		@RequestParam(value = "introduce", required = true) String introduce,
     		@RequestParam(value = "yhPolicy", required = true) String yhPolicy,
     		@RequestParam(value = "pic1", required = true) String pic1,
@@ -382,11 +381,14 @@ public class ServerController extends BaseController {
     		@RequestParam(value = "dateStart", required = false) String dateStart,
     		@RequestParam(value = "dateEnd", required = false) String dateEnd,
     		@RequestParam(value = "dealer", required = false) String dealer,
+    		@RequestParam(value = "orderColumn", required = false) String orderColumn,
+    		@RequestParam(value = "orderDir", required = false) String orderDir,
+    		@RequestParam(value = "status", required = false) String status,
 			@RequestParam("start") String start,
 			@RequestParam("limit") String limit){
     	return serverAO.queryPageServers(type, name, companyCode, companyName,
-    			qualityCode, isHot, pubisher, province, city, area,
-    			dateStart, dateEnd, dealer, start, limit);
+    			qualityCode, isHot, pubisher, province, city, area, status,
+    			dateStart, dateEnd, dealer, start, limit, orderColumn, orderDir);
     }
     
     //详情查询服务

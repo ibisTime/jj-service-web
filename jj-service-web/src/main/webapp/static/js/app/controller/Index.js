@@ -27,18 +27,31 @@ define([
         base.getBannerList({location: "1"})
             .then(function(res){
                 if(res.success){
-                    if(res.data.list){
+                    if(res.data.length){
                         var data = res.data, html = "";
                         for(var i = 0; i < data.length; i++){
-                            html += '<div class="swiper-slide"><img src="'+data[i].pic+'"></div>';
+                            html += '<div class="swiper-slide"><img class="wp100" src="'+data[i].pic+'"></div>';
                         }
                         if(data.length == 1){
                             $("#swiper-pagination").remove();
                         }
                         $("#swr").html(html);
                         swiperImg();
+                    }else{
+                        $(".end").css({
+                            "position": "absolute",
+                            "bottom": "0px",
+                            "width": "100%",
+                            "margin-top": "0px"
+                        });
                     }
                 }else{
+                    $(".end").css({
+                        "position": "absolute",
+                        "bottom": "0px",
+                        "width": "100%",
+                        "margin-top": "0px"
+                    });
 					base.showMsg("非常抱歉，暂时无法获取banner!");
 				}
             });
@@ -50,6 +63,18 @@ define([
             autoplayDisableOnInteraction: false,
             pagination: '.swiper-pagination'
         });
+        var swr = $("#swr").find("img");
+        var time = setInterval(function(){
+            if(swr.length && $(swr[0]).height()){
+                clearInterval(time);
+                var height = $(window).height() - 295 - $("#swiper-container").height();
+                if(height>0){
+                    $(".bigbox").css( {
+                        "min-height": height + "px"
+                    } );
+                }
+            }
+        }, 10);
     }
     function addListeners(){
         $("#r-table").on("click", "tr", function(){
@@ -57,13 +82,16 @@ define([
             location.href = "./news.html?c=" + code;
         });
         $("#l-table").on("click", "tr", function(){
-            var me = $(this);
+            var me = $(this), code = me.attr("code");
+            location.href = "../server/comp-detail.html?code=" + code;
         });
     }
     function getPageComp(){
         base.getPageComp({
             start: "1",
             limit: "10",
+            orderColumn: "order_no",
+            orderDir: "ase",
             isHot: "1"
         }).then(function(res){
             if(res.success && res.data.list.length){
@@ -74,7 +102,7 @@ define([
                 }
             }
             lFirst = false;
-            setTimeout(getPageComp, refreshTime);
+            //setTimeout(getPageComp, refreshTime);
         });
     }
 

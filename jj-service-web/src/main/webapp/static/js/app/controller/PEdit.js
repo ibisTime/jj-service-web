@@ -123,8 +123,12 @@ define([
         });
         //申请
         $("#sbtn").on("click", function(){
+            var me = $(this);
+            me.attr("disabled", "disabled").addClass("bg-loading");
             if(validated()){
-                editPosition();
+                editPosition(me);
+            }else{
+                me.removeClass("bg-loading").removeAttr("disabled");
             }
         });
         //返回原来的页面
@@ -135,7 +139,7 @@ define([
 
 
 
-    function editPosition(){
+    function editPosition(me){
         base.editPosition({
             code: pCode,
             name: $("#zwName").val(),
@@ -154,7 +158,8 @@ define([
                 base.showMsg("修改成功！");
                 setTimeout(goBack, 1000);
             }else{
-                base.showMsg("非常抱歉，修改职位失败！");
+                me.removeClass("bg-loading").removeAttr("disabled");
+                base.showMsg(res.msg);
             }
         });
     }

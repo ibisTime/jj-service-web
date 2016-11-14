@@ -378,8 +378,9 @@ public interface IServerAO {
 	 */
     Object queryPageServers(String type, String name, String companyCode,
     		String companyName, String qualityCode, String isHot,
-    		String pubisher, String province, String city, String area,
-    		String dateStart, String dateEnd, String dealer, String start, String limit);
+    		String pubisher, String province, String city, String area, String status,
+    		String dateStart, String dateEnd, String dealer, String start, String limit,
+    		String orderColumn, String orderDir);
     
     /**
      * 详情查询服务

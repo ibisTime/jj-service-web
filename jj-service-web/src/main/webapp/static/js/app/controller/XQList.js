@@ -104,8 +104,10 @@ define([
             start: start,
             limit: "10",
             kind: navCode,
+            status: "1",
             gsProvince: localStorage.getItem("province"),
-            gsCity: localStorage.getItem("city")
+            gsCity: localStorage.getItem("city"),
+            gsArea: localStorage.getItem("area")
         }).then(function(res){
             if(res.success && res.data.list.length){
                 var data = res.data;

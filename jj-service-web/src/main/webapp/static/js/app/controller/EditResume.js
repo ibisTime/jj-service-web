@@ -31,6 +31,9 @@ define([
         base.getResumeInfo({code: code})
             .then(function(res){
                 if(res.success){
+                    if(!$.isPlainObject(res.data)){
+                        res.data = $.parseJSON(res.data);
+                    }
                     addResumeInfo(res.data);
                 }else{
                     base.showMsg("非常抱歉，暂时无法获取简历详情");
@@ -53,6 +56,7 @@ define([
         $("#name", topForm).val(data.name);
         $("#isWork", topForm).find("option[value='"+data.isWork+"']")[0].selected = true;
         if(data.isWork == "1"){
+            $("#workCont", topForm).removeClass("hidden");
             $("#preCompName", topForm).val(data.preCompName);
             $("#prePosName", topForm).val(data.prePosName);
             $("#preWorkTime", topForm).val(data.preWorkTime);
@@ -126,8 +130,12 @@ define([
             }
         });
         $("#sbtn").on("click", function(){
+            var me = $(this);
+            me.attr("disabled", "disabled").addClass("bg-loading");
             if(validate()){
-                editResume();
+                editResume(me);
+            }else{
+                me.removeClass("bg-loading").removeAttr("disabled");
             }
         });
     }
@@ -263,7 +271,7 @@ define([
         return true;
     }
 
-    function editResume(){
+    function editResume(me){
         base.editResume(config)
             .then(function(res){
                 if(res.success){
@@ -272,7 +280,8 @@ define([
                         base.goBackUrl("./center.html");
                     }, 1000);
                 }else{
-                    base.showMsg("非常抱歉，修改简历失败！");
+                    me.removeClass("bg-loading").removeAttr("disabled");
+                    base.showMsg(res.msg);
                 }
             });
     }

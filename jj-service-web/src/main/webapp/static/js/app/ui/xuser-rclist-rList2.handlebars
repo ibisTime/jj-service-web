@@ -1,10 +1,10 @@
 {{#each items}}
-    <tr code="{{code}}" cCode="{{companyCode}}">
+    <tr code="{{code}}" cCode="{{fromCompany}}">
         <td><input type="checkbox" class="checkinput"/></td>
-        <td>{{name}}</td>
+        <td>{{resumeName}}</td>
         <td>{{companyName}}</td>
-        <td>{{companyContacts}}</td>
+        <td>{{companyUser}}</td>
         <td>{{companyMobile}}</td>
-        <td>{{formatDate publishDatetime}}</td>
+        <td>{{formatDate fromDatetime}}</td>
     </tr>
 {{/each}}

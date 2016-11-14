@@ -237,7 +237,6 @@ public class UserAOImpl implements IUserAO {
         req.setCode(code);
         req.setIsDefault(isDefault);
         req.setLimit(limit);
-        req.setLocation("1");
         req.setName(name);
         req.setOrderColumn(orderColumn);
         req.setOrderDir(orderDir);

@@ -22,7 +22,7 @@ define([
     function addListeners(){
         //下一步
         $("#sbtn").on("click", function(){
-            base.goBackUrl("./center.html");
+            location.href = "./center.html";
         });
     }
 });

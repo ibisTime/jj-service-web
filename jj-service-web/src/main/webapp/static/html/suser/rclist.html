@@ -19,7 +19,7 @@
     <!--右边-->
     <div class="area clearfix" id="contDiv">
         <p class="bread-wrap">您所在的位置： 
-            <a href="">会员中心</a> &gt; <span>我要人才</span>
+            <a class="cur_default" href="javascript:void(0)">会员中心</a> &gt; <span>我要人才</span>
         </p>
     
 	    <ul class="lg_tnav_wrap" id="rcUl">
@@ -42,18 +42,18 @@
                         <th>职位名称</th>
                         <th>工作地点</th>
                         <th>职位月薪</th>
+                        <th>状态</th>
                         <th>申请日期</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td colspan='6'><i class='loading-icon'></i></td></tr>
+                    <tr><td colspan='7'><i class='loading-icon'></i></td></tr>
                 </tbody>
             </table>
         </div>
         <div id="ypjl" class="rcContent rcContent1 hidden">
             <div> 
                 <div class="cdh" id="dealBtn">立即处理</div>
-                <div class="cdh" id="ypjlDownload">下载</div>
                 <div class="cdh" id="ypjlSelect">查看详情</div>
             </div> 
             <table class="t-box at" id="ypjl-table">
@@ -74,7 +74,7 @@
         <div id="sjl" class="rcContent rcContent2 hidden">
             <div>
                 <select class="hp25p" id="rcType">
-                    <option value="-1">请选择需求类型</option>
+                    <option value="-1">请选择职位</option>
                 </select>
                 <select class="hp25p" id="province">
                     <option value="-1">请选择省份</option>
@@ -83,11 +83,11 @@
                     <option value="-1">请选择城市</option>
                 </select>
                 <input type="button" class="btn btn-small ml20 va-b" id="searchBtn" style="border: 1px solid #CDCDCD;" value="搜简历"/>
+                <input type="button" class="btn btn-small ml20 va-b" id="clearBtn" style="border: 1px solid #CDCDCD;" value="重置"/>
             </div>
             <div class="mt10"> 
                 <div class="cdh" id="sjlWatch">预览</div>
                 <div class="cdh" id="sjlLike">感兴趣</div>
-                <div class="cdh" id="sjlDownload">下载</div>
             </div> 
             <table class="t-box at" id="sjl-table">
                 <thead>
@@ -95,7 +95,7 @@
                         <th>&nbsp;</th>
                         <th>简历名称</th>
                         <th>投递职位</th>
-                        <th>工作年限</th>
+                        <th>工作时间</th>
                         <th>期望薪资</th>
                         <th>期望工作地点</th>
                         <th>更新日期</th>

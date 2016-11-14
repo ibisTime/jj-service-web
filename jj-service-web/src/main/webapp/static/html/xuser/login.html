@@ -7,57 +7,58 @@
 <body>
 <!--页头--> 
 <link rel="import" href="../body-top.html?__inline">
-<div class="swiper-container wp100" id="swiper-container">
+<div class="swiper-container wp100 mh600p" id="swiper-container">
     <div class="swiper-wrapper" id="swr"></div>
     <div class="swiper-pagination" id="swiper-pagination"></div>
-</div>
-<div class="li-box" style="z-index: 10;" id="loginBox">
-	<div class="member">会员登录</div>
-    <ul class="all-login" id="tabs">
-    	<li class="Personal-login log">个人登录</li>
-        <li class="company-login log ">企业登录</li>
-    </ul>
-    <!--需求方-->
-    <div class="container0 hidden">
-        <div class="lm">
-            <input type="text" class="login_btn" placeholder="手机号" id="mobile"/>
+    <div class="li-box1" style="z-index: 10;" id="loginBox">
+        <div class="member">个人登录</div>
+        <ul class="all-login" id="tabs">
+            <li class="Personal-login log">个人登录</li>
+            <li class="company-login log ">企业登录</li>
+        </ul>
+        <!--需求方-->
+        <div class="container0 hidden">
+            <div class="lm">
+                <input type="text" class="login_btn" placeholder="手机号" id="mobile"/>
+            </div>
+            <div class="lm">
+                <input type="password" class="login_btn" placeholder="登录密码" id="password"/>
+            </div>
+            <div class="lm">
+                <input type="text" class="login-width login_btn" placeholder="验证码" id="xqCaptcha"/>
+                <img id="xqCaptchaImg" class="imgCaptcha" src=""/>
+            </div>
+            <div class="lm">
+                <input type="button" value="登录" class="login-font" id="xqLogin">
+            </div>
+            <div class="lm wid">
+                <a href="./findPwd.html?t=1" style="float:left;font-size:12px;">忘记密码?</a>
+                <a href="./register.html" style="float:right;color:#5876BA;font-size:12px;">免费注册</a>
+            </div>
         </div>
-        <div class="lm">
-            <input type="password" class="login_btn" placeholder="登录密码" id="password"/>
-        </div>
-        <div class="lm">
-            <input type="text" class="login-width login_btn" placeholder="验证码" id="xqCaptcha"/>
-            <img id="xqCaptchaImg" class="imgCaptcha" src=""/>
-        </div>
-        <div class="lm">
-            <input type="button" value="登录" class="login-font" id="xqLogin">
-        </div>
-        <div class="lm wid">
-            <a href="./findPwd.html?t=1" style="float:left;font-size:12px;">忘记密码?</a>
-            <a href="./register.html" style="float:right;color:#5876BA;font-size:12px;">免费注册</a>
+        <!--服务方-->
+        <div class="container1 hidden">
+            <div class="lm">
+                <input type="text" class="login_btn" placeholder="用户名" id="loginName">
+            </div>
+            <div class="lm">
+                <input type="password" class="login_btn" placeholder="登录密码" id="loginPwd">
+            </div>
+            <div class="lm">
+                <input type="text" class="login-width login_btn" placeholder="验证码" id="fwCaptcha">
+                <img class="imgCaptcha" id="fwCaptchaImg" src=""/>
+            </div>
+            <div class="lm">
+                <input type="button" value="登录" class="login-font" id="fwLogin">
+            </div>
+            <div class="lm wid">
+                <a href="./findPwd.html?t=2" style="float:left;font-size:12px;">忘记密码?</a>
+                <a href="../suser/register.html" style="float:right;color:#5876BA;font-size:12px;">免费注册</a>
+            </div>
         </div>
     </div>
-    <!--服务方-->
-    <div class="container1 hidden">
-        <div class="lm">
-            <input type="text" class="login_btn" placeholder="用户名" id="loginName">
-        </div>
-        <div class="lm">
-            <input type="password" class="login_btn" placeholder="登录密码" id="loginPwd">
-        </div>
-        <div class="lm">
-            <input type="text" class="login-width login_btn" placeholder="验证码" id="fwCaptcha">
-            <img class="imgCaptcha" id="fwCaptchaImg" src=""/>
-        </div>
-        <div class="lm">
-            <input type="button" value="登录" class="login-font" id="fwLogin">
-        </div>
-        <div class="lm wid">
-            <a href="./findPwd.html?t=2" style="float:left;font-size:12px;">忘记密码?</a>
-            <a href="../suser/register.html" style="float:right;color:#5876BA;font-size:12px;">免费注册</a>
-        </div>
-    </div>
 </div>
+
 
 
 

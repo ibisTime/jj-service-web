@@ -37,12 +37,17 @@ public class CredentialsController extends BaseController {
     		@RequestParam(value = "status", required = false) String status,
     		@RequestParam(value = "applyUser", required = false) String applyUser,
     		@RequestParam(value = "approveUser", required = false) String approveUser,
+    		@RequestParam(value = "companyCode", required = false) String companyCode,
+    		@RequestParam(value = "province", required = false) String province,
+    		@RequestParam(value = "city", required = false) String city,
+    		@RequestParam(value = "area", required = false) String area,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
+    	//this.getSessionUser().getCompanyCode()
     	return credetialsAO.queryPageCredentials(
     			certificateCode, certificateType,
-    			this.getSessionUser().getCompanyCode(),
-    			status, approveUser, start, limit);
+    			companyCode, status, approveUser,
+    			start, limit, province, city, area);
     }
     
     //列表查询公司资质

@@ -80,6 +80,12 @@ define([
         if(!password || password.trim() === ""){
             base.showMsg("密码不能为空");
             return false;
+        }else if(!base.specialCode.test(password)){
+            base.showMsg("密码不能包含特殊字符");
+            return false;
+        }else if(password.length > 16 || password.length < 6){
+            base.showMsg("密码长度必须是6到16个字符");
+            return false;
         }
         var rePwd = $("#rePwd").val();
         if(!rePwd || rePwd.trim() === ""){
@@ -107,7 +113,7 @@ define([
                 if(res.success){
                     base.showMsg("注册成功！");
                     setTimeout(function(){
-                        base.goBackUrl("../home/index.html");
+                        location.href = "../home/index.html";
                     }, 1000);
                 }else{
                     $("#registerBtn").val("注册").removeAttr("disabled");

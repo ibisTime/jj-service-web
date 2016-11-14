@@ -195,7 +195,7 @@ a:hover {
 caption{padding-bottom:20px;}
 .t-box{margin:0 auto;margin-bottom:60px;border:#CCC 1px solid;text-align:center;border-collapse: collapse;}
 .dst{margin-top:40px;}
-.t-box a{color:#F51F1F;}
+.t-box a{color:#0072ff;}
 .t-box .check{color:#545454;}
 .backg{background:#f0f0f0;}
 .backg th, .dst td{padding:6px 80px;border:#CCC 1px solid;}
@@ -210,7 +210,7 @@ caption{padding-bottom:20px;}
 /*首页*/
 .allbanner{width:100%;}
 .tl{text-align:left}
-.ranking-box  .tc{text-align:center;padding:0 100px;}
+.ranking-box  .tc{text-align:center;padding:0 10px;}
 .tr{text-align:right;}
 
 .ranking-box{width:610px;background:#E4E4E4;padding:20px;}
@@ -218,9 +218,10 @@ caption{padding-bottom:20px;}
 .ranking-l{background:url(images/weretrt.png) no-repeat 0 2px; ;padding-left:30px;font-size:18px; }
 .ranking-r a,.news a{float:right;font-size:14px;color:#FFF;}
 
-.ranking-box table,.news-box table{width:100%;}
-
-.ranking-box td,.news-box td{border-bottom:#666 1px dotted;padding:8px 20px;}
+.ranking-box table,.news-box table{width:100%; border-collapse: collapse;}
+.ranking-box tr, .news-box tr{border-bottom:#666 1px dotted;}
+.ranking-box td,.news-box td{padding:8px 10px;}
+.ranking-box tr:last-child, .news-box tr:last-child{border-bottom:none;}
 table{border:1px solid #CCC;background:white;}
 
 .news-box{width:510px;float:right;background:#E4E4E4;padding:20px;}
@@ -235,7 +236,7 @@ table{border:1px solid #CCC;background:white;}
 .topname{font-size:18px;margin:20px 0;}
 .img-box{width:213px;float:left;margin-bottom:30px;border-bottom:1px solid #e6e6e6;}
 .img-box img{display:inline;}
-.img-text{font-size:14px;padding:10px 0;font-weight:bold;}
+.img-text{font-size:14px;padding:10px 0;}
 .img-price{font-size:14px;color:#323232;padding-bottom:20px;}
 
 .page { text-align: center; margin-top: 15px;}
@@ -286,7 +287,7 @@ textarea{vertical-align:text-top;}
 .hold-box{text-align:center;margin:40px 0 80px 0;}
 
 /*选择简历*/
-.choose-box{background:#FFF;position:fixed;top:50%;left:50%;width:300px;margin-top:-100px;margin-left:-150px;}
+.choose-box{background:#FFF;position:fixed;top:50%;left:50%;width:300px;margin-top:-100px;margin-left:-150px; z-index: 110;}
 .topbar{line-height:30px;background:url(images/fgdfgfhh.png) repeat-x;color:white;}
 .h5{padding-left:10px;}
 .choose{padding:20px;border:2px solid  #CB2A2F;text-align:center;}
@@ -297,12 +298,13 @@ textarea{vertical-align:text-top;}
 /*招聘 申请职位*/
 .at{margin-top:24px;}
 .apply-j{background:#f0f0f0;}
-.apply-j th,.at td{padding:6px 29px;border:#CCC 1px solid;}
+.apply-j th,.at td{padding:6px 8px;border:#CCC 1px solid;}
+.apply-j th{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .aj{background:#CB2A2F;padding:6px 8px;color:#FFF;font-size:16px;border-radius:2px;display:inline-block;margin-top:34px;cursor: pointer;}
 
 /*登录前机构详情*/
 .pad{margin-top:20px;}
-.pad td{padding:6px 42px;border:#CCC 1px solid;}
+.pad td{padding:6px 10px;border:#CCC 1px solid;}
 .cd{background:#CB2A2F;padding:6px 8px;color:#FFF;font-size:14px;border-radius:2px;display:inline-block;margin-top:8px;}
 
 /*我是服务商（）*/
@@ -476,3 +478,9 @@ textarea{vertical-align:text-top;}
 }
 .lm{margin:10px 0;}
 .wid{width:300px;margin:0 auto;}
+.pbtm{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    margin-top: 0px;
+}

@@ -7,14 +7,14 @@
 <body>
 <link rel="import" href="../body-top.html?__inline">
 <div class="bigbox clearfix">
-    <ul class="name">
-        <li><a href="./center.html">我的中心<span>></span></a></li>
-        <li><a href="./rclist.html">我是人才<span>></span></a></li>
-        <li class="current"><a href="./fwlist.html">我的服务<span>></span></a></li>   
+    <ul class="name" id="navLeft">
+        <li><a href="javascript:void(0)">我的中心<span>></span></a></li>
+        <li><a href="javascript:void(0)">我是人才<span>></span></a></li>
+        <li class="current"><a href="javascript:void(0)">我的服务<span>></span></a></li>   
     </ul>
     <div class="area">
         <p class="bread-wrap">您所在的位置： 
-            <a href="./center.html">会员中心</a> &gt; <span>需求详情</span>
+            <a class="cur_default" href="javascript:void(0)">会员中心</a> &gt; <span>需求详情</span>
         </p>
         
 
@@ -22,7 +22,7 @@
             
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">*</span>
+                    <span class="xh">&nbsp;</span>
                     <span>需求名称</span>
                 </div>
                 <input class="in-width" type="text" id="name" disabled/>
@@ -30,15 +30,28 @@
             
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">*</span>
+                    <span class="xh">&nbsp;</span>
                     <span>需求类型</span>
                 </div>
                 <input class="in-width" type="text" id="qualityCode" disabled/>
             </div>
-            
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">*</span>
+                    <span class="xh">&nbsp;</span>
+                    <span>状态</span>
+                </div>
+                <input class="in-width" type="text" id="status" disabled/>
+            </div>
+            <div class="mtb hidden" id="wgDiv">
+                <div class="inblock wb"> 
+                    <span class="xh">&nbsp;</span>
+                    <span>违规原因</span>
+                </div>
+                <input class="in-width" type="text" id="dealNote" disabled/>
+            </div>
+            <div class="mtb">
+                <div class="inblock wb"> 
+                    <span class="xh">&nbsp;</span>
                     <span>意向企业</span>
                 </div>
                 <input class="in-width" type="text" id="expCompany" disabled/>
@@ -46,7 +59,7 @@
             
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">*</span>
+                    <span class="xh">&nbsp;</span>
                     <span>紧急程度</span>
                 </div>
                 <input class="in-width" type="text" id="urgentLevel" disabled/>
@@ -54,7 +67,7 @@
             
             <div class="mtb">
                 <div class="inblock wb"> 
-                    <span class="xh">*</span>
+                    <span class="xh">&nbsp;</span>
                     <span>需求描述</span>
                 </div>
                 <textarea class="sell" rows="10" cols="50" id="description" disabled></textarea>

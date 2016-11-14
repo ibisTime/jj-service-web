@@ -40,7 +40,6 @@ public class CaptchaController {
             // the same id must be used to validate the response, the session id
             // is a good candidate!
             String captchaId = request.getSession().getId();
-            System.out.println(captchaId);
             // call the ImageCaptchaService getChallenge method
             BufferedImage challenge = imageCaptchaService
                 .getImageChallengeForID(captchaId, request.getLocale());

@@ -1495,6 +1495,12 @@ textarea {
 .wp100 {
     width: 100%;
 }
+.wp100p {
+    width: 100px;
+}
+.wp200p {
+    width: 200px;
+}
 
 /*高度*/
 .hp100 {
@@ -1855,7 +1861,7 @@ a.blue-link, a.blue-link:active, a.blue-link:hover, a.blue-link:link {
     top: 40px;
 }
 .header .head-reg ul li{
-    padding-left: 10px;
+    text-align: center;
     cursor: pointer;
 }
 .header .head-reg ul li:hover{
@@ -1909,6 +1915,9 @@ a.blue-link, a.blue-link:active, a.blue-link:hover, a.blue-link:link {
 }
 .cur_pointer{
     cursor: pointer;
+}
+.cur_default{
+    cursor: default;
 }
 .name {
     font-size: 16px;
@@ -2003,4 +2012,27 @@ table tbody tr{
 }
 .tl_fixed{
     table-layout: fixed;
+}
+.li-box1{
+    width: 360px;
+    height: 350px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    right: 20%;
+    text-align: center;
+    margin-top: -175px;
+}
+.mh600p{
+    min-height: 600px;
+}
+.showUrl{
+    margin-top: 8px;
+    margin-left: 8px;
+    position: absolute;
+    color: #0072ff;
+    white-space: nowrap;
+}
+.swiper-pagination-bullet-active{
+    background: #555555 !important;
 }

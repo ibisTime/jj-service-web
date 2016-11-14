@@ -63,6 +63,7 @@ define([
         for(var i = 0, html = ""; i < data.length; i++){
             html += '<option value="'+data[i].code+'">'+data[i].name+'</option>';
         }
+        html = '<option value="0">所有企业</option>' + html;
         $("#expCompany").html(html);
     }
 
@@ -72,8 +73,12 @@ define([
             base.goBackUrl("./center.html");
         });
         $("#sbtn").on("click", function(){
+            var me = $(this);
+            me.attr("disabled", "disabled").addClass("bg-loading");
             if(validate()){
-                editDemand();
+                editDemand(me);
+            }else{
+                me.removeClass("bg-loading").removeAttr("disabled");
             }
         });
     }
@@ -112,7 +117,7 @@ define([
         return true;
     }
 
-    function editDemand(){
+    function editDemand(me){
         base.editDemand(config)
             .then(function(res){
                 if(res.success){
@@ -121,6 +126,7 @@ define([
                         base.goBackUrl("./center.html");
                     }, 1000);
                 }else{
+                    me.removeClass("bg-loading").removeAttr("disabled");
                     base.showMsg(res.msg);
                 }
             });

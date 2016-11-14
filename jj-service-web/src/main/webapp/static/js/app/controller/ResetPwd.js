@@ -16,7 +16,7 @@ define([
                 doResetPwd();
             }
         });
-        $("#oldLoginPwd, #newLoginPwd, #smsCaptcha").on("keyup", function(e){
+        $("#oldLoginPwd, #newLoginPwd, #rePwd").on("keyup", function(e){
             var code = e.charCode || e.keyCode;
             if(code == "13"){
                 $("#resetBtn").click();
@@ -80,16 +80,14 @@ define([
         base.compResetPwd(config)
             .then(function(res){
                 if(res.success){
-                    if(res.success){
-                        base.clearSessionUser();
-                        base.showMsg("修改密码成功，请重新登录！");
-                        setTimeout(function(){
-                            location.href = "./login.html?return=" + base.getReturnParam();
-                        }, 1500);
-                    }else{
-                        base.showMsg(res.msg);
-                        $("#resetBtn").val("修改").removeAttr("disabled");
-                    }
+                    base.clearSessionUser();
+                    base.showMsg("修改密码成功，请重新登录！");
+                    setTimeout(function(){
+                        location.href = "./login.html?return=" + base.getReturnParam();
+                    }, 1500);
+                }else{
+                    base.showMsg(res.msg);
+                    $("#resetBtn").val("修改").removeAttr("disabled");
                 }
             });
     }

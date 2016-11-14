@@ -8,18 +8,10 @@
 <body>
 <link rel="import" href="../body-top.html?__inline">
 <div class="bigbox clearfix">
-    <ul class="name leftNav" id="leftNav">
-        <!--<li><a href="">运营总监<span>></span></a></li>
-        <li><a href="">运营主管<span>></span></a></li>
-        <li><a href="">运营<span>></span></a></li>
-        <li><a href="">设计总监<span>></span></a></li>
-        <li><a href="">设计/美工<span>></span></a></li>
-        <li><a href="">推广专员<span>></span></a></li>-->
-    </ul>
-    <!--右边-->
+    <ul class="name leftNav" id="leftNav"></ul>
     <div class="area">
         <p class="bread-wrap">您所在的位置： 
-            <a href="./index.html">人才</a> &gt; <span>职位详情</span>
+            <a class="cur_default" href="javascript:void(0)">人才</a> &gt; <span>职位详情</span>
         </p>
     
         <div class="topname bt">职位信息</div>
@@ -103,10 +95,10 @@
         </div>
         
 
-	    <div class="topname bt cm">公司信息</div>
+	    <div class="topname bt cm">企业信息</div>
      
         <div class="company-head hidden" id="noLogin">
-            <div>欲知详情，请先<a class="cur_pointer t_bluelight2" href="../xuser/login.html">登录</a></div>
+            <div>欲知详情，请先<a class="cur_pointer t_bluelight2" href="javascript:void(0)" id="gtLogin">登录</a></div>
             <span><a href="javascript:void(0)" id="cancel">返回</a></span>
         </div>
 
@@ -127,7 +119,7 @@
                             <span>企业营业执照</span>
                         </div>
                         <div class="file-box inblock va-tt"> 
-                            <img id="gsyyzzh" src="../../images/asad.jpg"/>
+                            <img id="gsyyzzh" src=""/>
                         </div>
                     </div>
                     
@@ -137,7 +129,7 @@
                             <span>企业图标</span>
                         </div>
                         <div class="file-box inblock va-tt"> 
-                            <img id="logo" src="../../images/asad.jpg"/> 
+                            <img id="logo" src=""/> 
                         </div>
                     </div>
                     
@@ -208,7 +200,6 @@
                             <span class="xh">&nbsp;</span>
                             <span>简介</span>
                         </div>
-                        <!--<div class="mt10 ml24" id="compDescription"></div>-->
                         <textarea class="sell" rows="10" cols="50" id="compDescription" disabled></textarea>
                     </div>
                 </form>
@@ -221,9 +212,23 @@
     </div>
 </div>
 <div class="mask hidden" id="mask1"></div>
-<div class="jianliDiv hidden" id="myJianli">
+<!--<div class="jianliDiv hidden" id="myJianli">
     <div class="mt20 tc"><span class="pr10">选择简历：</span><select id="jlSelect" class="hidden"></select><span id="loadSpan">加载中...</span></div>
     <div class="clearfix tc mt10"><input type="button" id="isOk" value="确定" class="btn btn-small mlr4"/><input type="button" id="isCancel" value="取消" class="btn btn-small mlr4"/></div>
+</div>-->
+<div id="myJianli" class="jianli choose-box hidden">
+    <div class="topbar h5">选择简历</div>
+    <div class="choose ">
+      <div class="jianli-box inblock">
+        <div>请选择简历</div>
+        <select class="mt10 hidden" id="jlSelect"></select>
+        <span id="loadSpan">加载中...</span>
+      </div>
+      <div class="">
+          <input type="submit" class="hold" id="isOk" value="确定">
+          <a href="javascript:void(0)" id="isCancel" class="cancel">取消</a>
+      </div>
+   </div>
 </div>
 <!--页尾-->
 <link rel="import" href="../footer.html?__inline">

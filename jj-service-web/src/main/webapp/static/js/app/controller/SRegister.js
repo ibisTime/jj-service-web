@@ -78,6 +78,12 @@ define([
         if(!name || name.trim() === ""){
             base.showMsg(nameError + "不能为空");
             return false;
+        }else if(!base.specialCode.test(name)){
+            base.showMsg(nameError + "包含特殊字符");
+            return false;
+        }else if(name.length > 64){
+            base.showMsg(nameError + "过长");
+            return false;
         }
         var gsyyzzhUrl = $("#gsyyzzhUrl").val();
         if(!gsyyzzhUrl || gsyyzzhUrl.trim() === ""){
@@ -87,6 +93,12 @@ define([
         var contacts = $("#contacts").val();
         if(!contacts || contacts.trim() === ""){
             base.showMsg("联系人不能为空");
+            return false;
+        }else if(!base.specialCode.test(contacts)){
+            base.showMsg("联系人包含特殊字符");
+            return false;
+        }else if(contacts.length > 64){
+            base.showMsg("联系人过长");
             return false;
         }
         var mobile = $("#mobile").val();
@@ -101,10 +113,22 @@ define([
         if(!loginName || loginName.trim() === ""){
             base.showMsg("用户名不能为空");
             return false;
+        }else if(!base.specialCode.test(loginName)){
+            base.showMsg("用户名包含特殊字符");
+            return false;
+        }else if(loginName.length > 32){
+            base.showMsg("用户名过长");
+            return false;
         }
         var password = $("#password").val();
         if(!password || password.trim() === ""){
             base.showMsg("密码不能为空");
+            return false;
+        }else if(!base.specialCode.test(password)){
+            base.showMsg("密码包含特殊字符");
+            return false;
+        }else if(password.length > 16 || password.length < 6){
+            base.showMsg("密码长度必须是6到16个字符");
             return false;
         }
         var rePwd = $("#rePwd").val();
@@ -140,9 +164,10 @@ define([
                 if(res.success){
                     base.showMsg("注册成功！");
                     setTimeout(function(){
-                        base.goBackUrl("../home/index.html");
+                        location.href = "../home/index.html";
                     }, 1000);
                 }else{
+                    $("#registerBtn").val("注册").removeAttr("disabled");
                     base.showMsg(res.msg);
                 }
             });

@@ -94,17 +94,19 @@ public class ResumeController extends BaseController {
     		@RequestParam(value = "expProvince", required = false) String expProvince,
     		@RequestParam(value = "expCity", required = false) String expCity,
     		@RequestParam(value = "publisher", required = false) String publisher,
+    		@RequestParam(value = "status", required = false) String status,
+    		@RequestParam(value = "isOpen", required = false) String isOpen,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
     	return resumeAO.queryPageResume(mobile, expPosition, expProvince,
-    			expCity, publisher, start, limit);
+    			expCity, publisher, start, limit, status, isOpen);
     }
     
-    //分页查询简历
+    //列表查询简历
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public Object queryPageResume(){
-    	return resumeAO.queryListResume(this.getSessionUser().getUserId());
+    public Object queryPageResume(@RequestParam(value = "status", required = false) String status){
+    	return resumeAO.queryListResume(this.getSessionUser().getUserId(), status);
     }
     
     //详情查询简历

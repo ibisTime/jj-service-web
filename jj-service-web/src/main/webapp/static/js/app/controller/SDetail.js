@@ -9,6 +9,7 @@ define([
         business = Dict.get("business"),
         serverType = Dict.get("serverType"),
         goodsKind = Dict.get("goodsKind"),
+        serverStatus = Dict.get("serverStatus"),
         sCode = base.getUrlParam("code");
 
     init();
@@ -28,14 +29,60 @@ define([
     }
 
     function getServerInfo(){
-        base.getServerInfo({code: sCode})
-            .then(function(res){
-                if(res.success){
-                    addServerInfo(res.data);
-                }else{
-                    base.showMsg("非常抱歉，暂时无法获取职位信息!");
+        $.when(
+            base.getServerInfo({code: sCode}),
+            base.getDictList({parentKey: "comp_scale"})
+        ).then(function(res, res1){
+            res = res[0];   res1 = res1[0];
+            if(res.success && res1.success){
+                var data = res.data;
+                var data1 = res1.data;
+                addServerInfo(data);
+                if(base.isLogin()){
+                    addCompInfo(data.company, data1);
                 }
-            });
+            }else{
+                base.showMsg("非常抱歉，暂时无法获取公司信息！");
+            }
+        });
+    }
+
+    function addCompInfo(data, data1){
+        var topForm = $("#compForm").detach();
+        //公司
+        if(data.type == "1"){
+            $("#isComp", topForm).removeClass("hidden");
+
+            $("#compName", topForm).val(data.name);
+            $("#gsyyzzh", topForm).attr("src", data.gsyyzzh);
+            $("#logo", topForm).attr("src", data.logo);
+        //个体户
+        }else{
+            $("#isGt", topForm).removeClass("hidden");
+
+            $("#realName", topForm).val(data.name);
+            $("#sfz", topForm).attr("src", data.gsyyzzh);
+            $("#gthtb", topForm).attr("src", data.logo);
+        }
+
+        $("#contacts", topForm).val(data.contacts);
+        $("#mobile", topForm).val(data.mobile);
+        $("#email", topForm).val(data.email);
+        $("#qq", topForm).val(data.qq);
+        $("#scale", topForm).val( getScale(data1, data.scale) );
+        $("#address", topForm).html( (data.province || "") + "" + (data.city || "") + (data.area || "") + (data.address || ""));
+        $("#slogan", topForm).val(data.slogan);
+        $("#compDescription", topForm).val(data.description);
+
+        $("#compDiv").removeClass("hidden").append(topForm);
+    }
+    function getScale(data, d){
+        for(var i = 0; i < data.length; i++){
+            if(data[i].dkey == d){
+                return data[i].dvalue;
+            }
+        }
+        return "";
     }
 
     function addServerInfo(data){
@@ -45,30 +92,35 @@ define([
         $("#compName", topForm).val(data.company.name);
         $("#price", topForm).val((+data.quoteMin / 1000) + "元 ~ " + (+data.quoteMax / 1000) + "元");
         $("#fwType", topForm).val(serverType[data.type]);
+        $("#status", topForm).val(serverStatus[data.status]);
+        if(data.status == "0"){
+            $("#wgDiv", topForm).removeClass();
+            $("#dealNote", topForm).val(data.dealNote);
+        }
         /**
-         * 1 软件开发 2摄影/拍摄 3 培训  4 店铺代运营 5 美工外包 6 客服外包 7 仓配服务 8 产业园
+         * 1 培训 2摄影/拍摄 3 美工外包  4 店铺代运营 5 客服外包 6 仓配服务 7 软件开发  8 产业园 9 人才招聘
          */
         switch(data.type){
             case "1":
-                addRjwbInfo(data, topForm);
+                addPxInfo(data.serveTrain, topForm);
                 break;
             case "2":
                 addSypsInfo(data.servePhoto, topForm);
                 break;
             case "3":
-                addPxInfo(data.serveTrain, topForm);
+                addMgwbInfo(data.serveArt, topForm);
                 break;
             case "4":
                 addDpdyyInfo(data.serveShop, topForm);
                 break;
             case "5":
-                addMgwbInfo(data.serveArt, topForm);
-                break;
-            case "6":
                 addKfwbInfo(data.serveKfwb, topForm);
                 break;
-            case "7":
+            case "6":
                 addCpfwInfo(data.serveCp, topForm);
+                break;
+            case "7":
+                addRjwbInfo(data, topForm);
                 break;
             case "8":
                 addCyyInfo(data.serveCyy, topForm);
@@ -87,7 +139,7 @@ define([
         $("#sysNum", topForm).val(data.sysNum);
         $("#isDz", topForm).val(isDZ[data.isDz]);
         $("#scpslm", topForm).val(data.scpslm);
-        $("#works", topForm).attr("src", data.works);
+        $("#works", topForm).attr("href", data.works).text(data.works.substring(data.works.lastIndexOf("/")+1));
     }
 
     function addPxInfo(data, topForm){
@@ -95,10 +147,10 @@ define([
         $("#lectorNum", topForm).val(data.lectorNum);
         $("#mtrainTimes", topForm).val(data.mtrainTimes);
         $("#mtrainNum", topForm).val(data.mtrainNum);
-        $("#resume1", topForm).attr("href", data.resume1);
-        $("#resume2", topForm).attr("href", data.resume2);
-        $("#resume3", topForm).attr("href", data.resume3);
-        $("#course", topForm).attr("href", data.course);
+        $("#resume1", topForm).attr("href", data.resume1).text(data.resume1.substring(data.resume1.lastIndexOf("/")+1));
+        $("#resume2", topForm).attr("href", data.resume2).text(data.resume2.substring(data.resume2.lastIndexOf("/")+1));
+        $("#resume3", topForm).attr("href", data.resume3).text(data.resume3.substring(data.resume3.lastIndexOf("/")+1));
+        $("#course", topForm).attr("href", data.course).text(data.course.substring(data.course.lastIndexOf("/")+1));
     }
 
     function addDpdyyInfo(data, topForm){
@@ -110,7 +162,7 @@ define([
         $("#feeMode", topForm).val( feeMode[data.feeMode] );
         $("#payCycle", topForm).val(payCycle[data.payCycle]);
         $("#scyylm", topForm).val(data.scyylm);
-        $("#sucCase", topForm).attr("href", data.sucCase);
+        $("#sucCase", topForm).attr("href", data.sucCase).text(data.sucCase.substring(data.sucCase.lastIndexOf("/")+1));
     }
 
     function addMgwbInfo(data, topForm){
@@ -125,16 +177,18 @@ define([
         $("#bannerPrice", topForm).val(+data.bannerPrice / 1000);
         $("#allDays", topForm).val(data.allDays);
         $("#allPrice", topForm).val(+data.allPrice / 1000);
-        $("#sj-works", topForm).attr("src", data.works);
+        $("#sj-works", topForm).attr("href", data.works).text(data.works.substring(data.works.lastIndexOf("/")+1));
     }
 
     function addKfwbInfo(data, topForm){
         $("#kfwb", topForm).removeClass("hidden");
         $("#kfNum", topForm).val(data.kfNum);
         $("#mtradeAmount", topForm).val(+data.mtradeAmount / 1000);
-        $("#business", topForm).val(business[data.business]);
+        var cDiv = $("#business", topForm);
+        for(var i = 0; i < data.business.length; i++){
+            cDiv.find("input[value='"+data.business[i]+"']")[0].checked = true;
+        }
         $("#feeMode1", topForm).val(feeMode[data.feeMode]);
-        $("#kf-sucCase", topForm).attr("href", data.sucCase);
     }
 
     function addCpfwInfo(data, topForm){
@@ -155,13 +209,17 @@ define([
         $("#ccArea", topForm).val(data.ccArea);
         $("#availCcArea", topForm).val(data.availCcArea);
         var list = data.zzfw;
-        for(var i = 0; i < list.length; i++){
-            $("#zzfw"+list[i], topForm)[0].checked = true;
+        if(list){
+            for(var i = 0; i < list.length; i++){
+                $("#zzfw"+list[i], topForm)[0].checked = true;
+            }
+        }else{
+            $("#zzfw", topForm).html("无");
         }
         $("#introduce", topForm).html(data.introduce);
         $("#yhPolicy", topForm).html(data.yhPolicy);
-        $("#pic1", topForm).attr("src", data.pic1);
-        $("#pic2", topForm).attr("src", data.pic2);
+        $("#pic1", topForm).attr("href", data.pic1).text(data.pic1.substring(data.pic1.lastIndexOf("/")+1));
+        $("#pic2", topForm).attr("href", data.pic2).text(data.pic2.substring(data.pic2.lastIndexOf("/")+1));
     }
 
     function addListener(){
@@ -185,9 +243,12 @@ define([
             toCode: sCode
         }).then(function(res){
             if(res.success){
-                location.href = "../xuser/fwlist.html?l=1";
+                base.showMsg("操作成功！");
+                setTimeout(function(){
+                    location.href = "../xuser/fwlist.html?l=1";
+                }, 1500);
             }else{
-                base.showMsg("非常抱歉，提交失败！");
+                base.showMsg(res.msg);
                 $("#sbtn").val("感兴趣").removeAttr("disabled");
             }
         });

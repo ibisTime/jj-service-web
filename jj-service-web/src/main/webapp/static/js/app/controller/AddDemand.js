@@ -15,7 +15,7 @@ define([
         }else{
             base.showMsg("您没有权限查看当前页面");
             setTimeout(function(){
-                location.href = "./login.html?return=" + base.makeReturnUrl();
+                base.goBackUrl("./login.html");
             }, 1000);
         }
     }
@@ -45,6 +45,7 @@ define([
                     for(var i = 0; i < data.length; i++){
                         html += '<option value="'+data[i].code+'">'+data[i].name+'</option>';
                     }
+                    html = '<option value="0">所有企业</option>' + html;
                     $("#expCompany").html(html);
                 }else{
                     base.showMsg("暂时无法获取企业信息");
@@ -58,8 +59,12 @@ define([
             base.goBackUrl("./center.html");
         });
         $("#sbtn").on("click", function(){
+            var me = $(this);
+            me.attr("disabled", "disabled").addClass("bg-loading");
             if(validate()){
-                addDemand();
+                addDemand(me);
+            }else{
+                me.removeClass("bg-loading").removeAttr("disabled");
             }
         });
     }
@@ -98,7 +103,7 @@ define([
         return true;
     }
 
-    function addDemand(){
+    function addDemand(me){
         base.addDemand(config)
             .then(function(res){
                 if(res.success){
@@ -107,6 +112,7 @@ define([
                         base.goBackUrl("./center.html");
                     }, 1000);
                 }else{
+                    me.removeClass("bg-loading").removeAttr("disabled");
                     base.showMsg(res.msg);
                 }
             });

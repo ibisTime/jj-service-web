@@ -66,8 +66,10 @@ public class PositionAOImpl implements IPositionAO {
     public Object queryPagePosition(String name, String companyCode,
     		String isHot, String companyName, String kind,
     		String start, String limit, String gsProvince,
-    		String gsCity, String gsArea) {
+    		String gsCity, String gsArea, String orderColumn,
+    		String orderDir, String status) {
     	XN612090Req req = new XN612090Req();
+    	req.setStatus(status);
     	req.setGsArea(gsArea);
     	req.setGsCity(gsCity);
     	req.setGsProvince(gsProvince);
@@ -78,6 +80,8 @@ public class PositionAOImpl implements IPositionAO {
         req.setLimit(limit);
         req.setName(name);
         req.setStart(start);
+        req.setOrderColumn(orderColumn);
+        req.setOrderDir(orderDir);
         return BizConnecter.getBizData("612090", JsonUtils.object2Json(req),
             Object.class);
     }

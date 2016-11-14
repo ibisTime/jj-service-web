@@ -62,10 +62,12 @@ public class DemandController extends BaseController {
     		@RequestParam(value = "dateStart", required = false) String dateStart,
     		@RequestParam(value = "dateEnd", required = false) String dateEnd,
     		@RequestParam(value = "dealer", required = false) String dealer,
+    		@RequestParam(value = "status", required = false) String status,
+    		@RequestParam(value = "companyCode", required = false) String companyCode,
     		@RequestParam(value = "start", required = true) String start,
     		@RequestParam(value = "limit", required = true) String limit){
     	return demandAO.queryPageDemand(publisher, type, urgentLevel,
-    			dateStart, dateEnd, dealer, start, limit);
+    			dateStart, dateEnd, dealer, start, limit, status, companyCode);
     }
     
     //详情查询需求

@@ -94,8 +94,12 @@ define([
         });
         //申请
         $("#sbtn").on("click", function(){
+            var me = $(this);
+            me.attr("disabled", "disabled").addClass("bg-loading");
             if(validated()){
-                publishPosition();
+                publishPosition(me);
+            }else{
+                me.removeClass("bg-loading").removeAttr("disabled");
             }
         });
         //返回原来的页面
@@ -106,7 +110,7 @@ define([
 
 
 
-    function publishPosition(){
+    function publishPosition(me){
         base.publishPosition({
             name: $("#zwName").val(),
             kind: $("#zwKind").val(),
@@ -123,7 +127,8 @@ define([
                 base.showMsg("发布成功！");
                 setTimeout(goBack, 1000);
             }else{
-                base.showMsg("非常抱歉，发布职位失败！");
+                me.removeClass("bg-loading").removeAttr("disabled");
+                base.showMsg(res.msg);
             }
         });
     }

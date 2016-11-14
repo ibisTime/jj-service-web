@@ -22,6 +22,26 @@ public class XN612070Req {
 	
 	//limit（必填）	页面个数
 	private String limit;
+	
+	private String status;
+	
+	private String isOpen;
+
+	public String getIsOpen() {
+		return isOpen;
+	}
+
+	public void setIsOpen(String isOpen) {
+		this.isOpen = isOpen;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getMobile() {
 		return mobile;

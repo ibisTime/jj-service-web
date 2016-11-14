@@ -14,6 +14,9 @@ define([
         $("#fwA").addClass("current");
         if(navCode){
             $("#leftNav").find("li[code='"+navCode+"']").addClass("current");
+        }else{
+            var $li = $("#leftNav").find("li:eq(0)").addClass("current");
+            navCode = $li.attr("code");
         }
         getPageCredentials();
         addListeners();
@@ -49,7 +52,7 @@ define([
                     base.showMsg("非常抱歉，您没有当前服务的资质！", 3000);
                     setTimeout(function(){
                         location.href = "../suser/apply-certificate1.html?return=" + base.makeReturnUrl();
-                    }, 3000);
+                    }, 2000);
                 }else{
                     base.showMsg("非常抱歉，暂时无法查询您是否具备当前服务的资质！");
                     $("#fwBtn").removeClass("bg-loading").removeAttr("disabled");
@@ -63,7 +66,11 @@ define([
         base.getPageCredentials({
             certificateType: navCode,
             limit: "8",
-            start: start
+            start: start,
+            status: 1,
+            province: localStorage.getItem("province"),
+            city: localStorage.getItem("city"),
+            area: localStorage.getItem("area")
         }).then(function(res){
             if(res.success && res.data.list.length){
                 var data = res.data;

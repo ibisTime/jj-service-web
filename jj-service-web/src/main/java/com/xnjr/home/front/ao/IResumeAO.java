@@ -80,14 +80,14 @@ public interface IResumeAO {
 	 * @return
 	 */
 	public Object queryPageResume(String mobile, String expPosition, String expProvince, 
-			String expCity, String publisher, String start, String limit);
+			String expCity, String publisher, String start, String limit, String status, String isOpen);
 	
 	/**
 	 * 列表查询简历
 	 * @param publisher
 	 * @return
 	 */
-	public Object queryListResume(String publisher);
+	public Object queryListResume(String publisher, String status);
 	
 	/**
 	 * 详情查询简历

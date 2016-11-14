@@ -51,8 +51,10 @@ public class DemandAOImpl implements IDemandAO {
 	@Override
 	public Object queryPageDemand(String publisher, String type,
 			String urgentLevel, String dateStart, String dateEnd,
-			String dealer, String start, String limit) {
+			String dealer, String start, String limit,
+			String status, String companyCode) {
 		XN612050Req req = new XN612050Req();
+		req.setCompanyCode(companyCode);
 		req.setDateEnd(dateEnd);
 		req.setDateStart(dateStart);
 		req.setDealer(dealer);
@@ -61,6 +63,7 @@ public class DemandAOImpl implements IDemandAO {
 		req.setType(type);
 		req.setStart(start);
 		req.setUrgentLevel(urgentLevel);
+		req.setStatus(status);
 		return BizConnecter.getBizData("612050", JsonUtils.object2Json(req),
 				Object.class);
 	}
